@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-bg-dark text-white transition-colors duration-300;
+}
+
+.light body {
+  @apply bg-bg-light text-gray-900;
+}
