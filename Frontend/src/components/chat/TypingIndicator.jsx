@@ -1,16 +1,36 @@
-import { motion } from "framer-motion";
 
-export default function TypingIndicator() {
+import { useState } from "react";
+import { useChat } from "../../context/ChatContext";
+
+export default function ChatInputBar() {
+  const { sendMessage, thinking } = useChat();
+  const [input, setInput] = useState("");
+
+  function handleSend() {
+    if (!input.trim()) return;
+    sendMessage(input);
+    setInput("");
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="flex items-center gap-3 text-sm text-white/60 mt-4"
-    >
-      <div className="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center">
-        <span className="animate-pulse text-cyan-400">●</span>
+    <div className="fixed bottom-0 left-0 right-0 border-t border-white/10 bg-[#020617]/80 backdrop-blur">
+      <div className="max-w-3xl mx-auto px-4 py-4 flex gap-3">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Describe your loan requirement (amount, income, purpose)…"
+          disabled={thinking}
+          className="flex-1 rounded-lg bg-white/10 border border-white/10 px-4 py-3 text-sm outline-none focus:border-cyan-400"
+        />
+
+        <button
+          onClick={handleSend}
+          disabled={thinking}
+          className="px-5 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black disabled:opacity-50"
+        >
+          Send
+        </button>
       </div>
-      <span>ALIS is analyzing your financial profile…</span>
-    </motion.div>
+    </div>
   );
 }
