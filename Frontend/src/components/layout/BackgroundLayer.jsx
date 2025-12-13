@@ -1,5 +1,8 @@
 export default function BackgroundLayer() {
   return (
-    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-blue-500/10 via-transparent to-cyan-400/10" />
+    <div
+      className="fixed inset-0 -z-10 opacity-10 bg-no-repeat bg-cover"
+      style={{ backgroundImage: "url(/eye_bg.png)" }}
+    />
   );
 }
