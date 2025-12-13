@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import AICore from "./AICore";
+import AICore from "./aicore";
 
 export default function HeroScene() {
   return (
