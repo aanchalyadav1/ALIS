@@ -2,15 +2,15 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 
 export default function AICore() {
-  const mesh = useRef();
+  const ref = useRef();
 
   useFrame((_, delta) => {
-    mesh.current.rotation.y += delta * 0.25;
-    mesh.current.rotation.x += delta * 0.1;
+    ref.current.rotation.y += delta * 0.25;
+    ref.current.rotation.x += delta * 0.1;
   });
 
   return (
-    <mesh ref={mesh} scale={1.4}>
+    <mesh ref={ref} scale={1.4}>
       <sphereGeometry args={[1, 64, 64]} />
       <meshStandardMaterial
         color="#38bdf8"
