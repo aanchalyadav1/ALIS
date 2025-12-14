@@ -1,14 +1,25 @@
-// src/components/layout/Navbar.jsx
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ThemeToggle from "../ui/ThemeToggle";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
+  const linkClass = ({ isActive }) =>
+    `text-sm transition ${
+      isActive
+        ? "text-cyan-400"
+        : "text-white/70 hover:text-white"
+    }`;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 h-16 z-50 backdrop-blur bg-black/40 border-b border-white/10">
+    <nav className="fixed top-0 w-full h-16 z-50 backdrop-blur bg-black/50 border-b border-white/10">
       <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
 
         {/* LEFT — LOGO */}
-        <div className="flex items-center gap-3">
+        <div
+          onClick={() => navigate("/")}
+          className="flex items-center gap-3 cursor-pointer"
+        >
           <img
             src="/team_logo.png"
             alt="VisionCoders"
@@ -20,54 +31,35 @@ export default function Navbar() {
         </div>
 
         {/* CENTER — NAV LINKS */}
-        <div className="hidden md:flex items-center gap-6 text-sm">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive
-                ? "text-cyan-400"
-                : "text-white/70 hover:text-white"
-            }
-          >
+        <div className="hidden md:flex items-center gap-6">
+          <NavLink to="/" className={linkClass}>
             Home
           </NavLink>
-
-          <NavLink
-            to="/chat"
-            className={({ isActive }) =>
-              isActive
-                ? "text-cyan-400"
-                : "text-white/70 hover:text-white"
-            }
-          >
+          <NavLink to="/chat" className={linkClass}>
             Chat
           </NavLink>
-
-          <NavLink
-            to="/documents"
-            className={({ isActive }) =>
-              isActive
-                ? "text-cyan-400"
-                : "text-white/70 hover:text-white"
-            }
-          >
+          <NavLink to="/documents" className={linkClass}>
             Documents
           </NavLink>
-
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive
-                ? "text-cyan-400"
-                : "text-white/70 hover:text-white"
-            }
-          >
+          <NavLink to="/dashboard" className={linkClass}>
             Dashboard
+          </NavLink>
+          <NavLink to="/about" className={linkClass}>
+            About
           </NavLink>
         </div>
 
-        {/* RIGHT — THEME */}
-        <ThemeToggle />
+        {/* RIGHT — ACTIONS */}
+        <div className="flex items-center gap-4">
+          {/* Future auth placeholder */}
+          <button
+            className="hidden sm:block px-4 py-1.5 rounded-md border border-white/15 text-sm text-white/70 hover:text-white hover:border-white/30 transition"
+          >
+            Login
+          </button>
+
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
