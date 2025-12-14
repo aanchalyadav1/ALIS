@@ -2,52 +2,36 @@ import { useEffect, useState } from "react";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
-import AgentThinking from "./AgentThinking";
+import SanctionCard from "../sanction/SanctionCard";
 import { useLoanSession } from "../../context/LoanSessionContext";
 
 export default function ChatLayout() {
   const { session, startAnalysis } = useLoanSession();
-
   const [messages, setMessages] = useState([
     {
       role: "agent",
       text:
-        "Hello, I’m ALIS — your AI Loan Officer. Tell me about the loan you’re considering, and I’ll guide you step by step."
+        "Hello, I’m ALIS — your Agentic Loan Intelligence system. Tell me about the loan you’re considering, and I’ll guide you clearly."
     }
   ]);
 
   function handleSend(text) {
     if (!text.trim()) return;
 
-    // Show user message instantly
     setMessages((prev) => [...prev, { role: "user", text }]);
-
-    // Trigger full agent pipeline
     startAnalysis(text);
   }
 
-  // When agents complete → push explanation into chat
   useEffect(() => {
     if (session.agentStatus === "completed") {
-      const reply = `
-Here’s what my agents found:
-
-• Loan Intent: ${session.intent || "—"}
-• Risk Level: ${session.risk || "—"}
-• Eligibility: ${session.eligibility ? "Eligible" : "Needs Review"}
-• Readiness Score: ${session.readinessScore || 0}%
-
-${
-  session.sanction
-    ? `• Suggested Amount: ${session.sanction.amount}
-• Tenure: ${session.sanction.tenure}`
-    : ""
-}
-
-This is guidance-only intelligence — not a final bank sanction.
-      `.trim();
-
-      setMessages((prev) => [...prev, { role: "agent", text: reply }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "agent",
+          text:
+            "I’ve completed the analysis using multiple loan intelligence agents. Please review the sanction guidance below."
+        }
+      ]);
     }
   }, [session.agentStatus]);
 
@@ -61,23 +45,32 @@ This is guidance-only intelligence — not a final bank sanction.
             ALIS — Agentic Loan Intelligence
           </h1>
           <p className="text-sm text-white/60">
-            Explainable · India-first · Secure session
+            Explainable · Guidance-first · Secure session
           </p>
         </div>
       </div>
 
       {/* CHAT CONTAINER */}
       <div className="flex flex-col h-[65vh] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-        
         {/* MESSAGES */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {messages.map((msg, i) => (
             <ChatMessage key={i} role={msg.role} text={msg.text} />
           ))}
 
-          {/* AGENT THINKING STATE */}
           {session.agentStatus === "running" && (
-            <AgentThinking status={session.agentStatus} />
+            <ChatMessage
+              role="agent"
+              text="Analyzing your profile using multiple loan agents…"
+            />
+          )}
+
+          {/* SANCTION PREVIEW */}
+          {session.agentStatus === "completed" && (
+            <SanctionCard
+              sanction={session.sanction}
+              readiness={session.readinessScore}
+            />
           )}
         </div>
 
@@ -100,7 +93,6 @@ This is guidance-only intelligence — not a final bank sanction.
           ))}
         </div>
 
-        {/* INPUT */}
         <ChatInput onSend={handleSend} />
       </div>
     </div>
