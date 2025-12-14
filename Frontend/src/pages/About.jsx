@@ -1,59 +1,55 @@
-import { motion } from "framer-motion";
-
 export default function About() {
   return (
-    <div className="min-h-screen pt-24 px-6 pb-24">
-      <div className="max-w-6xl mx-auto space-y-16">
+    <section className="min-h-screen bg-[#05060a] text-white px-6 py-20">
+      <div className="max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-10 backdrop-blur">
 
-        {/* HEADER */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center space-y-4"
-        >
-          <h1 className="text-4xl font-semibold">
-            How ALIS Works
-          </h1>
-          <p className="text-white/60 max-w-2xl mx-auto">
-            ALIS is not a bank. It’s an AI-powered loan intelligence system
-            designed to guide you before you apply.
-          </p>
-        </motion.div>
+        <h2 className="text-3xl font-bold text-center mb-3">
+          How ALIS Works
+        </h2>
 
-        {/* STEPS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <p className="text-center text-white/60 max-w-2xl mx-auto mb-12">
+          ALIS is not a bank. It’s an AI-powered loan intelligence system designed
+          to guide you before you apply.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {[
-            ["Understand", "Listens to your intent, income & context"],
-            ["Verify", "Checks PAN, income & documents"],
-            ["Underwrite", "AI-driven eligibility & risk logic"],
-            ["Guide", "Sanction-style clarity without pressure"],
-          ].map(([title, desc], i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="rounded-xl border border-white/10 bg-white/5 backdrop-blur p-6"
+            {
+              title: "Understand",
+              desc: "Listens to your intent, income & context",
+            },
+            {
+              title: "Verify",
+              desc: "Checks PAN, income & documents",
+            },
+            {
+              title: "Underwrite",
+              desc: "AI-driven eligibility & risk logic",
+            },
+            {
+              title: "Guide",
+              desc: "Sanction-style clarity without pressure",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400/40 hover:shadow-lg transition"
             >
-              <h3 className="font-medium text-lg mb-2">{title}</h3>
-              <p className="text-sm text-white/60">{desc}</p>
-            </motion.div>
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <p className="text-white/60 text-sm">{item.desc}</p>
+            </div>
           ))}
         </div>
 
-        {/* VISIONCODERS */}
-        <div className="text-center pt-12 border-t border-white/10">
-          <p className="text-xs tracking-widest text-cyan-400 uppercase">
-            Built by VisionCoders
+        <div className="mt-14 text-center border-t border-white/10 pt-6">
+          <p className="text-xs text-white/40 tracking-wide">
+            BUILT BY VISIONCODERS
           </p>
-          <p className="mt-4 text-white/60 max-w-2xl mx-auto">
-            VisionCoders is a student-led innovation team focused on
-            ethical AI, accessibility, and India-first systems.
+          <p className="text-sm text-white/50 mt-2">
             ALIS is built for trust, not conversion pressure.
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
