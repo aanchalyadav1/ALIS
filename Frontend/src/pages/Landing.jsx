@@ -9,34 +9,37 @@ export default function Landing() {
     <div className="relative min-h-screen pt-24 pb-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-        {/* LEFT — CONTENT */}
+        {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="space-y-7"
+          className="space-y-8"
         >
-          {/* Brand */}
-          <p className="text-xs tracking-[0.3em] uppercase text-indigo-400">
+          {/* Micro Brand */}
+          <p className="text-xs tracking-[0.35em] uppercase text-white/50">
             VisionCoders presents
           </p>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-tight">
+          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.15] text-white">
             ALIS —
             <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">
               Agentic Loan
             </span>{" "}
-            Intelligence System
+            <span className="text-white/85">
+              Intelligence System
+            </span>
           </h1>
 
           {/* Description */}
-          <p className="text-base sm:text-lg text-white/70 max-w-xl">
-            ALIS is a multi-agent AI system designed to help people understand
-            loan eligibility, affordability, and approval logic —{" "}
+          <p className="text-base sm:text-lg text-white/75 max-w-xl leading-relaxed">
+            ALIS is a multi-agent AI system that understands user intent,
+            evaluates financial context, and explains loan eligibility,
+            affordability, and approval logic —
             <span className="text-white">
-              before they apply.
+              {" "}before any application is submitted.
             </span>
           </p>
 
@@ -51,16 +54,16 @@ export default function Landing() {
 
             <button
               onClick={() => navigate("/about")}
-              className="px-7 py-3 rounded-lg border border-white/15 hover:border-white/30 transition text-white/80"
+              className="px-7 py-3 rounded-lg border border-white/20 hover:border-white/40 transition text-white/80"
             >
               About the system
             </button>
           </div>
         </motion.div>
 
-        {/* RIGHT — HERO ORB */}
+        {/* RIGHT ORB */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9 }}
           className="flex justify-center lg:justify-end"
@@ -72,12 +75,12 @@ export default function Landing() {
       {/* TRUST STRIP */}
       <div className="mt-24 border-t border-white/10 pt-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-white/60">
-          <span>Multi-Agent AI</span>
-          <span>Guidance-First</span>
-          <span>Compliance-Aware</span>
+          <span>Multi-Agent Reasoning</span>
+          <span>Context-Aware Intelligence</span>
+          <span>Compliance-Aware Logic</span>
           <span>No Forced Applications</span>
         </div>
       </div>
     </div>
   );
-}
+    }
