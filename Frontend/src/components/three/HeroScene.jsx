@@ -4,7 +4,7 @@ import AICore from "./aicore.jsx";
 
 export default function HeroScene() {
   return (
-    <div className="w-full h-[320px] md:h-[380px] lg:h-[420px]">
+    <div className="w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 4], fov: 50 }}
         dpr={[1, 1.5]}
