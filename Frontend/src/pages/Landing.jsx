@@ -6,36 +6,32 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative overflow-hidden bg-[#05060a] text-white">
-      {/* HERO */}
+    <div className="relative bg-[#05060a] text-white overflow-hidden">
+      {/* ================= HERO ================= */}
       <section className="max-w-7xl mx-auto px-6 pt-28 pb-32 grid md:grid-cols-2 gap-20 items-center">
-        
-        {/* LEFT */}
+
+        {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 26 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Brand tag */}
-          <p className="text-[11px] tracking-[0.25em] uppercase text-slate-500 mb-4">
-            VisionCoders • Agentic Finance
+          {/* Brand label */}
+          <p className="text-[11px] tracking-[0.35em] uppercase text-amber-400/70 mb-4">
+            VisionCoders Presents
           </p>
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight">
-            ALIS —{" "}
-            <span className="text-cyan-400">
-              Agentic Loan
-            </span>{" "}
-            <span className="text-slate-200">
-              Intelligence System
-            </span>
+            <span className="text-white">ALIS — </span>
+            <span className="text-cyan-400">Agentic Loan</span>{" "}
+            <span className="text-slate-200">Intelligence System</span>
           </h1>
 
           {/* Description */}
-          <p className="mt-6 text-[15px] leading-relaxed text-slate-400 max-w-xl">
+          <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-slate-400">
             ALIS is an agent-driven loan intelligence platform that understands
-            intent, verifies financial context, and guides users through
+            intent, evaluates financial context, and guides users through
             eligibility, affordability, and approval logic — before any
             application is submitted.
           </p>
@@ -58,7 +54,7 @@ export default function Landing() {
           </div>
         </motion.div>
 
-        {/* RIGHT */}
+        {/* RIGHT ORB */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -69,7 +65,7 @@ export default function Landing() {
         </motion.div>
       </section>
 
-      {/* VALUE STRIP */}
+      {/* ================= VALUE STRIP ================= */}
       <section className="border-t border-white/5 py-8">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-[11px] tracking-wide text-slate-500">
           <div>Agent-Guided Decisions</div>
