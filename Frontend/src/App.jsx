@@ -1,25 +1,29 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppLayout from "./layout/AppLayout";
+
+import Navbar from "./components/layout/Navbar";
+import BackgroundLayer from "./components/layout/BackgroundLayer";
 
 import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
-import Dashboard from "./pages/Dashboard";
 import Documents from "./pages/Documents";
-import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About"; // create this next
 
 export default function App() {
   return (
     <BrowserRouter>
-      <AppLayout>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/documents" element={<Documents />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </AppLayout>
+      {/* Global visuals */}
+      <BackgroundLayer />
+      <Navbar />
+
+      {/* Pages */}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </BrowserRouter>
   );
 }
