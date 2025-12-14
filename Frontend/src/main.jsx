@@ -4,14 +4,14 @@ import App from "./App.jsx";
 import "./styles/globals.css";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
-import { LoanSessionProvider } from "./context/LoanSessionContext.jsx";
+import { LoanSessionProvider } from "./context/LoanSessionContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider>
-    <ChatProvider>
-      <LoanSessionProvider>
+    <LoanSessionProvider>
+      <ChatProvider>
         <App />
-      </LoanSessionProvider>
-    </ChatProvider>
+      </ChatProvider>
+    </LoanSessionProvider>
   </ThemeProvider>
 );
