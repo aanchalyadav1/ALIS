@@ -1,30 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
+import { useLoanSession } from "../../context/LoanSessionContext";
 
 export default function ChatLayout() {
+  const { session, startAnalysis } = useLoanSession();
   const [messages, setMessages] = useState([
     {
       role: "agent",
       text:
-        "Hello, I’m ALIS — your AI Loan Officer. I help you understand eligibility, affordability, and approval logic before you apply."
+        "Hello, I’m ALIS — your AI Loan Officer. Tell me what loan you’re considering, and I’ll guide you step by step."
     }
   ]);
 
   function handleSend(text) {
     if (!text.trim()) return;
 
-    setMessages((prev) => [
-      ...prev,
-      { role: "user", text },
-      {
-        role: "agent",
-        text:
-          "Thanks for sharing. I’ll guide you step by step using India-focused loan logic — no pressure, no forced applications."
-      }
-    ]);
+    // Show user message immediately
+    setMessages((prev) => [...prev, { role: "user", text }]);
+
+    // Trigger agentic analysis
+    startAnalysis(text);
   }
+
+  // Whenever agents finish, push results to chat
+  useEffect(() => {
+    if (session.agentStatus === "completed") {
+      const reply = `
+Based on your request, here’s what I found:
+
+• Loan Type: ${session.intent || "—"}
+• Risk Level: ${session.risk || "—"}
+• Eligibility: ${session.eligibility ? "Eligible" : "Needs Review"}
+• Indicative Amount: ${session.sanction?.amount || "—"}
+• Tenure: ${session.sanction?.tenure || "—"}
+
+This is a guidance-based assessment — not a final sanction.
+      `.trim();
+
+      setMessages((prev) => [...prev, { role: "agent", text: reply }]);
+    }
+  }, [session.agentStatus]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 pt-24 pb-10">
@@ -33,10 +50,10 @@ export default function ChatLayout() {
         <AgentOrb />
         <div>
           <h1 className="text-xl font-semibold text-white">
-            ALIS — AI Loan Officer
+            ALIS — Agentic Loan Intelligence
           </h1>
           <p className="text-sm text-white/60">
-            Guidance-first · India-focused · Secure session
+            Guidance-first · Explainable · India-focused
           </p>
         </div>
       </div>
@@ -55,8 +72,8 @@ export default function ChatLayout() {
           {[
             "Education Loan",
             "Home Loan",
-            "Personal Loan",
             "Business Loan",
+            "Personal Loan",
             "Vehicle Loan"
           ].map((item) => (
             <button
