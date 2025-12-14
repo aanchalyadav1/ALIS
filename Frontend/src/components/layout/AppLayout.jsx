@@ -3,14 +3,11 @@ import BackgroundLayer from "./BackgroundLayer";
 
 export default function AppLayout({ children }) {
   return (
-    <div className="min-h-screen relative">
-      {/* Global background */}
+    <div className="min-h-screen relative bg-[#05060a] text-white">
       <BackgroundLayer />
-
-      {/* Fixed top navigation */}
       <Navbar />
 
-      {/* Page content offset for fixed navbar */}
+      {/* Single source of spacing */}
       <main className="pt-16">
         {children}
       </main>
