@@ -12,54 +12,53 @@ import SanctionCard from "../components/sanction/SanctionCard";
 export default function Dashboard() {
   const { session } = useLoanSession();
 
-  // ✅ SAFETY GUARD (prevents white screen)
+  // 🔐 HARD GUARD — prevents white screen
   if (!session) {
     return (
       <div className="pt-24 text-center text-white/60">
-        Loading dashboard…
+        Initializing loan intelligence…
       </div>
     );
   }
 
+  const {
+    intent = null,
+    risk = null,
+    eligibility = null,
+    sanction = null,
+    readinessScore = 0,
+    activityLog = []
+  } = session;
+
   return (
     <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 space-y-8">
 
-      {/* ======================
-         TOP STATS
-      ====================== */}
+      {/* TOP STATS */}
       <StatGrid session={session} />
 
-      {/* ======================
-         READINESS + SANCTION
-      ====================== */}
+      {/* READINESS + SANCTION */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ReadinessMeter score={session.readinessScore} />
-        <SanctionCard sanction={session.sanction} />
+        <ReadinessMeter score={readinessScore} />
+        <SanctionCard sanction={sanction} />
       </div>
 
-      {/* ======================
-         ANALYTICS
-      ====================== */}
+      {/* ANALYTICS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LoanTypeChart intent={session.intent} />
-        <RiskChart risk={session.risk} />
+        <LoanTypeChart intent={intent} />
+        <RiskChart risk={risk} />
       </div>
 
-      {/* ======================
-         ACTIVITY + NEXT STEPS
-      ====================== */}
+      {/* ACTIVITY + NEXT STEPS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentActivity activity={session.activityLog} />
+        <RecentActivity activity={activityLog} />
         <NextSteps
-          eligibility={session.eligibility}
-          readinessScore={session.readinessScore}
+          eligibility={eligibility}
+          readinessScore={readinessScore}
         />
       </div>
 
-      {/* ======================
-         AGENT TRACE (OPTIONAL)
-      ====================== */}
-      <ActivityFeed logs={session.activityLog} />
+      {/* AGENT TRACE */}
+      <ActivityFeed logs={activityLog} />
 
     </div>
   );
