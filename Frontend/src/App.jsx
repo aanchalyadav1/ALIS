@@ -7,16 +7,14 @@ import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
 import Documents from "./pages/Documents";
 import Dashboard from "./pages/Dashboard";
-import About from "./pages/About"; // create this next
+import About from "./pages/About";
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Global visuals */}
       <BackgroundLayer />
       <Navbar />
 
-      {/* Pages */}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/chat" element={<Chat />} />
