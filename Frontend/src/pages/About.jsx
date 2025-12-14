@@ -7,46 +7,39 @@ export default function About() {
           How ALIS Works
         </h2>
 
-        <p className="text-center text-white/60 max-w-2xl mx-auto mb-12">
-          ALIS is not a bank. It’s an AI-powered loan intelligence system designed
-          to guide you before you apply.
+        <p className="text-center text-white/60 max-w-2xl mx-auto mb-14">
+          ALIS is an AI-powered loan intelligence system designed to guide users
+          before they apply — not sell loans.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="space-y-6">
           {[
-            {
-              title: "Understand",
-              desc: "Listens to your intent, income & context",
-            },
-            {
-              title: "Verify",
-              desc: "Checks PAN, income & documents",
-            },
-            {
-              title: "Underwrite",
-              desc: "AI-driven eligibility & risk logic",
-            },
-            {
-              title: "Guide",
-              desc: "Sanction-style clarity without pressure",
-            },
-          ].map((item) => (
+            ["Understand", "Reads intent, income & context"],
+            ["Verify", "Checks PAN, income & documents"],
+            ["Underwrite", "AI-driven eligibility & risk logic"],
+            ["Guide", "Sanction-style clarity without pressure"],
+          ].map(([title, desc], i) => (
             <div
-              key={item.title}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan-400/40 hover:shadow-lg transition"
+              key={title}
+              className="flex gap-4 items-start bg-white/5 border border-white/10 rounded-xl p-5"
             >
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-white/60 text-sm">{item.desc}</p>
+              <div className="w-8 h-8 rounded-full bg-cyan-500 text-black font-bold flex items-center justify-center">
+                {i + 1}
+              </div>
+              <div>
+                <h3 className="font-semibold">{title}</h3>
+                <p className="text-sm text-white/60">{desc}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-14 text-center border-t border-white/10 pt-6">
+        <div className="mt-16 text-center border-t border-white/10 pt-6">
           <p className="text-xs text-white/40 tracking-wide">
             BUILT BY VISIONCODERS
           </p>
           <p className="text-sm text-white/50 mt-2">
-            ALIS is built for trust, not conversion pressure.
+            Ethical AI · India-first · Trust over conversion
           </p>
         </div>
       </div>
