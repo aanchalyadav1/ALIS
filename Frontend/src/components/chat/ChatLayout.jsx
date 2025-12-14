@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
@@ -10,33 +10,37 @@ export default function ChatLayout() {
     {
       role: "agent",
       text:
-        "Hello, I’m ALIS — your AI Loan Officer. Tell me what loan you’re considering, and I’ll guide you step by step."
+        "Hello, I’m ALIS — your AI Loan Officer. Tell me about the loan you’re considering, and I’ll guide you step by step."
     }
   ]);
 
   function handleSend(text) {
     if (!text.trim()) return;
 
-    // Show user message immediately
+    // show user message instantly
     setMessages((prev) => [...prev, { role: "user", text }]);
 
-    // Trigger agentic analysis
+    // trigger full agent pipeline
     startAnalysis(text);
   }
 
-  // Whenever agents finish, push results to chat
+  // when agents complete → show explanation
   useEffect(() => {
     if (session.agentStatus === "completed") {
       const reply = `
-Based on your request, here’s what I found:
+Here’s what my agents found:
 
-• Loan Type: ${session.intent || "—"}
+• Loan Intent: ${session.intent || "—"}
 • Risk Level: ${session.risk || "—"}
 • Eligibility: ${session.eligibility ? "Eligible" : "Needs Review"}
-• Indicative Amount: ${session.sanction?.amount || "—"}
-• Tenure: ${session.sanction?.tenure || "—"}
+• Readiness Score: ${session.readinessScore || 0}%
 
-This is a guidance-based assessment — not a final sanction.
+${session.sanction ? `
+• Suggested Amount: ${session.sanction.amount}
+• Tenure: ${session.sanction.tenure}
+` : ""}
+
+This is guidance-only intelligence — not a final bank sanction.
       `.trim();
 
       setMessages((prev) => [...prev, { role: "agent", text: reply }]);
@@ -53,7 +57,7 @@ This is a guidance-based assessment — not a final sanction.
             ALIS — Agentic Loan Intelligence
           </h1>
           <p className="text-sm text-white/60">
-            Guidance-first · Explainable · India-focused
+            Explainable · India-first · Secure session
           </p>
         </div>
       </div>
@@ -65,6 +69,13 @@ This is a guidance-based assessment — not a final sanction.
           {messages.map((msg, i) => (
             <ChatMessage key={i} role={msg.role} text={msg.text} />
           ))}
+
+          {session.agentStatus === "running" && (
+            <ChatMessage
+              role="agent"
+              text="Analyzing your profile using multiple loan intelligence agents…"
+            />
+          )}
         </div>
 
         {/* QUICK ACTIONS */}
