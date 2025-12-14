@@ -6,81 +6,69 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen pt-24 pb-20 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="relative min-h-[calc(100vh-64px)] bg-[#05060a] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT CONTENT */}
-        <motion.div
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="space-y-8"
-        >
-          {/* Micro Brand */}
-          <p className="text-xs tracking-[0.35em] uppercase text-white/50">
-            VisionCoders presents
+        <div>
+          {/* VisionCoders */}
+          <p className="text-xs tracking-[0.3em] uppercase text-amber-300/80 mb-4">
+            VisionCoders Presents
           </p>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.15] text-white">
-            ALIS —
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-400">
-              Agentic Loan
-            </span>{" "}
-            <span className="text-white/85">
-              Intelligence System
+          {/* TITLE */}
+          <h1 className="leading-tight">
+            <span className="block text-4xl md:text-5xl font-semibold text-white">
+              ALIS —{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-sky-400 bg-clip-text text-transparent">
+                Agentic
+              </span>
+            </span>
+            <span className="block mt-2 text-4xl md:text-5xl font-semibold text-slate-200">
+              Loan Intelligence System
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="text-base sm:text-lg text-white/75 max-w-xl leading-relaxed">
-            ALIS is a multi-agent AI system that understands user intent,
-            evaluates financial context, and explains loan eligibility,
-            affordability, and approval logic —
-            <span className="text-white">
-              {" "}before any application is submitted.
+          {/* SUBTEXT */}
+          <p className="mt-6 max-w-xl text-base md:text-lg text-slate-400 leading-relaxed">
+            ALIS is a multi-agent loan intelligence platform that understands
+            user intent, evaluates financial context, and explains eligibility,
+            affordability, and approval logic — <span className="text-slate-300">
+              before any application is submitted.
             </span>
           </p>
 
           {/* CTA */}
-          <div className="flex flex-wrap gap-4 pt-2">
+          <div className="mt-8 flex gap-4 flex-wrap">
             <button
               onClick={() => navigate("/chat")}
-              className="px-7 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
+              className="px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-medium transition"
             >
               Talk to ALIS
             </button>
 
             <button
               onClick={() => navigate("/about")}
-              className="px-7 py-3 rounded-lg border border-white/20 hover:border-white/40 transition text-white/80"
+              className="px-6 py-3 rounded-xl border border-white/15 text-slate-300 hover:bg-white/5 transition"
             >
               About the system
             </button>
           </div>
-        </motion.div>
+
+          {/* TRUST POINTS */}
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-xs text-slate-400">
+            <div>Multi-Agent Reasoning</div>
+            <div>Context-Aware Intelligence</div>
+            <div>Compliance-Aware Logic</div>
+            <div>No Forced Applications</div>
+          </div>
+        </div>
 
         {/* RIGHT ORB */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9 }}
-          className="flex justify-center lg:justify-end"
-        >
+        <div className="flex justify-center lg:justify-end">
           <HeroOrb />
-        </motion.div>
-      </div>
-
-      {/* TRUST STRIP */}
-      <div className="mt-24 border-t border-white/10 pt-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-white/60">
-          <span>Multi-Agent Reasoning</span>
-          <span>Context-Aware Intelligence</span>
-          <span>Compliance-Aware Logic</span>
-          <span>No Forced Applications</span>
         </div>
       </div>
-    </div>
+    </section>
   );
-    }
+}
