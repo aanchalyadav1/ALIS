@@ -1,171 +1,93 @@
 import { motion } from "framer-motion";
+import {
+  SiReact,
+  SiVite,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiFirebase,
+} from "react-icons/si";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 32 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.7, ease: "easeOut" },
-};
+const techStack = [
+  { name: "React", icon: SiReact, color: "text-cyan-400" },
+  { name: "Vite", icon: SiVite, color: "text-violet-400" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-sky-400" },
+  { name: "Node.js", icon: SiNodedotjs, color: "text-emerald-400" },
+  { name: "Express", icon: SiExpress, color: "text-white/80" },
+  { name: "Firebase", icon: SiFirebase, color: "text-amber-400" },
+];
 
 export default function About() {
   return (
-    <div className="relative min-h-screen pt-24 pb-32 px-6 bg-[#05060a]">
-      <div className="max-w-6xl mx-auto space-y-28">
+    <div className="min-h-screen bg-[#05060a] pt-24 px-6 pb-32">
+      <div className="max-w-6xl mx-auto space-y-20">
 
-        {/* ================= HERO ================= */}
-        <motion.section {...fadeUp} className="text-center space-y-6">
-          <p className="text-xs tracking-widest uppercase text-cyan-400/80">
-            About ALIS
-          </p>
-
-          <h1 className="font-semibold leading-tight">
-            <span className="block text-4xl sm:text-5xl text-white">
-              ALIS — Agentic Loan
-            </span>
-            <span className="block text-3xl sm:text-4xl text-cyan-400">
-              Intelligence System
-            </span>
-          </h1>
-
-          <p className="max-w-3xl mx-auto text-white/70 text-lg">
-            ALIS is an agent-based AI platform designed to help users
-            understand loan eligibility, affordability, and risk
-            <span className="text-white"> before making decisions</span>.
-          </p>
-        </motion.section>
-
-        {/* ================= VISIONCODERS ================= */}
-        <motion.section {...fadeUp} className="space-y-6">
-          <h2 className="text-2xl font-semibold">
-            Built by <span className="text-cyan-400">VisionCoders</span>
-          </h2>
-
-          <p className="text-white/70 max-w-4xl leading-relaxed">
-            VisionCoders is a product-focused team working at the intersection of
-            artificial intelligence, user experience, and real-world problem solving.
-          </p>
-
-          <p className="text-white/60 max-w-4xl leading-relaxed">
-            We believe AI systems should be transparent, explainable, and helpful —
-            not just automated decision engines.  
-            <span className="text-white"> ALIS is built on that philosophy.</span>
-          </p>
-        </motion.section>
-
-        {/* ================= WHY ALIS ================= */}
-        <motion.section {...fadeUp} className="space-y-10">
-          <h2 className="text-2xl font-semibold">Why ALIS Exists</h2>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Confusing Loan Journeys",
-                desc: "Users often apply for loans without understanding eligibility, EMI burden, or rejection reasons.",
-              },
-              {
-                title: "Opaque Decisions",
-                desc: "Traditional systems approve or reject without explanation, causing mistrust.",
-              },
-              {
-                title: "ALIS Approach",
-                desc: "ALIS explains, guides, and reasons — before any application is submitted.",
-              },
-              {
-                title: "Ethical First",
-                desc: "No pressure, no forced applications, no dark patterns.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="rounded-2xl bg-white/5 border border-white/10 backdrop-blur p-6"
-              >
-                <h3 className="text-lg font-medium text-cyan-300 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-white/65 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* ================= AGENT ARCHITECTURE ================= */}
-        <motion.section {...fadeUp} className="space-y-10">
-          <h2 className="text-2xl font-semibold">
-            Agentic Intelligence Architecture
-          </h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                name: "Master Agent",
-                role: "Understands intent and orchestrates all other agents.",
-              },
-              {
-                name: "Verification Agent",
-                role: "Analyzes documents, income proofs, and KYC completeness.",
-              },
-              {
-                name: "Underwriting Agent",
-                role: "Evaluates eligibility, risk profile, and loan affordability.",
-              },
-              {
-                name: "Sanction Agent",
-                role: "Generates approval logic and sanction-style summaries.",
-              },
-            ].map((agent, i) => (
-              <div
-                key={i}
-                className="rounded-xl bg-gradient-to-b from-white/10 to-white/5 border border-white/10 p-6"
-              >
-                <h3 className="font-medium text-white mb-2">
-                  {agent.name}
-                </h3>
-                <p className="text-sm text-white/60">
-                  {agent.role}
-                </p>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* ================= TECHNOLOGY ================= */}
-        <motion.section {...fadeUp} className="space-y-10">
-          <h2 className="text-2xl font-semibold text-center">
-            Technology Powering <span className="text-cyan-400">ALIS</span>
-          </h2>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
-            {[
-              { name: "React", note: "Modular UI" },
-              { name: "Tailwind CSS", note: "Design consistency" },
-              { name: "Node.js", note: "Backend runtime" },
-              { name: "Express", note: "API layer" },
-              { name: "Firebase", note: "Auth & storage" },
-              { name: "Groq LLM", note: "Low-latency AI" },
-            ].map((tech) => (
-              <div
-                key={tech.name}
-                className="rounded-xl bg-white/5 border border-white/10 backdrop-blur p-5"
-              >
-                <div className="text-base font-semibold text-cyan-300">
-                  {tech.name}
-                </div>
-                <div className="text-xs text-white/50 mt-1">
-                  {tech.note}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* ================= FOOTER ================= */}
+        {/* WHO WE ARE */}
         <motion.div
-          {...fadeUp}
-          className="text-center text-xs tracking-widest text-white/40 pt-12"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          VisionCoders · Agentic AI · Explainable Intelligence · Ethical Design
+          <h1 className="text-3xl font-semibold text-white">
+            About ALIS & VisionCoders
+          </h1>
+          <p className="mt-4 text-white/70 leading-relaxed max-w-3xl">
+            VisionCoders is a student-led engineering team focused on
+            building real-world, production-grade systems. ALIS was
+            created to solve a core problem in lending — people apply
+            for loans without understanding eligibility, risk, or outcomes.
+          </p>
+        </motion.div>
+
+        {/* WHY ALIS */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            Why ALIS is Different
+          </h2>
+          <ul className="space-y-3 text-white/70">
+            <li>• Multi-agent AI instead of a single chatbot</li>
+            <li>• Guidance-first, not application-first</li>
+            <li>• India-aware loan logic and documentation</li>
+            <li>• Explainable AI decisions, not black boxes</li>
+          </ul>
+        </motion.div>
+
+        {/* TECH STACK */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-2xl font-semibold text-white mb-8">
+            Technology Behind ALIS
+          </h2>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+            {techStack.map((tech, i) => {
+              const Icon = tech.icon;
+              return (
+                <motion.div
+                  key={i}
+                  whileHover={{ y: -6, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <div
+                    className={`w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur ${tech.color}`}
+                  >
+                    <Icon size={28} />
+                  </div>
+                  <span className="text-xs text-white/60">
+                    {tech.name}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
 
       </div>
