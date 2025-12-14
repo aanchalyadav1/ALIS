@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import HeroScene from "../components/three/HeroScene";
@@ -7,14 +6,14 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen pt-28 px-6">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div className="relative min-h-screen pt-24 pb-20 px-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
         {/* LEFT — MESSAGE */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
           className="space-y-6"
         >
           <p className="text-xs tracking-widest text-cyan-400 uppercase">
@@ -22,7 +21,8 @@ export default function Landing() {
           </p>
 
           <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-tight">
-            ALIS — <span className="text-cyan-400">AI Loan</span><br />
+            ALIS — <span className="text-cyan-400">AI Loan</span>
+            <br />
             Intelligence for India
           </h1>
 
@@ -32,7 +32,7 @@ export default function Landing() {
             and approval logic <span className="text-white">before</span> you apply.
           </p>
 
-          <div className="flex gap-4 pt-2">
+          <div className="flex flex-wrap gap-4 pt-2">
             <button
               onClick={() => navigate("/chat")}
               className="px-7 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
@@ -49,24 +49,27 @@ export default function Landing() {
           </div>
         </motion.div>
 
-        {/* RIGHT — AI CORE (SUBTLE) */}
+        {/* RIGHT — AI CORE (CONTROLLED SIZE) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.9 }}
           className="relative"
         >
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
-            <HeroScene />
-            <p className="mt-4 text-center text-xs text-white/50">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5 max-w-md mx-auto">
+            <div className="h-[240px] sm:h-[280px]">
+              <HeroScene />
+            </div>
+
+            <p className="mt-3 text-center text-xs text-white/50">
               ALIS Core Intelligence Engine
             </p>
           </div>
         </motion.div>
       </div>
 
-      {/* TRUST STRIP */}
-      <div className="mt-24 border-t border-white/10 pt-8">
+      {/* TRUST STRIP (COMPACT, BALANCED) */}
+      <div className="mt-20 border-t border-white/10 pt-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-white/60">
           <span>AI-Guided</span>
           <span>India-First</span>
