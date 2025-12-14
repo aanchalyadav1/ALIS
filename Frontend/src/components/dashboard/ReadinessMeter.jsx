@@ -40,5 +40,4 @@ export default function ReadinessMeter({ score = 0 }) {
     </div>
   );
 }
-import SanctionCard from "../components/sanction/SanctionCard";
-<SanctionCard />
+
