@@ -1,79 +1,15 @@
-
 import { useLoanSession } from "../context/LoanSessionContext";
 
-import StatGrid from "../components/dashboard/StatGrid";
-import ReadinessMeter from "../components/dashboard/ReadinessMeter";
-import LoanTypeChart from "../components/dashboard/LoanTypeChart";
-import RiskChart from "../components/dashboard/RiskChart";
-import RecentActivity from "../components/dashboard/RecentActivity";
-import NextSteps from "../components/dashboard/NextSteps";
-import ActivityFeed from "../components/dashboard/ActivityFeed";
-import SanctionCard from "../components/sanction/SanctionCard";
-
 export default function Dashboard() {
+  console.log("🧪 Dashboard mounted");
+
   const ctx = useLoanSession();
-
-  // 🔥 HARD DEBUG LOG
-  console.log("🔥 LoanSessionContext =", ctx);
-
-  // ❌ CONTEXT NOT AVAILABLE
-  if (!ctx) {
-    return (
-      <div className="pt-24 text-center text-red-400">
-        LoanSessionContext NOT FOUND
-      </div>
-    );
-  }
-
-  const { session } = ctx;
-
-  // ❌ SESSION NOT READY
-  if (!session) {
-    return (
-      <div className="pt-24 text-center text-yellow-400">
-        Session initializing…
-      </div>
-    );
-  }
-
-  const {
-    intent = null,
-    risk = null,
-    eligibility = null,
-    sanction = null,
-    readinessScore = 0,
-    activityLog = [],
-  } = session;
+  console.log("🧪 LoanSessionContext =", ctx);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 space-y-8">
-
-      {/* TOP STATS */}
-      <StatGrid session={session} />
-
-      {/* READINESS + SANCTION */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ReadinessMeter score={readinessScore} />
-        <SanctionCard sanction={sanction} />
-      </div>
-
-      {/* ANALYTICS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <LoanTypeChart intent={intent} />
-        <RiskChart risk={risk} />
-      </div>
-
-      {/* ACTIVITY + NEXT STEPS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RecentActivity activity={activityLog} />
-        <NextSteps
-          eligibility={eligibility}
-          readinessScore={readinessScore}
-        />
-      </div>
-
-      {/* AGENT TRACE */}
-      <ActivityFeed logs={activityLog} />
+    <div style={{ paddingTop: 120, color: "white" }}>
+      <h1>DASHBOARD LOADED</h1>
+      <pre>{JSON.stringify(ctx, null, 2)}</pre>
     </div>
   );
 }
