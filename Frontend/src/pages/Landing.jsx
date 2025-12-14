@@ -7,52 +7,60 @@ export default function Landing() {
 
   return (
     <div className="relative overflow-hidden bg-[#05060a] text-white">
-      {/* HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 pt-24 pb-32 grid md:grid-cols-2 gap-16 items-center">
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-6 pt-28 pb-32 grid md:grid-cols-2 gap-20 items-center">
         
-        {/* LEFT CONTENT */}
+        {/* LEFT */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-xs tracking-widest text-cyan-400 mb-3">
-            VISIONCODERS PRESENTS
+          {/* Brand tag */}
+          <p className="text-[11px] tracking-[0.25em] uppercase text-slate-500 mb-4">
+            VisionCoders • Agentic Finance
           </p>
 
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight">
             ALIS —{" "}
             <span className="text-cyan-400">
-              Agentic Loan Intelligence System
+              Agentic Loan
+            </span>{" "}
+            <span className="text-slate-200">
+              Intelligence System
             </span>
           </h1>
 
-          <p className="mt-5 text-slate-400 max-w-xl">
+          {/* Description */}
+          <p className="mt-6 text-[15px] leading-relaxed text-slate-400 max-w-xl">
             ALIS is an agent-driven loan intelligence platform that understands
-            your intent, verifies financial context, and guides you through
-            eligibility, affordability, and approval logic — before you apply.
+            intent, verifies financial context, and guides users through
+            eligibility, affordability, and approval logic — before any
+            application is submitted.
           </p>
 
-          <div className="mt-8 flex gap-4">
+          {/* CTA */}
+          <div className="mt-10 flex gap-4">
             <button
               onClick={() => navigate("/chat")}
-              className="px-6 py-3 rounded-xl bg-cyan-500 text-black font-medium hover:bg-cyan-400 transition"
+              className="px-6 py-3 rounded-xl bg-cyan-500 text-black text-sm font-medium hover:bg-cyan-400 transition"
             >
               Talk to ALIS
             </button>
 
             <button
               onClick={() => navigate("/about")}
-              className="px-6 py-3 rounded-xl border border-white/10 text-slate-300 hover:bg-white/5 transition"
+              className="px-6 py-3 rounded-xl border border-white/10 text-slate-300 text-sm hover:bg-white/5 transition"
             >
               Learn how it works
             </button>
           </div>
         </motion.div>
 
-        {/* RIGHT ORB */}
+        {/* RIGHT */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
           className="flex justify-center"
@@ -63,7 +71,7 @@ export default function Landing() {
 
       {/* VALUE STRIP */}
       <section className="border-t border-white/5 py-8">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-xs text-slate-400">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-[11px] tracking-wide text-slate-500">
           <div>Agent-Guided Decisions</div>
           <div>Context-Aware Intelligence</div>
           <div>RBI-Aware Logic</div>
