@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
-import { useLoanSession } from "../../context/LoanSessionContext";
 import AgentThinking from "./AgentThinking";
+import { useLoanSession } from "../../context/LoanSessionContext";
 
-{session.agentStatus === "running" && (
-  <AgentThinking status={session.agentStatus} />
-)}
 export default function ChatLayout() {
   const { session, startAnalysis } = useLoanSession();
+
   const [messages, setMessages] = useState([
     {
       role: "agent",
@@ -21,14 +19,14 @@ export default function ChatLayout() {
   function handleSend(text) {
     if (!text.trim()) return;
 
-    // show user message instantly
+    // Show user message instantly
     setMessages((prev) => [...prev, { role: "user", text }]);
 
-    // trigger full agent pipeline
+    // Trigger full agent pipeline
     startAnalysis(text);
   }
 
-  // when agents complete → show explanation
+  // When agents complete → push explanation into chat
   useEffect(() => {
     if (session.agentStatus === "completed") {
       const reply = `
@@ -39,10 +37,12 @@ Here’s what my agents found:
 • Eligibility: ${session.eligibility ? "Eligible" : "Needs Review"}
 • Readiness Score: ${session.readinessScore || 0}%
 
-${session.sanction ? `
-• Suggested Amount: ${session.sanction.amount}
-• Tenure: ${session.sanction.tenure}
-` : ""}
+${
+  session.sanction
+    ? `• Suggested Amount: ${session.sanction.amount}
+• Tenure: ${session.sanction.tenure}`
+    : ""
+}
 
 This is guidance-only intelligence — not a final bank sanction.
       `.trim();
@@ -68,17 +68,16 @@ This is guidance-only intelligence — not a final bank sanction.
 
       {/* CHAT CONTAINER */}
       <div className="flex flex-col h-[65vh] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+        
         {/* MESSAGES */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {messages.map((msg, i) => (
             <ChatMessage key={i} role={msg.role} text={msg.text} />
           ))}
 
+          {/* AGENT THINKING STATE */}
           {session.agentStatus === "running" && (
-            <ChatMessage
-              role="agent"
-              text="Analyzing your profile using multiple loan intelligence agents…"
-            />
+            <AgentThinking status={session.agentStatus} />
           )}
         </div>
 
