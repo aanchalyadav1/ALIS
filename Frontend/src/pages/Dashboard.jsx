@@ -1,3 +1,4 @@
+
 import { useLoanSession } from "../context/LoanSessionContext";
 
 import StatGrid from "../components/dashboard/StatGrid";
@@ -10,31 +11,45 @@ import ActivityFeed from "../components/dashboard/ActivityFeed";
 import SanctionCard from "../components/sanction/SanctionCard";
 
 export default function Dashboard() {
-  const loanCtx = useLoanSession();
+  const ctx = useLoanSession();
 
-  // 🛡️ FULL HARD GUARD (context + session)
-  if (!loanCtx || !loanCtx.session) {
+  // 🔥 HARD DEBUG LOG
+  console.log("🔥 LoanSessionContext =", ctx);
+
+  // ❌ CONTEXT NOT AVAILABLE
+  if (!ctx) {
     return (
-      <div className="pt-24 text-center text-white/60">
-        Initializing loan intelligence…
+      <div className="pt-24 text-center text-red-400">
+        LoanSessionContext NOT FOUND
+      </div>
+    );
+  }
+
+  const { session } = ctx;
+
+  // ❌ SESSION NOT READY
+  if (!session) {
+    return (
+      <div className="pt-24 text-center text-yellow-400">
+        Session initializing…
       </div>
     );
   }
 
   const {
-    intent,
-    risk,
-    eligibility,
-    sanction,
+    intent = null,
+    risk = null,
+    eligibility = null,
+    sanction = null,
     readinessScore = 0,
     activityLog = [],
-  } = loanCtx.session;
+  } = session;
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 space-y-8">
 
       {/* TOP STATS */}
-      <StatGrid session={loanCtx.session} />
+      <StatGrid session={session} />
 
       {/* READINESS + SANCTION */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -59,7 +74,6 @@ export default function Dashboard() {
 
       {/* AGENT TRACE */}
       <ActivityFeed logs={activityLog} />
-
     </div>
   );
 }
