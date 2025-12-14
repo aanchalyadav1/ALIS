@@ -1,12 +1,15 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/layout/Navbar";
 import BackgroundLayer from "./components/layout/BackgroundLayer";
+import PageWrapper from "./components/layout/PageWrapper";
 
 import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
-import Dashboard from "./pages/Dashboard";
 import Documents from "./pages/Documents";
-import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
+import About from "./pages/About"; // we’ll add this next
 
 export default function App() {
   return (
@@ -14,8 +17,7 @@ export default function App() {
       <BackgroundLayer />
       <Navbar />
 
-      {/* Global spacing below fixed navbar */}
-      <main className="pt-16">
+      <PageWrapper>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/chat" element={<Chat />} />
@@ -23,7 +25,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
         </Routes>
-      </main>
+      </PageWrapper>
     </BrowserRouter>
   );
 }
