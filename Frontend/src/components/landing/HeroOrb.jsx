@@ -1,18 +1,27 @@
+import { motion } from "framer-motion";
+
 export default function HeroOrb() {
   return (
-    <div className="relative w-64 h-64 md:w-72 md:h-72">
-      {/* Glow */}
-      <div className="absolute inset-0 rounded-3xl bg-cyan-500/10 blur-2xl" />
+    <div className="relative flex items-center justify-center h-48">
+      {/* Outer glow */}
+      <motion.div
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-40 h-40 rounded-full bg-cyan-400/20 blur-2xl"
+      />
 
-      {/* Glass Card */}
-      <div className="relative w-full h-full rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl flex items-center justify-center">
-        {/* Orb */}
-        <div className="relative w-36 h-36 rounded-full bg-gradient-to-br from-cyan-400 to-sky-500 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full blur-xl bg-cyan-400/40 animate-pulse" />
-          <span className="relative z-10 text-xl font-semibold tracking-wide text-black">
-            VC
-          </span>
-        </div>
+      {/* Ring */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="absolute w-32 h-32 rounded-full border border-cyan-400/40"
+      />
+
+      {/* Core */}
+      <div className="relative w-24 h-24 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center shadow-xl">
+        <span className="text-black font-bold tracking-widest text-xl">
+          VC
+        </span>
       </div>
     </div>
   );
