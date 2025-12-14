@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/layout/Navbar";
-import BackgroundLayer from "./components/layout/BackgroundLayer";
+import AppLayout from "./layout/AppLayout";
 
 import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
@@ -12,16 +10,15 @@ import About from "./pages/About";
 export default function App() {
   return (
     <BrowserRouter>
-      <BackgroundLayer />
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/documents" element={<Documents />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/documents" element={<Documents />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </AppLayout>
     </BrowserRouter>
   );
 }
