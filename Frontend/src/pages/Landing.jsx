@@ -3,11 +3,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeroOrb from "../components/landing/HeroOrb";
 
-const contexts = [
-  "Student exploring education loan eligibility",
-  "Salaried professional checking home loan affordability",
-  "Business owner analyzing credit risk",
-  "Founder planning expansion capital",
+const scenarios = [
+  {
+    title: "Student planning higher studies",
+    subtitle: "Exploring education loan options",
+  },
+  {
+    title: "Family planning a new home",
+    subtitle: "Checking home loan eligibility",
+  },
+  {
+    title: "Professional upgrading lifestyle",
+    subtitle: "Comparing car & personal loans",
+  },
+  {
+    title: "Founder scaling a startup",
+    subtitle: "Evaluating business loan readiness",
+  },
 ];
 
 export default function Landing() {
@@ -15,115 +27,91 @@ export default function Landing() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % contexts.length);
-    }, 3200);
-    return () => clearInterval(id);
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % scenarios.length);
+    }, 3500);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-28 px-6 overflow-hidden">
+    <div className="relative min-h-screen pt-28 px-6 overflow-hidden bg-[#05060a]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-        {/* ================= LEFT CONTENT ================= */}
+        {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.7 }}
           className="space-y-8"
         >
-          {/* VC identity */}
-          <p className="text-sm tracking-[0.35em] uppercase text-slate-400">
+          <p className="text-xs tracking-widest uppercase text-violet-400">
             VisionCoders presents
           </p>
 
-          {/* Two-tier Title */}
-          <h1 className="font-semibold leading-tight">
-            <span className="block text-4xl sm:text-5xl xl:text-6xl text-white">
+          <h1 className="text-5xl xl:text-6xl font-semibold leading-tight">
+            <span className="block text-white">
               ALIS — Agentic Loan
             </span>
-            <span className="block text-3xl sm:text-4xl xl:text-5xl text-cyan-400">
+            <span className="block text-cyan-400">
               Intelligence System
             </span>
           </h1>
 
-          {/* Dynamic Context */}
-          <div className="h-7">
+          <p className="text-lg text-white/70 max-w-xl">
+            ALIS is an AI-powered, multi-agent loan intelligence platform
+            that helps you understand eligibility, affordability, and
+            approval logic <span className="text-white">before</span> you apply —
+            designed for real-world Indian lending.
+          </p>
+
+          {/* SCENARIO SLIDER */}
+          <div className="relative h-14 overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.p
+              <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-                className="text-sm sm:text-base text-violet-300"
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="absolute"
               >
-                {contexts[index]}
-              </motion.p>
+                <p className="text-sm text-emerald-400 font-medium">
+                  {scenarios[index].title}
+                </p>
+                <p className="text-xs text-white/50">
+                  {scenarios[index].subtitle}
+                </p>
+              </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Description */}
-          <p className="text-base sm:text-lg text-white/65 max-w-xl">
-            ALIS is an agent-based AI platform that helps users understand
-            eligibility, affordability, and approval logic
-            <span className="text-white"> before applying</span>.
-          </p>
-
-          {/* VC × ALIS line */}
-          <p className="text-sm text-slate-400">
-            An agentic AI system built by <span className="text-white">VisionCoders</span>.
-          </p>
-
           {/* CTA */}
-          <div className="flex flex-wrap gap-4 pt-3">
+          <div className="flex gap-4 pt-4">
             <button
               onClick={() => navigate("/chat")}
-              className="px-8 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
+              className="px-7 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
             >
               Talk to ALIS
             </button>
 
             <button
               onClick={() => navigate("/about")}
-              className="px-8 py-3 rounded-lg border border-white/20 hover:border-white/40 transition text-white/80"
+              className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/80"
             >
-              About the System
+              Why ALIS exists
             </button>
           </div>
         </motion.div>
 
-        {/* ================= RIGHT HERO ================= */}
+        {/* RIGHT — HERO ORB */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="relative"
+          transition={{ duration: 1 }}
+          className="flex justify-center"
         >
-          <div className="relative mx-auto max-w-sm rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
-
-            {/* VC label */}
-            <div className="mb-3 text-center text-xs tracking-widest text-slate-400 uppercase">
-              VisionCoders
-            </div>
-
-            <HeroOrb />
-
-            <p className="mt-4 text-center text-xs text-white/50">
-              Agentic Intelligence Core
-            </p>
-          </div>
+          <HeroOrb />
         </motion.div>
-      </div>
-
-      {/* ================= TRUST STRIP ================= */}
-      <div className="mt-24 border-t border-white/10 pt-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-white/60">
-          <span>Agentic AI</span>
-          <span>Guidance-first</span>
-          <span>Explainable Logic</span>
-          <span>Ethical by Design</span>
-        </div>
       </div>
     </div>
   );
