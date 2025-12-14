@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import HeroOrb from "../components/hero/HeroOrb";
+import HeroOrb from "../components/HeroOrb";
 
 export default function Landing() {
   const navigate = useNavigate();
