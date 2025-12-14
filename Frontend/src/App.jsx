@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppLayout from "./layout/AppLayout";
+import AppLayout from "./components/layout/AppLayout";
 
 import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
