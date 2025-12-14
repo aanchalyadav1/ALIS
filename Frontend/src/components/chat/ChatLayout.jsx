@@ -3,7 +3,11 @@ import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import { useLoanSession } from "../../context/LoanSessionContext";
+import AgentThinking from "./AgentThinking";
 
+{session.agentStatus === "running" && (
+  <AgentThinking status={session.agentStatus} />
+)}
 export default function ChatLayout() {
   const { session, startAnalysis } = useLoanSession();
   const [messages, setMessages] = useState([
