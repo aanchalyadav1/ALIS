@@ -16,28 +16,21 @@ export default function Chat() {
         </p>
       </aside>
 
-      {/* MAIN CHAT */}
+      {/* MAIN */}
       <main className="flex-1 p-6 flex justify-center">
-        <div className="w-full max-w-4xl bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur min-h-[420px]">
+        <div className="w-full max-w-4xl flex flex-col gap-4">
 
-          <h2 className="text-xl font-semibold mb-1">
-            ALIS — AI Loan Officer
-          </h2>
-          <p className="text-sm text-white/50 mb-6">
-            Guidance-first · India-focused · Secure session
-          </p>
+          {/* AI MESSAGE */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <h2 className="font-semibold mb-1">ALIS — AI Loan Officer</h2>
+            <p className="text-sm text-white/60">
+              Hello, I’m ALIS. I guide you through eligibility, affordability,
+              and approval logic before you apply.
+            </p>
+          </div>
 
-          <p className="text-white/70 max-w-2xl">
-            Hello, I’m ALIS — your AI loan officer.  
-            I help you understand loan eligibility, affordability, and approval
-            logic before you apply.
-          </p>
-
-          <p className="text-white/70 mt-2">
-            Start by choosing a loan type or describe your requirement.
-          </p>
-
-          <div className="flex flex-wrap gap-3 justify-center mt-6">
+          {/* OPTIONS */}
+          <div className="flex flex-wrap gap-3 justify-center">
             {[
               "Education Loan",
               "Home Loan",
@@ -52,6 +45,18 @@ export default function Chat() {
                 {loan}
               </button>
             ))}
+          </div>
+
+          {/* INPUT MOCK */}
+          <div className="mt-auto bg-white/5 border border-white/10 rounded-xl p-3 flex gap-3">
+            <input
+              disabled
+              placeholder="Describe your loan requirement…"
+              className="flex-1 bg-transparent outline-none text-white/60 text-sm"
+            />
+            <button className="px-4 py-2 bg-cyan-500 text-black rounded-lg font-semibold opacity-60 cursor-not-allowed">
+              Send
+            </button>
           </div>
         </div>
       </main>
