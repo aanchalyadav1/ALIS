@@ -10,10 +10,10 @@ import ActivityFeed from "../components/dashboard/ActivityFeed";
 import SanctionCard from "../components/sanction/SanctionCard";
 
 export default function Dashboard() {
-  const { session } = useLoanSession();
+  const loanCtx = useLoanSession();
 
-  // 🔐 HARD GUARD — prevents white screen
-  if (!session) {
+  // 🛡️ FULL HARD GUARD (context + session)
+  if (!loanCtx || !loanCtx.session) {
     return (
       <div className="pt-24 text-center text-white/60">
         Initializing loan intelligence…
@@ -22,19 +22,19 @@ export default function Dashboard() {
   }
 
   const {
-    intent = null,
-    risk = null,
-    eligibility = null,
-    sanction = null,
+    intent,
+    risk,
+    eligibility,
+    sanction,
     readinessScore = 0,
-    activityLog = []
-  } = session;
+    activityLog = [],
+  } = loanCtx.session;
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 space-y-8">
 
       {/* TOP STATS */}
-      <StatGrid session={session} />
+      <StatGrid session={loanCtx.session} />
 
       {/* READINESS + SANCTION */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
