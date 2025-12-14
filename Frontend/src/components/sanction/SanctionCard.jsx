@@ -1,64 +1,43 @@
-import { motion } from "framer-motion";
+export default function SanctionCard({ sanction, readiness }) {
+  if (!sanction) return null;
 
-export default function SanctionCard({ onDownload }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="mt-8 bg-white/5 border border-white/10 rounded-xl p-6 backdrop-blur"
-    >
-      <h3 className="text-lg font-semibold mb-2">
-        Loan Sanction Summary
+    <div className="mt-6 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 backdrop-blur p-6 space-y-4">
+      <h3 className="text-lg font-semibold text-cyan-300">
+        AI Sanction Preview
       </h3>
 
-      <p className="text-sm text-white/60 mb-4">
-        This is a system-generated sanction preview based on verified inputs.
+      <p className="text-sm text-white/70">
+        Based on your profile, income signals, and risk assessment,
+        ALIS agents suggest the following guidance.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-        <div>
-          <span className="text-white/50">Applicant Name</span>
-          <p>Masked Applicant</p>
-        </div>
-
-        <div>
-          <span className="text-white/50">Loan Type</span>
-          <p>Home Loan</p>
-        </div>
-
-        <div>
-          <span className="text-white/50">Approved Amount</span>
-          <p>₹35,00,000</p>
-        </div>
-
-        <div>
-          <span className="text-white/50">Tenure</span>
-          <p>20 Years</p>
-        </div>
-
-        <div>
-          <span className="text-white/50">Interest Rate</span>
-          <p>8.75% p.a.</p>
-        </div>
-
-        <div>
-          <span className="text-white/50">Risk Category</span>
-          <p>Low Risk</p>
-        </div>
+      <div className="grid grid-cols-2 gap-4 text-sm">
+        <Info label="Suggested Amount" value={sanction.amount} />
+        <Info label="Tenure" value={sanction.tenure} />
+        <Info label="Estimated EMI" value={sanction.emi} />
+        <Info label="Interest Range" value={sanction.interest} />
       </div>
 
-      <div className="mt-6 flex gap-4">
-        <button
-          onClick={onDownload}
-          className="px-6 py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
-        >
-          Download Sanction Letter (PDF)
-        </button>
-
-        <span className="text-xs text-white/40 self-center">
-          * Non-editable • Auto-generated
+      <div className="pt-3 text-xs text-white/60">
+        Readiness Score:{" "}
+        <span className="text-cyan-300 font-medium">
+          {readiness}%
         </span>
       </div>
-    </motion.div>
+
+      <div className="text-xs text-white/50">
+        This is guidance-only intelligence, not a final bank sanction.
+      </div>
+    </div>
+  );
+}
+
+function Info({ label, value }) {
+  return (
+    <div className="rounded-lg bg-black/30 p-3 border border-white/10">
+      <div className="text-white/50 text-xs">{label}</div>
+      <div className="font-medium text-white">{value}</div>
+    </div>
   );
 }
