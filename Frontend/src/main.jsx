@@ -9,10 +9,10 @@ import { LoanSessionProvider } from "./context/LoanSessionContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider>
-    <ChatProvider>
-      <LoanSessionProvider>
+    <LoanSessionProvider>
+      <ChatProvider>
         <App />
-      </LoanSessionProvider>
-    </ChatProvider>
+      </ChatProvider>
+    </LoanSessionProvider>
   </ThemeProvider>
 );
