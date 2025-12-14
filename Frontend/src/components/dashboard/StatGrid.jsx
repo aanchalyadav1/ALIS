@@ -1,6 +1,8 @@
 import StatCard from "./StatCard";
 
 export default function StatGrid({ session }) {
+  if (!session) return null;
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <StatCard
