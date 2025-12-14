@@ -1,9 +1,6 @@
 // src/services/api.js
 
-/* ================================
-   CONFIG
-================================ */
-const BASE_URL = "https://alis-lcdx.onrender.com"; // NO trailing slash
+const BASE_URL = "https://alis-lcdx.onrender.com";
 
 /* ================================
    CHAT API
@@ -11,14 +8,12 @@ const BASE_URL = "https://alis-lcdx.onrender.com"; // NO trailing slash
 export async function sendChatMessage(input) {
   const res = await fetch(`${BASE_URL}/api/v1/chat`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ input }),
   });
 
   if (!res.ok) {
-    throw new Error("Failed to send chat message");
+    throw new Error("Chat request failed");
   }
 
   return res.json();
@@ -27,73 +22,35 @@ export async function sendChatMessage(input) {
 /* ================================
    DOCUMENT VAULT APIs
 ================================ */
-import { getAuth } from "firebase/auth";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  serverTimestamp,
-} from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-} from "firebase/storage";
 
-const auth = getAuth();
-const db = getFirestore();
-const storage = getStorage();
-
-/**
- * Fetch all documents uploaded by current user
- */
+// fetch user documents
 export async function fetchUserDocuments() {
-  const user = auth.currentUser;
-  if (!user) return [];
-
-  const q = query(
-    collection(db, "documents"),
-    where("userId", "==", user.uid)
-  );
-
-  const snap = await getDocs(q);
-
-  return snap.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-}
-
-/**
- * Upload a document to Firebase Storage + save metadata to Firestore
- */
-export async function uploadDocument(docType, file) {
-  const user = auth.currentUser;
-  if (!user) throw new Error("User not authenticated");
-
-  const storagePath = `documents/${user.uid}/${docType}`;
-  const storageRef = ref(storage, storagePath);
-
-  // Upload file
-  await uploadBytes(storageRef, file);
-
-  // Get download URL
-  const downloadURL = await getDownloadURL(storageRef);
-
-  // Save metadata
-  await addDoc(collection(db, "documents"), {
-    userId: user.uid,
-    docType,
-    fileName: file.name,
-    storagePath,
-    downloadURL,
-    status: "uploaded",
-    uploadedAt: serverTimestamp(),
+  const res = await fetch(`${BASE_URL}/api/v1/documents`, {
+    credentials: "include",
   });
 
-  return { success: true };
+  if (!res.ok) {
+    throw new Error("Failed to fetch documents");
+  }
+
+  return res.json();
+}
+
+// upload document
+export async function uploadDocument(docType, file) {
+  const formData = new FormData();
+  formData.append("docType", docType);
+  formData.append("file", file);
+
+  const res = await fetch(`${BASE_URL}/api/v1/documents/upload`, {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("Document upload failed");
+  }
+
+  return res.json();
 }
