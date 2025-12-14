@@ -9,7 +9,7 @@ export default function Landing() {
     <div className="relative min-h-screen pt-24 pb-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
-        {/* LEFT — MESSAGE */}
+        {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,14 +49,14 @@ export default function Landing() {
           </div>
         </motion.div>
 
-        {/* RIGHT — AI CORE (CONTROLLED SIZE) */}
+        {/* RIGHT — HERO (STRICTLY CONTAINED) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9 }}
           className="relative"
         >
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5 max-w-md mx-auto">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5 max-w-md mx-auto">
             <div className="h-[240px] sm:h-[280px]">
               <HeroScene />
             </div>
@@ -68,7 +68,7 @@ export default function Landing() {
         </motion.div>
       </div>
 
-      {/* TRUST STRIP (COMPACT, BALANCED) */}
+      {/* TRUST STRIP */}
       <div className="mt-20 border-t border-white/10 pt-6">
         <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-white/60">
           <span>AI-Guided</span>
