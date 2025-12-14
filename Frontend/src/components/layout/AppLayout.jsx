@@ -1,12 +1,16 @@
-import Navbar from "../components/layout/Navbar";
-import BackgroundLayer from "../components/layout/BackgroundLayer";
+import Navbar from "./Navbar";
+import BackgroundLayer from "./BackgroundLayer";
 
 export default function AppLayout({ children }) {
   return (
     <div className="min-h-screen relative">
+      {/* Global background */}
       <BackgroundLayer />
+
+      {/* Fixed top navigation */}
       <Navbar />
-      {/* OFFSET for fixed navbar */}
+
+      {/* Page content offset for fixed navbar */}
       <main className="pt-16">
         {children}
       </main>
