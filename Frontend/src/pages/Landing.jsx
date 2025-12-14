@@ -6,18 +6,9 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative py-20">
-      {/* Soft background logo */}
-      <div className="absolute inset-0 flex justify-center items-start opacity-10 pointer-events-none">
-        <img
-          src="/team_logo.png"
-          alt="VisionCoders"
-          className="max-w-xl mt-10"
-        />
-      </div>
+    <section className="relative pt-24 pb-24">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
         {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -29,7 +20,7 @@ export default function Landing() {
             VisionCoders presents
           </p>
 
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold">
+          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-bold leading-tight">
             ALIS — <span className="text-cyan-400">AI Loan</span>
             <br />
             Intelligence for India
@@ -58,20 +49,15 @@ export default function Landing() {
           </div>
         </motion.div>
 
-        {/* RIGHT — AI CORE */}
+        {/* RIGHT — HERO */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="flex justify-center"
         >
-          <div className="rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-6 shadow-xl">
-            <div className="h-[260px] w-[260px]">
-              <HeroScene />
-            </div>
-            <p className="mt-4 text-center text-xs text-white/50">
-              ALIS Core Intelligence Engine
-            </p>
+          <div className="w-[300px] h-[300px] sm:w-[340px] sm:h-[340px] rounded-2xl bg-white/5 backdrop-blur border border-white/10 shadow-xl flex items-center justify-center">
+            <HeroScene />
           </div>
         </motion.div>
 
