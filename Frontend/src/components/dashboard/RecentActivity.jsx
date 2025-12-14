@@ -1,27 +1,22 @@
-
 export default function RecentActivity({ activity = [] }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
-      <h3 className="text-lg font-medium text-white mb-4">
-        Agent Activity Log
-      </h3>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur">
+      <h2 className="text-lg font-medium text-white mb-4">
+        Agent Activity
+      </h2>
 
-      <div className="space-y-3 text-sm">
+      <ul className="space-y-3 text-sm text-white/60">
         {activity.length === 0 && (
-          <p className="text-white/40">
-            No activity yet. Start a chat to generate insights.
-          </p>
+          <li>No activity yet. Start a chat to see agents in action.</li>
         )}
 
-        {activity.map((item, i) => (
-          <div
-            key={i}
-            className="text-white/70 border-l-2 border-cyan-400/30 pl-3"
-          >
-            {item.text || item.type}
-          </div>
+        {activity.map((item, idx) => (
+          <li key={idx}>
+            <span className="text-cyan-400">{item.agent}:</span>{" "}
+            {item.message}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
