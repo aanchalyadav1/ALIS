@@ -1,37 +1,29 @@
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import AICore from "./aicore.jsx";
+import { motion } from "framer-motion";
 
 export default function HeroScene() {
   return (
-    <div className="w-full h-full">
-      <Canvas
-        camera={{ position: [0, 0, 4], fov: 50 }}
-        dpr={[1, 1.5]}
-      >
-        <Suspense fallback={null}>
+    <div className="relative w-full h-full flex items-center justify-center">
+      
+      {/* OUTER GLOW */}
+      <motion.div
+        className="absolute w-60 h-60 rounded-full bg-cyan-400/30 blur-3xl"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 4, repeat: Infinity }}
+      />
 
-          {/* Soft ambient light */}
-          <ambientLight intensity={0.6} />
+      {/* CORE */}
+      <motion.div
+        className="w-44 h-44 rounded-full bg-cyan-500 shadow-[0_0_40px_rgba(34,211,238,0.6)]"
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity }}
+      />
 
-          {/* Main highlight */}
-          <pointLight
-            position={[4, 4, 4]}
-            intensity={1.2}
-            color="#38bdf8"
-          />
-
-          {/* Rim light */}
-          <pointLight
-            position={[-4, -2, 2]}
-            intensity={0.6}
-            color="#22d3ee"
-          />
-
-          <AICore />
-
-        </Suspense>
-      </Canvas>
+      {/* RING */}
+      <motion.div
+        className="absolute w-56 h-56 rounded-full border border-cyan-400/40"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+      />
     </div>
   );
 }
