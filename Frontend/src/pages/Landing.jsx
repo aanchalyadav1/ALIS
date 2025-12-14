@@ -1,29 +1,43 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import HeroOrb from "../components/hero/HeroOrb";
+import HeroOrb from "../components/landing/HeroOrb";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 28 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, ease: "easeOut" },
-};
+const contexts = [
+  "Student exploring education loan eligibility",
+  "Salaried professional checking home loan affordability",
+  "Business owner analyzing credit risk",
+  "Founder planning expansion capital",
+];
 
 export default function Landing() {
   const navigate = useNavigate();
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % contexts.length);
+    }, 3200);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-24 px-6 overflow-hidden">
+    <div className="relative min-h-screen pt-24 pb-28 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* ================= LEFT CONTENT ================= */}
-        <motion.div {...fadeUp} className="space-y-7">
-
-          {/* VisionCoders */}
-          <p className="text-sm tracking-[0.25em] uppercase text-slate-400">
+        <motion.div
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="space-y-8"
+        >
+          {/* VC identity */}
+          <p className="text-sm tracking-[0.35em] uppercase text-slate-400">
             VisionCoders presents
           </p>
 
-          {/* Title */}
+          {/* Two-tier Title */}
           <h1 className="font-semibold leading-tight">
             <span className="block text-4xl sm:text-5xl xl:text-6xl text-white">
               ALIS — Agentic Loan
@@ -33,11 +47,32 @@ export default function Landing() {
             </span>
           </h1>
 
+          {/* Dynamic Context */}
+          <div className="h-7">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="text-sm sm:text-base text-violet-300"
+              >
+                {contexts[index]}
+              </motion.p>
+            </AnimatePresence>
+          </div>
+
           {/* Description */}
           <p className="text-base sm:text-lg text-white/65 max-w-xl">
-            ALIS is an AI-powered, agent-based loan guidance platform
-            that helps users understand eligibility, affordability,
-            and approval logic <span className="text-white">before</span> applying.
+            ALIS is an agent-based AI platform that helps users understand
+            eligibility, affordability, and approval logic
+            <span className="text-white"> before applying</span>.
+          </p>
+
+          {/* VC × ALIS line */}
+          <p className="text-sm text-slate-400">
+            An agentic AI system built by <span className="text-white">VisionCoders</span>.
           </p>
 
           {/* CTA */}
@@ -67,15 +102,15 @@ export default function Landing() {
         >
           <div className="relative mx-auto max-w-sm rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6">
 
-            {/* VC Label */}
+            {/* VC label */}
             <div className="mb-3 text-center text-xs tracking-widest text-slate-400 uppercase">
-              VisionCoders · AI Core
+              VisionCoders
             </div>
 
             <HeroOrb />
 
             <p className="mt-4 text-center text-xs text-white/50">
-              Agentic Intelligence Engine
+              Agentic Intelligence Core
             </p>
           </div>
         </motion.div>
