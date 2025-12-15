@@ -2,101 +2,101 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  const linkBase =
-    "text-sm transition hover:text-white";
-  const active =
-    "text-cyan-400";
-  const inactive =
-    "text-white/70";
+  const linkClass =
+    "text-sm text-white/70 hover:text-white transition";
+
+  const activeClass =
+    "text-sm text-cyan-400 font-medium";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 bg-black/70 backdrop-blur border-b border-white/10">
-      <div className="max-w-7xl mx-auto h-full px-4 flex items-center justify-between">
+    <header className="fixed top-0 z-50 w-full backdrop-blur bg-black/60 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* LOGO */}
         <div
+          className="flex items-center gap-2 cursor-pointer"
           onClick={() => navigate("/")}
-          className="flex items-center gap-3 cursor-pointer"
         >
-          <img
-            src="/team_logo.png"
-            alt="VisionCoders"
-            className="h-8 w-auto object-contain"
-          />
-          <span className="font-semibold tracking-wide text-white hidden sm:block">
+          <img src="/logo.svg" alt="ALIS" className="h-6 w-6" />
+          <span className="text-white font-semibold tracking-wide">
             ALIS
           </span>
         </div>
 
         {/* NAV LINKS */}
-        <div className="hidden md:flex items-center gap-6">
-          {!user && (
+        <nav className="flex items-center gap-6">
+
+          {/* PUBLIC */}
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? activeClass : linkClass
+            }
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            to="/chat"
+            className={({ isActive }) =>
+              isActive ? activeClass : linkClass
+            }
+          >
+            Chat
+          </NavLink>
+
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? activeClass : linkClass
+            }
+          >
+            About
+          </NavLink>
+
+          {/* AUTH-BASED */}
+          {!user ? (
+            <button
+              onClick={() => navigate("/chat")}
+              className="ml-4 px-4 py-1.5 rounded-lg bg-cyan-500 text-black text-sm font-medium hover:bg-cyan-400 transition"
+            >
+              Try ALIS Now
+            </button>
+          ) : (
             <>
               <NavLink
-                to="/"
+                to="/documents"
                 className={({ isActive }) =>
-                  `${linkBase} ${isActive ? active : inactive}`
+                  isActive ? activeClass : linkClass
                 }
               >
-                Home
+                Documents
               </NavLink>
 
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  `${linkBase} ${isActive ? active : inactive}`
-                }
-              >
-                About
-              </NavLink>
-            </>
-          )}
-
-          {user && (
-            <>
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) =>
-                  `${linkBase} ${isActive ? active : inactive}`
+                  isActive ? activeClass : linkClass
                 }
               >
                 Dashboard
               </NavLink>
 
               <NavLink
-                to="/documents"
+                to="/profile"
                 className={({ isActive }) =>
-                  `${linkBase} ${isActive ? active : inactive}`
+                  isActive ? activeClass : linkClass
                 }
               >
-                Documents
+                Profile
               </NavLink>
             </>
           )}
-        </div>
-
-        {/* RIGHT ACTION */}
-        <div className="flex items-center gap-3">
-          {!user ? (
-            <button
-              onClick={() => navigate("/chat")}
-              className="px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black text-sm font-semibold transition"
-            >
-              Try ALIS
-            </button>
-          ) : (
-            <button
-              onClick={logout}
-              className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 text-white/80 text-sm transition"
-            >
-              Logout
-            </button>
-          )}
-        </div>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
