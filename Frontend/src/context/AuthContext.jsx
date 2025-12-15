@@ -1,55 +1,31 @@
+// src/context/AuthContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { initializeApp } from "firebase/app";
-
-/* 🔥 Firebase init (NO external import) */
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "../firebase"; // IMPORTANT
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* Persist login */
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
+      setUser(firebaseUser || null);
       setLoading(false);
     });
+
     return () => unsub();
   }, []);
 
-  /* Auth actions */
-  const login = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
-
-  const register = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
-
-  const logout = () => signOut(auth);
-
   return (
-    <AuthContext.Provider
-      value={{ user, login, register, logout, loading }}
-    >
+    <AuthContext.Provider value={{ user, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
-``
+export function useAuth() {
+  return useContext(AuthContext);
+}
