@@ -1,8 +1,12 @@
 export default function StatCard({ label, value }) {
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
-      <p className="text-sm text-white/60">{label}</p>
-      <p className="mt-2 text-xl font-semibold">{value}</p>
+    <div className="glass-card p-6">
+      <p className="text-xs text-white/50 uppercase tracking-wider">
+        {label}
+      </p>
+      <p className="mt-2 text-xl font-semibold text-white">
+        {value}
+      </p>
     </div>
   );
 }
