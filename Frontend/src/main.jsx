@@ -5,8 +5,10 @@ import "./styles/globals.css";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
 import { LoanSessionProvider } from "./context/LoanSessionContext";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+<AuthProvider>
   <ThemeProvider>
     <LoanSessionProvider>
       <ChatProvider>
@@ -14,4 +16,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </ChatProvider>
     </LoanSessionProvider>
   </ThemeProvider>
+<AuthProvider>
 );
