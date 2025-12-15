@@ -1,48 +1,55 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useProfile } from "../../hooks/useProfile";
+import ProfileField from "./ProfileField";
 
-export default function ProfileDetailsCard({ profile, onSave }) {
-  const [form, setForm] = useState(profile);
+export default function ProfileDetailsCard() {
+  const { profile, setProfile } = useProfile();
 
-  const update = (key, value) =>
-    setForm({ ...form, [key]: value });
+  const updateField = (key, value) => {
+    setProfile(prev => ({ ...prev, [key]: value }));
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="lg:col-span-2 rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="lg:col-span-2 rounded-2xl bg-white/5 border border-white/10 p-6 space-y-6"
     >
-      <h2 className="text-lg font-medium text-white mb-4">
+      <h2 className="text-lg font-semibold text-white">
         Personal Details
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {[
-          ["name", "Full Name"],
-          ["email", "Email"],
-          ["phone", "Phone"],
-          ["city", "City"],
-          ["employment", "Employment"],
-          ["loanPurpose", "Loan Purpose"],
-        ].map(([key, label]) => (
-          <input
-            key={key}
-            value={form[key]}
-            onChange={(e) => update(key, e.target.value)}
-            placeholder={label}
-            className="bg-black/40 border border-white/10 rounded-lg px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-cyan-400/50"
-          />
-        ))}
-      </div>
+        <ProfileField
+          label="Full Name"
+          value={profile.name}
+          onChange={(v) => updateField("name", v)}
+        />
 
-      <div className="mt-5">
-        <button
-          onClick={() => onSave(form)}
-          className="px-6 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 transition text-black font-medium"
-        >
-          Save Profile
-        </button>
+        <ProfileField
+          label="Age"
+          value={profile.age}
+          onChange={(v) => updateField("age", v)}
+        />
+
+        <ProfileField
+          label="City"
+          value={profile.city}
+          onChange={(v) => updateField("city", v)}
+        />
+
+        <ProfileField
+          label="Profession"
+          value={profile.profession}
+          onChange={(v) => updateField("profession", v)}
+        />
+
+        <ProfileField
+          label="Monthly Income"
+          value={profile.income}
+          onChange={(v) => updateField("income", v)}
+        />
       </div>
     </motion.div>
   );
