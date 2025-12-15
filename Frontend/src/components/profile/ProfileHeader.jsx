@@ -1,18 +1,31 @@
-export default function ProfileHeader({ user }) {
+import { motion } from "framer-motion";
+
+export default function ProfileHeader({ profile }) {
+  const initials =
+    profile.name
+      ?.split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase() || "U";
+
   return (
-    <div className="flex items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
-      <div className="w-14 h-14 rounded-full bg-cyan-500 flex items-center justify-center text-black font-bold">
-        {user.email?.[0]?.toUpperCase() || "U"}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flex items-center gap-5"
+    >
+      <div className="w-16 h-16 rounded-full bg-cyan-500 flex items-center justify-center text-black text-xl font-bold">
+        {initials}
       </div>
 
       <div>
-        <h1 className="text-lg font-semibold text-white">
-          {user.email}
+        <h1 className="text-2xl font-semibold text-white">
+          {profile.name || "Your Profile"}
         </h1>
         <p className="text-sm text-white/60">
-          ALIS Profile • Secure Session
+          Manage your personal loan intelligence
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
