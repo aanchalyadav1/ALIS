@@ -64,7 +64,8 @@ export default function Documents() {
 
     async function loadDocs() {
       try {
-        const res = await fetchUserDocuments();
+  const res = [];
+
         if (mounted) setDocs(Array.isArray(res) ? res : []);
       } catch (err) {
         console.error("Document fetch failed:", err);
