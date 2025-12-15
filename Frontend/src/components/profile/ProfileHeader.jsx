@@ -1,14 +1,16 @@
-export default function ProfileHeader() {
+export default function ProfileHeader({ user }) {
   return (
-    <div className="flex items-center gap-5 bg-white/5 border border-white/10 p-6 rounded-2xl">
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-black font-bold text-xl">
-        G
+    <div className="flex items-center gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur">
+      <div className="w-14 h-14 rounded-full bg-cyan-500 flex items-center justify-center text-black font-bold">
+        {user.email?.[0]?.toUpperCase() || "U"}
       </div>
 
       <div>
-        <h1 className="text-xl font-semibold">Guest User</h1>
+        <h1 className="text-lg font-semibold text-white">
+          {user.email}
+        </h1>
         <p className="text-sm text-white/60">
-          Temporary profile · Register to save progress
+          ALIS Profile • Secure Session
         </p>
       </div>
     </div>
