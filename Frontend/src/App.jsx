@@ -32,6 +32,9 @@ export default function App() {
                 <Route path="/documents" element={<Documents />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+
               </Routes>
             </AppLayout>
           }
