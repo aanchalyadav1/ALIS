@@ -25,6 +25,7 @@ const scenarios = [
 
 export default function Landing() {
   const navigate = useNavigate();
+  const { user } = useAuth(); // ✅ IMPORTANT
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -62,7 +63,10 @@ export default function Landing() {
 
           {/* DESCRIPTION */}
           <p className="text-base sm:text-lg text-white/70 max-w-xl leading-relaxed">
-            ALIS is a <span className="text-white">multi-agent AI loan intelligence platform</span>{" "}
+            ALIS is a{" "}
+            <span className="text-white">
+              multi-agent AI loan intelligence platform
+            </span>{" "}
             that helps you understand eligibility, affordability, and approval
             logic <span className="text-white">before</span> you apply — built
             for real-world Indian lending.
@@ -89,28 +93,48 @@ export default function Landing() {
             </AnimatePresence>
           </div>
 
-          {/* CTA BUTTONS */}
+          {/* CTA BUTTONS — AUTH AWARE */}
           <div className="flex flex-wrap gap-4 pt-6">
-            <button
-              onClick={() => navigate("/chat")}
-              className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black shadow-lg shadow-cyan-500/20"
-            >
-              Continue as Guest
-            </button>
+            {!user ? (
+              <>
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black shadow-lg shadow-cyan-500/20"
+                >
+                  Continue as Guest
+                </button>
 
-            <button
-              onClick={() => navigate("/login")}
-              className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/90"
-            >
-              Login
-            </button>
+                <button
+                  onClick={() => navigate("/login")}
+                  className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/90"
+                >
+                  Login
+                </button>
 
-            <button
-              onClick={() => navigate("/register")}
-              className="px-7 py-3 rounded-xl border border-emerald-400/40 hover:border-emerald-400 transition text-emerald-400"
-            >
-              Create Account
-            </button>
+                <button
+                  onClick={() => navigate("/register")}
+                  className="px-7 py-3 rounded-xl border border-emerald-400/40 hover:border-emerald-400 transition text-emerald-400"
+                >
+                  Create Account
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => navigate("/dashboard")}
+                  className="px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 transition font-semibold text-black shadow-lg shadow-emerald-500/20"
+                >
+                  Go to Dashboard
+                </button>
+
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/90"
+                >
+                  Continue with ALIS
+                </button>
+              </>
+            )}
           </div>
         </motion.div>
 
