@@ -1,6 +1,9 @@
 // src/firebase.js
-import { initializeApp } from "firebase/app";
 
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+// Firebase config (Vite style env vars)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -10,4 +13,11 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// ✅ THIS EXPORT IS REQUIRED
+export const auth = getAuth(app);
+
+// optional default export
+export default app;
