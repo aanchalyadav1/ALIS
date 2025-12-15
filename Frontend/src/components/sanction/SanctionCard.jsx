@@ -1,44 +1,32 @@
-import { useLoanSession } from "../../context/LoanSessionContext";
-
-export default function SanctionCard() {
-  const { session } = useLoanSession();
-  const sanction = session.sanction;
-
-  if (!sanction) return null;
+export default function SanctionCard({ sanction }) {
+  if (!sanction) {
+    return (
+      <div className="glass-card p-6 text-white/60">
+        Sanction guidance will appear once eligibility is confirmed.
+      </div>
+    );
+  }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-6 mt-8">
-      <h2 className="text-lg font-semibold text-white mb-2">
-        Sanction Guidance (Preview)
-      </h2>
+    <div className="glass-card p-6 space-y-4 relative">
+      <span className="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-400/20">
+        AI Generated
+      </span>
 
-      <p className="text-sm text-white/60 mb-6">
-        This is AI-generated guidance based on provided inputs.  
-        It is <span className="text-white">not</span> a final bank sanction.
+      <h3 className="text-lg font-medium text-white">
+        Sanction Guidance
+      </h3>
+
+      <div className="text-sm text-white/70 space-y-1">
+        <p>Amount: <span className="text-white">{sanction.amount}</span></p>
+        <p>Tenure: <span className="text-white">{sanction.tenure}</span></p>
+        <p>EMI: <span className="text-white">{sanction.emi}</span></p>
+        <p>Interest: <span className="text-white">{sanction.interest}</span></p>
+      </div>
+
+      <p className="text-[11px] text-white/40">
+        This is guidance-only intelligence, not a final bank sanction.
       </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Item label="Suggested Amount" value={sanction.amount} />
-        <Item label="Tenure" value={sanction.tenure} />
-        <Item label="Estimated EMI" value={sanction.emi} />
-        <Item label="Interest Range" value={sanction.interest} />
-      </div>
-
-      <div className="mt-6 text-xs text-white/40">
-        Final approval depends on document verification, credit checks,
-        and lender policies.
-      </div>
-    </div>
-  );
-}
-
-function Item({ label, value }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-black/30 p-4">
-      <div className="text-xs text-white/50">{label}</div>
-      <div className="mt-1 text-sm font-medium text-white">
-        {value}
-      </div>
     </div>
   );
 }
