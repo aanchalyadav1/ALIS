@@ -1,41 +1,36 @@
-import ProfileHeader from "../components/profile/ProfileHeader";
-import LifeStageCard from "../components/profile/LifeStageCard";
-import LoanSummary from "../components/profile/LoanSummary";
-import AIInsights from "../components/profile/AIInsights";
-import ActivityTimeline from "../components/profile/ActivityTimeline";
-import { useLoanSession } from "../context/LoanSessionContext";
 import { useAuth } from "../context/AuthContext";
+import { useLoanSession } from "../context/LoanSessionContext";
 
 export default function Profile() {
+  const { user, logout } = useAuth();
   const { session } = useLoanSession();
-  const { user } = useAuth();
-
-  // 🔐 Auth guard
-  if (!user) {
-    return (
-      <div className="pt-24 text-center text-white/60">
-        Please login to view your profile.
-      </div>
-    );
-  }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-10">
+    <div className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8">
 
-      {/* IDENTITY */}
-      <ProfileHeader user={user} />
+      {/* USER HEADER */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold text-white">
+            {user.email}
+          </h1>
+          <p className="text-sm text-white/60">
+            Your loan intelligence dashboard
+          </p>
+        </div>
 
-      {/* LIFE STAGE */}
-      <LifeStageCard />
+        <button
+          onClick={logout}
+          className="px-4 py-2 rounded-lg bg-red-500/10 text-red-400 text-sm hover:bg-red-500/20"
+        >
+          Logout
+        </button>
+      </div>
 
-      {/* CURRENT LOAN INTELLIGENCE */}
-      <LoanSummary session={session} />
-
-      {/* AI EXPLANATIONS */}
-      <AIInsights insights={session?.activityLog || []} />
-
-      {/* HISTORY */}
-      <ActivityTimeline logs={session?.activityLog || []} />
+      {/* USER INTELLIGENCE */}
+      <pre className="text-xs text-white/70 bg-white/5 p-4 rounded-xl overflow-auto">
+        {JSON.stringify(session, null, 2)}
+      </pre>
 
     </div>
   );
