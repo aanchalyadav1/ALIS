@@ -1,48 +1,26 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer
-} from "recharts";
+export default function RiskChart({ risk }) {
+  const color =
+    risk === "Low"
+      ? "text-green-400"
+      : risk === "Medium"
+      ? "text-yellow-400"
+      : risk === "High"
+      ? "text-red-400"
+      : "text-white/40";
 
-const data = [
-  { risk: "Low Risk", users: 62 },
-  { risk: "Medium Risk", users: 26 },
-  { risk: "High Risk", users: 12 }
-];
-
-export default function RiskChart() {
   return (
-    <div className="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/10">
-      <h3 className="text-lg font-semibold mb-1">
-        Credit Risk Classification
-      </h3>
-      <p className="text-sm opacity-60 mb-4">
-        UnderwritingAgent risk bucket analysis
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+      <h2 className="text-lg font-medium mb-2">
+        Risk Assessment
+      </h2>
+
+      <p className={`text-2xl font-semibold ${color}`}>
+        {risk ?? "Pending"}
       </p>
 
-      <div className="h-72">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            <XAxis dataKey="risk" />
-            <YAxis />
-            <Tooltip
-              contentStyle={{
-                background: "#020617",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 8
-              }}
-            />
-            <Bar
-              dataKey="users"
-              radius={[6, 6, 0, 0]}
-              fill="#38bdf8"
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      <p className="text-sm text-white/60 mt-2">
+        Evaluated from income signals and loan type.
+      </p>
     </div>
   );
 }
