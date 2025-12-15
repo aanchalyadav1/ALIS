@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 
-/* 🔥 Firebase config — KEEP YOUR EXISTING VALUES */
+/* 🔥 Firebase init (NO external import) */
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* 🔄 Persist login on refresh */
+  /* Persist login */
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     return () => unsub();
   }, []);
 
-  /* 🔐 Actions */
+  /* Auth actions */
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
@@ -52,3 +52,4 @@ export function AuthProvider({ children }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
+``
