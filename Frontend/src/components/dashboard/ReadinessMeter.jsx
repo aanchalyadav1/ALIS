@@ -1,10 +1,17 @@
-export default function ReadinessMeter({ score }) {
-  const safeScore =
-    typeof score === "number" && !isNaN(score) ? score : 0;
+export default function ReadinessMeter({ score = 0 }) {
+  const level =
+    score >= 70 ? "High Readiness"
+    : score >= 40 ? "Moderate Readiness"
+    : "Low Readiness";
+
+  const color =
+    score >= 70 ? "#22c55e"
+    : score >= 40 ? "#f59e0b"
+    : "#f43f5e";
 
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <h2 className="text-lg font-medium mb-4">
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur card-hover">
+      <h2 className="text-lg font-medium text-white mb-4">
         Loan Readiness Score
       </h2>
 
@@ -23,21 +30,25 @@ export default function ReadinessMeter({ score }) {
               cx="64"
               cy="64"
               r="56"
-              stroke="#38bdf8"
+              stroke={color}
               strokeWidth="10"
               fill="none"
-              strokeDasharray={`${(safeScore / 100) * 351} 351`}
+              strokeDasharray={`${(score / 100) * 351} 351`}
               transform="rotate(-90 64 64)"
+              className="transition-all duration-700"
             />
           </svg>
-
-          <div className="absolute inset-0 flex items-center justify-center text-2xl font-semibold">
-            {safeScore}%
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-2xl font-semibold text-white">
+              {score}%
+            </span>
+            <span className="text-xs text-white/60">{level}</span>
           </div>
         </div>
 
         <p className="text-sm text-white/60 max-w-sm">
-          Reflects preparedness based on eligibility, risk, and intent clarity.
+          Based on intent clarity, risk indicators, and eligibility signals
+          detected by ALIS agents.
         </p>
       </div>
     </div>
