@@ -34,21 +34,23 @@ export default function Landing() {
   }, []);
 
   return (
-    <div className="relative min-h-screen pt-28 px-6 overflow-hidden bg-[#05060a]">
+    <div className="relative min-h-screen pt-28 pb-20 px-6 overflow-hidden bg-[#05060a]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           className="space-y-8"
         >
+          {/* BRAND */}
           <p className="text-xs tracking-widest uppercase text-violet-400">
             VisionCoders presents
           </p>
 
-          <h1 className="text-5xl xl:text-6xl font-semibold leading-tight">
+          {/* TITLE */}
+          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-tight">
             <span className="block text-white">
               ALIS — Agentic Loan
             </span>
@@ -57,11 +59,12 @@ export default function Landing() {
             </span>
           </h1>
 
-          <p className="text-lg text-white/70 max-w-xl">
-            ALIS is an AI-powered, multi-agent loan intelligence platform
-            that helps you understand eligibility, affordability, and
-            approval logic <span className="text-white">before</span> you apply —
-            designed for real-world Indian lending.
+          {/* DESCRIPTION */}
+          <p className="text-base sm:text-lg text-white/70 max-w-xl">
+            ALIS is a multi-agent AI loan intelligence platform that helps you
+            understand eligibility, affordability, and approval logic{" "}
+            <span className="text-white">before</span> you apply — built for
+            real-world Indian lending.
           </p>
 
           {/* SCENARIO SLIDER */}
@@ -69,13 +72,13 @@ export default function Landing() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: -18 }}
+                transition={{ duration: 0.45 }}
                 className="absolute"
               >
-                <p className="text-sm text-emerald-400 font-medium">
+                <p className="text-sm font-medium text-emerald-400">
                   {scenarios[index].title}
                 </p>
                 <p className="text-xs text-white/50">
@@ -85,29 +88,36 @@ export default function Landing() {
             </AnimatePresence>
           </div>
 
-          {/* CTA */}
-          <div className="flex gap-4 pt-4">
+          {/* CTA BUTTONS */}
+          <div className="flex flex-wrap gap-4 pt-4">
             <button
               onClick={() => navigate("/chat")}
-              className="px-7 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
+              className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
             >
-              Talk to ALIS
+              Continue as Guest
             </button>
 
             <button
-              onClick={() => navigate("/about")}
+              onClick={() => navigate("/login")}
               className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/80"
             >
-              Why ALIS exists
+              Login
+            </button>
+
+            <button
+              onClick={() => navigate("/register")}
+              className="px-7 py-3 rounded-xl border border-white/10 hover:border-white/30 transition text-white/60"
+            >
+              Create Account
             </button>
           </div>
         </motion.div>
 
         {/* RIGHT — HERO ORB */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
           className="flex justify-center"
         >
           <HeroOrb />
