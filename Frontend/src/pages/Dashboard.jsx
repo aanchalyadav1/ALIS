@@ -15,14 +15,10 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 pt-24 pb-16 space-y-10">
-
       {/* 🔹 GLOBAL SYSTEM STATS */}
-      <StatGrid
-        global
-        stats={globalStats}
-      />
+      <StatGrid global stats={globalStats} />
 
-      {/* 🔹 USER-SPECIFIC (only if analysis exists) */}
+      {/* 🔹 USER-SPECIFIC */}
       {session?.intent ? (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
