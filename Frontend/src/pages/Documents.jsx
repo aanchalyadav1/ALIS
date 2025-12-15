@@ -1,16 +1,13 @@
-// src/pages/Documents.jsx
 import { useEffect, useMemo, useState } from "react";
 import DocumentSection from "../components/documents/DocumentSection";
-import { fetchUserDocuments } from "../services/api";
-import { useAuth } from "../context/AuthContext";
 
 const CATEGORIES = [
   {
     key: "identity",
-    title: "Identity",
+    title: "Identity Documents",
     description: "Used to verify identity and basic eligibility",
     docs: [
-      { type: "PAN", label: "PAN Card", hint: "Required for most loan types" },
+      { type: "PAN", label: "PAN Card", hint: "Required for most loans" },
       { type: "AADHAAR", label: "Aadhaar (Masked)", hint: "Address verification" },
     ],
   },
@@ -19,80 +16,48 @@ const CATEGORIES = [
     title: "Income / Employment",
     description: "Helps assess repayment capacity",
     docs: [
-      { type: "SALARY_SLIP", label: "Salary Slip", hint: "Recent 1–3 months preferred" },
-      { type: "BANK_STATEMENT", label: "Bank Statement", hint: "Shows income flow" },
-      { type: "ITR", label: "ITR (Optional)", hint: "Useful for higher limits" },
-    ],
-  },
-  {
-    key: "education",
-    title: "Education",
-    description: "Required for education loans",
-    docs: [
-      { type: "OFFER_LETTER", label: "Admission / Offer Letter", hint: "Confirms enrollment" },
-      { type: "FEE_STRUCTURE", label: "Fee Structure", hint: "Loan amount estimation" },
+      { type: "SALARY_SLIP", label: "Salary Slip", hint: "Last 1–3 months" },
+      { type: "BANK_STATEMENT", label: "Bank Statement", hint: "Income flow proof" },
+      { type: "ITR", label: "ITR (Optional)", hint: "Higher eligibility" },
     ],
   },
   {
     key: "assets",
     title: "Assets / Collateral",
-    description: "Used for secured loans",
+    description: "Required for secured loans",
     docs: [
-      { type: "PROPERTY_PAPERS", label: "Property Papers", hint: "Home loans / LAP" },
-      { type: "GOLD_VALUATION", label: "Gold Valuation", hint: "Gold loans" },
+      { type: "PROPERTY", label: "Property Papers", hint: "Home / LAP loans" },
       { type: "VEHICLE_RC", label: "Vehicle RC", hint: "Vehicle loans" },
     ],
   },
 ];
 
 export default function Documents() {
-  const { user } = useAuth();
   const [docs, setDocs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔐 HARD AUTH GUARD (prevents blank screen)
-  if (!user) {
-    return (
-      <div className="pt-24 text-center text-white/60">
-        Please login to manage your documents.
-      </div>
-    );
-  }
-
- useEffect(() => {
-  // demo documents until backend exists
-  const demoDocs = [
-    { type: "PAN", status: "verified" },
-    { type: "AADHAAR", status: "uploaded" },
-  ];
-
-  setDocs(demoDocs);
-  setLoading(false);
-}, []);
-
-    loadDocs();
-    return () => {
-      mounted = false;
-    };
+  // ✅ MOCK USER DOCUMENTS (SAFE FOR DEMO)
+  useEffect(() => {
+    setTimeout(() => {
+      setDocs([
+        { type: "PAN", status: "uploaded" },
+        { type: "AADHAAR", status: "verified" },
+        { type: "SALARY_SLIP", status: "pending" },
+      ]);
+      setLoading(false);
+    }, 800);
   }, []);
 
   const stats = useMemo(() => {
-    const uploaded = docs.filter(
-      (d) => d.status === "uploaded" || d.status === "verified"
-    ).length;
-
-    const verified = docs.filter((d) => d.status === "verified").length;
-
-    const totalPossible = CATEGORIES.reduce(
-      (sum, cat) => sum + cat.docs.length,
-      0
-    );
+    const uploaded = docs.filter(d => d.status === "uploaded" || d.status === "verified").length;
+    const verified = docs.filter(d => d.status === "verified").length;
+    const total = CATEGORIES.reduce((a, c) => a + c.docs.length, 0);
 
     return {
       uploaded,
       verified,
-      pending: Math.max(totalPossible - uploaded, 0),
-      totalPossible,
+      pending: Math.max(total - uploaded, 0),
+      total,
     };
   }, [docs]);
 
@@ -103,25 +68,24 @@ export default function Documents() {
         {/* HEADER */}
         <div>
           <h1 className="text-2xl font-semibold text-white">
-            Your Documents
+            Document Vault
           </h1>
-          <p className="text-sm text-white/60 mt-1 max-w-2xl">
-            Securely store and reuse documents across loan applications.
-            Upload now or later — ALIS will guide you when they’re required.
+          <p className="text-sm text-white/60 mt-1">
+            Upload once. Reuse across loan journeys.
           </p>
         </div>
 
-        {/* STATUS OVERVIEW */}
+        {/* STATS */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <StatusCard label="Uploaded" value={stats.uploaded} />
           <StatusCard label="Verified" value={stats.verified} />
           <StatusCard label="Pending" value={stats.pending} />
-          <StatusCard label="Possible" value={stats.totalPossible} />
+          <StatusCard label="Total" value={stats.total} />
         </div>
 
-        {/* DOCUMENT SECTIONS */}
+        {/* SECTIONS */}
         <div className="space-y-8">
-          {CATEGORIES.map((cat) => (
+          {CATEGORIES.map(cat => (
             <DocumentSection
               key={cat.key}
               title={cat.title}
@@ -133,26 +97,20 @@ export default function Documents() {
           ))}
         </div>
 
-        {/* FOOTER NOTE */}
-        <div className="text-xs text-white/40 pt-6">
-          Documents are encrypted and used only to assist your loan journey.
-          This demo environment does not share files externally.
-        </div>
+        {/* FOOTER */}
+        <p className="text-xs text-white/40">
+          Demo environment · Documents are not shared externally
+        </p>
       </div>
     </div>
   );
 }
 
-/* -------------------------
-   STATUS CARD
-------------------------- */
 function StatusCard({ label, value }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur p-4">
+    <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur">
       <div className="text-sm text-white/60">{label}</div>
-      <div className="text-2xl font-semibold text-white mt-1">
-        {value}
-      </div>
+      <div className="text-2xl font-semibold text-white mt-1">{value}</div>
     </div>
   );
 }
