@@ -1,31 +1,32 @@
 export default function LoanSummary({ session }) {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-      <Card label="Intent" value={session.intent || "—"} />
-      <Card label="Risk" value={session.risk || "—"} />
-      <Card
-        label="Eligibility"
-        value={
-          session.eligibility === null
-            ? "—"
-            : session.eligibility
-            ? "Eligible"
-            : "Review Needed"
-        }
-      />
-      <Card
-        label="Readiness"
-        value={`${session.readinessScore || 0}%`}
-      />
-    </div>
-  );
-}
+  if (!session || !session.intent) {
+    return (
+      <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-white/60">
+        No loan analysis yet. Talk to ALIS to begin.
+      </div>
+    );
+  }
 
-function Card({ label, value }) {
   return (
-    <div className="bg-white/5 border border-white/10 p-4 rounded-xl">
-      <p className="text-xs text-white/60">{label}</p>
-      <p className="text-lg font-semibold mt-1">{value}</p>
+    <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+      <h2 className="text-lg font-medium text-white mb-4">
+        Current Loan Intelligence
+      </h2>
+
+      <div className="grid sm:grid-cols-3 gap-4 text-sm">
+        <div>
+          <p className="text-white/50">Intent</p>
+          <p className="text-white">{session.intent}</p>
+        </div>
+        <div>
+          <p className="text-white/50">Risk</p>
+          <p className="text-white">{session.risk}</p>
+        </div>
+        <div>
+          <p className="text-white/50">Readiness</p>
+          <p className="text-white">{session.readinessScore}%</p>
+        </div>
+      </div>
     </div>
   );
 }
