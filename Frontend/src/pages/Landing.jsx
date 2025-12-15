@@ -39,18 +39,18 @@ export default function Landing() {
 
         {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="space-y-8"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="space-y-9"
         >
           {/* BRAND */}
-          <p className="text-xs tracking-widest uppercase text-violet-400">
+          <p className="text-xs tracking-[0.3em] uppercase text-violet-400/90">
             VisionCoders presents
           </p>
 
           {/* TITLE */}
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-tight">
+          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.1]">
             <span className="block text-white">
               ALIS — Agentic Loan
             </span>
@@ -60,28 +60,28 @@ export default function Landing() {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className="text-base sm:text-lg text-white/70 max-w-xl">
-            ALIS is a multi-agent AI loan intelligence platform that helps you
-            understand eligibility, affordability, and approval logic{" "}
-            <span className="text-white">before</span> you apply — built for
-            real-world Indian lending.
+          <p className="text-base sm:text-lg text-white/70 max-w-xl leading-relaxed">
+            ALIS is a <span className="text-white">multi-agent AI loan intelligence platform</span>{" "}
+            that helps you understand eligibility, affordability, and approval
+            logic <span className="text-white">before</span> you apply — built
+            for real-world Indian lending.
           </p>
 
           {/* SCENARIO SLIDER */}
-          <div className="relative h-14 overflow-hidden">
+          <div className="relative h-16 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.45 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
                 className="absolute"
               >
-                <p className="text-sm font-medium text-emerald-400">
+                <p className="text-sm font-semibold text-emerald-400">
                   {scenarios[index].title}
                 </p>
-                <p className="text-xs text-white/50">
+                <p className="text-xs text-white/50 mt-0.5">
                   {scenarios[index].subtitle}
                 </p>
               </motion.div>
@@ -89,24 +89,24 @@ export default function Landing() {
           </div>
 
           {/* CTA BUTTONS */}
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-wrap gap-4 pt-6">
             <button
               onClick={() => navigate("/chat")}
-              className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-medium text-black"
+              className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black shadow-lg shadow-cyan-500/20"
             >
               Continue as Guest
             </button>
 
             <button
               onClick={() => navigate("/login")}
-              className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/80"
+              className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/90"
             >
               Login
             </button>
 
             <button
               onClick={() => navigate("/register")}
-              className="px-7 py-3 rounded-xl border border-white/10 hover:border-white/30 transition text-white/60"
+              className="px-7 py-3 rounded-xl border border-emerald-400/40 hover:border-emerald-400 transition text-emerald-400"
             >
               Create Account
             </button>
@@ -115,7 +115,7 @@ export default function Landing() {
 
         {/* RIGHT — HERO ORB */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="flex justify-center"
