@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import HeroOrb from "../components/landing/HeroOrb";
 
 const scenarios = [
-  { title: "Student planning higher studies", subtitle: "Education loan options" },
-  { title: "Family buying a home", subtitle: "Home loan eligibility" },
-  { title: "Professional upgrading lifestyle", subtitle: "Car & personal loans" },
-  { title: "Founder scaling a startup", subtitle: "Business loan readiness" },
+  { title: "Student planning higher studies", subtitle: "Exploring education loan options" },
+  { title: "Family buying a new home", subtitle: "Checking home loan eligibility" },
+  { title: "Professional upgrading lifestyle", subtitle: "Comparing car & personal loans" },
+  { title: "Founder scaling a startup", subtitle: "Evaluating business loan readiness" },
 ];
 
 export default function Landing() {
@@ -17,30 +17,30 @@ export default function Landing() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setIndex((i) => (i + 1) % scenarios.length);
     }, 3500);
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="relative min-h-screen pt-28 pb-20 px-6 overflow-hidden bg-[#05060a]">
+    <div className="relative min-h-screen pt-28 pb-20 px-6 bg-[#05060a] overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT CONTENT */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="space-y-8"
+          className="space-y-9"
         >
           {/* BRAND */}
-          <p className="text-xs tracking-widest uppercase text-violet-400">
+          <p className="text-xs tracking-[0.3em] uppercase text-violet-400/90">
             VisionCoders presents
           </p>
 
           {/* TITLE */}
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-tight">
+          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-semibold leading-[1.1]">
             <span className="block text-white">
               ALIS — Agentic Loan
             </span>
@@ -50,27 +50,28 @@ export default function Landing() {
           </h1>
 
           {/* DESCRIPTION */}
-          <p className="text-base sm:text-lg text-white/70 max-w-xl">
-            AI-powered multi-agent loan intelligence that explains eligibility,
-            risk, and sanction logic{" "}
-            <span className="text-white">before</span> you apply.
+          <p className="text-base sm:text-lg text-white/70 max-w-xl leading-relaxed">
+            ALIS is a <span className="text-white">multi-agent AI loan intelligence platform</span>{" "}
+            that explains eligibility, risk, and sanction logic{" "}
+            <span className="text-white">before</span> you apply —
+            built for real-world Indian lending.
           </p>
 
           {/* SCENARIO SLIDER */}
-          <div className="relative h-14 overflow-hidden">
+          <div className="relative h-16 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
+                exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className="absolute"
               >
-                <p className="text-sm font-medium text-emerald-400">
+                <p className="text-sm font-semibold text-emerald-400">
                   {scenarios[index].title}
                 </p>
-                <p className="text-xs text-white/50">
+                <p className="text-xs text-white/50 mt-0.5">
                   {scenarios[index].subtitle}
                 </p>
               </motion.div>
@@ -82,9 +83,9 @@ export default function Landing() {
             <div className="flex flex-wrap gap-4 pt-6">
               <button
                 onClick={() => navigate("/chat")}
-                className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black"
+                className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black shadow-lg shadow-cyan-500/20"
               >
-                Continue as Guest
+                Try ALIS Now
               </button>
 
               <button
@@ -102,34 +103,33 @@ export default function Landing() {
               </button>
             </div>
           ) : (
-            <div className="flex gap-4 pt-6">
+            <div className="flex flex-wrap gap-4 pt-6">
               <button
-                onClick={() => navigate("/dashboard")}
-                className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black"
+                onClick={() => navigate("/chat")}
+                className="px-8 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 transition font-semibold text-black shadow-lg shadow-cyan-500/20"
               >
-                Go to Dashboard
+                Try ALIS Now
               </button>
 
               <button
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate("/dashboard")}
                 className="px-7 py-3 rounded-xl border border-white/20 hover:border-white/40 transition text-white/90"
               >
-                Profile
+                View Dashboard
               </button>
             </div>
           )}
         </motion.div>
 
-        {/* RIGHT — HERO */}
+        {/* RIGHT — HERO ORB */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="flex justify-center"
         >
           <HeroOrb />
         </motion.div>
-
       </div>
     </div>
   );
