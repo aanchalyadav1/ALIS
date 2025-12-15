@@ -1,54 +1,59 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { loginWithEmail, loginWithGoogle } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   async function handleLogin(e) {
     e.preventDefault();
-    await loginWithEmail(email, password);
-    navigate("/dashboard");
+    setError("");
+
+    try {
+      await login(email, password);
+      navigate("/dashboard");
+    } catch (err) {
+      setError("Invalid email or password");
+    }
   }
 
   return (
-    <div className="min-h-screen pt-24 flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#05060a]">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md bg-white/5 border border-white/10 p-8 rounded-2xl space-y-4"
+        className="w-full max-w-md p-8 rounded-2xl bg-white/5 border border-white/10 space-y-6"
       >
-        <h1 className="text-xl font-semibold text-white">Login to ALIS</h1>
+        <h1 className="text-2xl font-semibold text-white">Login</h1>
+
+        {error && <p className="text-red-400 text-sm">{error}</p>}
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full p-3 rounded-lg bg-black/40 border border-white/10 text-white"
+          className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-3 rounded-lg bg-black/40 border border-white/10 text-white"
+          className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
-        <button className="w-full py-3 rounded-lg bg-cyan-500 text-black font-medium">
-          Login
-        </button>
-
         <button
-          type="button"
-          onClick={loginWithGoogle}
-          className="w-full py-3 rounded-lg border border-white/20 text-white/80"
+          type="submit"
+          className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-semibold"
         >
-          Continue with Google
+          Login
         </button>
       </form>
     </div>
