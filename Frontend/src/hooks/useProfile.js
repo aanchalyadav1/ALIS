@@ -2,28 +2,27 @@ import { useEffect, useState } from "react";
 
 const DEFAULT_PROFILE = {
   name: "",
-  email: "",
-  phone: "",
+  age: "",
   city: "",
-  employment: "",
-  loanPurpose: "",
+  profession: "",
+  income: "",
 };
 
-export default function useProfile() {
+export function useProfile() {
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
 
+  // Load on mount
   useEffect(() => {
-    const saved = localStorage.getItem("alis_profile");
-    if (saved) {
-      setProfile(JSON.parse(saved));
+    const stored = localStorage.getItem("alis_profile");
+    if (stored) {
+      setProfile(JSON.parse(stored));
     }
   }, []);
 
-  const updateProfile = (updates) => {
-    const updated = { ...profile, ...updates };
-    setProfile(updated);
-    localStorage.setItem("alis_profile", JSON.stringify(updated));
-  };
+  // Save on change
+  useEffect(() => {
+    localStorage.setItem("alis_profile", JSON.stringify(profile));
+  }, [profile]);
 
-  return { profile, updateProfile };
+  return { profile, setProfile };
 }
