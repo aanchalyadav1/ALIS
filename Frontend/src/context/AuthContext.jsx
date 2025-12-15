@@ -6,25 +6,34 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { app } from "../firebase"; // make sure this exists
+import { initializeApp } from "firebase/app";
+
+/* 🔥 Firebase config — KEEP YOUR EXISTING VALUES */
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔁 Track login state
+  /* 🔄 Persist login on refresh */
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
       setLoading(false);
     });
-    return unsub;
+    return () => unsub();
   }, []);
 
-  // 🔐 Auth actions
+  /* 🔐 Actions */
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
 
