@@ -1,19 +1,14 @@
 export default function ReadinessMeter({ score = 0 }) {
-  const level =
-    score >= 70 ? "High Readiness"
-    : score >= 40 ? "Moderate Readiness"
-    : "Low Readiness";
-
   const color =
-    score >= 70 ? "#22c55e"
-    : score >= 40 ? "#f59e0b"
-    : "#f43f5e";
+    score >= 75 ? "#22c55e" :
+    score >= 50 ? "#eab308" :
+    "#ef4444";
 
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur card-hover">
-      <h2 className="text-lg font-medium text-white mb-4">
+    <div className="glass-card p-6">
+      <h3 className="text-lg font-medium text-white mb-4">
         Loan Readiness Score
-      </h2>
+      </h3>
 
       <div className="flex items-center gap-6">
         <div className="relative w-32 h-32">
@@ -22,7 +17,7 @@ export default function ReadinessMeter({ score = 0 }) {
               cx="64"
               cy="64"
               r="56"
-              stroke="rgba(255,255,255,0.1)"
+              stroke="rgba(255,255,255,0.15)"
               strokeWidth="10"
               fill="none"
             />
@@ -35,20 +30,16 @@ export default function ReadinessMeter({ score = 0 }) {
               fill="none"
               strokeDasharray={`${(score / 100) * 351} 351`}
               transform="rotate(-90 64 64)"
-              className="transition-all duration-700"
             />
           </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-semibold text-white">
-              {score}%
-            </span>
-            <span className="text-xs text-white/60">{level}</span>
+          <div className="absolute inset-0 flex items-center justify-center text-2xl font-semibold text-white">
+            {score}%
           </div>
         </div>
 
         <p className="text-sm text-white/60 max-w-sm">
-          Based on intent clarity, risk indicators, and eligibility signals
-          detected by ALIS agents.
+          AI-evaluated preparedness based on intent clarity,
+          risk signals, and eligibility indicators.
         </p>
       </div>
     </div>
