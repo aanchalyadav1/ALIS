@@ -1,32 +1,43 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
+import { app } from "../firebase"; // make sure this exists
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  const auth = getAuth(app);
   const [user, setUser] = useState(null);
-  const [isGuest, setIsGuest] = useState(true);
   const [loading, setLoading] = useState(true);
 
+  // 🔁 Track login state
   useEffect(() => {
-    // later: firebase onAuthStateChanged
-    setLoading(false);
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return unsub;
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
-    setIsGuest(false);
-  };
+  // 🔐 Auth actions
+  const login = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
 
-  const logout = () => {
-    setUser(null);
-    setIsGuest(true);
-  };
+  const register = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
+
+  const logout = () => signOut(auth);
 
   return (
     <AuthContext.Provider
-      value={{ user, isGuest, loading, login, logout }}
+      value={{ user, login, register, logout, loading }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 }
