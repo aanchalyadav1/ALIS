@@ -1,22 +1,36 @@
+import { motion } from "framer-motion";
 import StatCard from "./StatCard";
 
-export default function StatGrid({ session }) {
-  if (!session) return null;
+export default function StatGrid({ session = {} }) {
+  const { intent, risk, eligibility } = session;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <StatCard label="Loan Intent" value={session.intent ?? "—"} />
-      <StatCard label="Risk Level" value={session.risk ?? "—"} />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+    >
+      <StatCard
+        label="Loan Intent"
+        value={intent || "—"}
+        accent="cyan"
+      />
+      <StatCard
+        label="Risk Level"
+        value={risk || "—"}
+        accent={risk === "High" ? "amber" : "emerald"}
+      />
       <StatCard
         label="Eligibility"
         value={
-          session.eligibility === null
+          eligibility === null
             ? "—"
-            : session.eligibility
+            : eligibility
             ? "Likely Eligible"
             : "Needs Review"
         }
+        accent={eligibility ? "emerald" : "amber"}
       />
-    </div>
+    </motion.div>
   );
 }
