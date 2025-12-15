@@ -6,6 +6,8 @@ import Chat from "./pages/Chat";
 import Documents from "./pages/Documents";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
+import Profile from "./pages/Profile";
+
 
 export default function App() {
   return (
@@ -17,6 +19,7 @@ export default function App() {
           <Route path="/documents" element={<Documents />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>
