@@ -59,21 +59,16 @@ export default function Documents() {
     );
   }
 
-  useEffect(() => {
-    let mounted = true;
+ useEffect(() => {
+  // demo documents until backend exists
+  const demoDocs = [
+    { type: "PAN", status: "verified" },
+    { type: "AADHAAR", status: "uploaded" },
+  ];
 
-    async function loadDocs() {
-      try {
-  const res = [];
-
-        if (mounted) setDocs(Array.isArray(res) ? res : []);
-      } catch (err) {
-        console.error("Document fetch failed:", err);
-        if (mounted) setDocs([]);
-      } finally {
-        if (mounted) setLoading(false);
-      }
-    }
+  setDocs(demoDocs);
+  setLoading(false);
+}, []);
 
     loadDocs();
     return () => {
