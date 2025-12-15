@@ -1,58 +1,51 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleLogin(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setError("");
-
     try {
       await login(email, password);
       navigate("/dashboard");
     } catch (err) {
-      setError("Invalid email or password");
+      setError(err.message);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#05060a]">
+    <div className="min-h-screen pt-28 flex justify-center">
       <form
-        onSubmit={handleLogin}
-        className="w-full max-w-md p-8 rounded-2xl bg-white/5 border border-white/10 space-y-6"
+        onSubmit={handleSubmit}
+        className="w-full max-w-md bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4"
       >
-        <h1 className="text-2xl font-semibold text-white">Login</h1>
+        <h1 className="text-xl font-semibold text-white">Login</h1>
 
         {error && <p className="text-red-400 text-sm">{error}</p>}
 
         <input
-          type="email"
+          className="w-full p-3 rounded-lg bg-black/40 text-white border border-white/10"
           placeholder="Email"
-          className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
 
         <input
           type="password"
+          className="w-full p-3 rounded-lg bg-black/40 text-white border border-white/10"
           placeholder="Password"
-          className="w-full px-4 py-3 rounded-lg bg-black/40 border border-white/10 text-white"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
 
-        <button
-          type="submit"
-          className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-semibold"
-        >
+        <button className="w-full py-3 rounded-xl bg-cyan-500 text-black font-semibold">
           Login
         </button>
       </form>
