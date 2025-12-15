@@ -1,37 +1,31 @@
-import { useAuth } from "../context/AuthContext";
-import { useLoanSession } from "../context/LoanSessionContext";
+import { motion } from "framer-motion";
+import useProfile from "../hooks/useProfile";
+import ProfileHeader from "../components/profile/ProfileHeader";
+import ProfileDetailsCard from "../components/profile/ProfileDetailsCard";
+import ProfileStats from "../components/profile/ProfileStats";
+import ProfileActivity from "../components/profile/ProfileActivity";
 
 export default function Profile() {
-  const { user, logout } = useAuth();
-  const { session } = useLoanSession();
+  const { profile, updateProfile } = useProfile();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-10"
+    >
+      <ProfileHeader profile={profile} />
 
-      {/* USER HEADER */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold text-white">
-            {user.email}
-          </h1>
-          <p className="text-sm text-white/60">
-            Your loan intelligence dashboard
-          </p>
-        </div>
-
-        <button
-          onClick={logout}
-          className="px-4 py-2 rounded-lg bg-red-500/10 text-red-400 text-sm hover:bg-red-500/20"
-        >
-          Logout
-        </button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <ProfileDetailsCard
+          profile={profile}
+          onSave={updateProfile}
+        />
+        <ProfileStats />
       </div>
 
-      {/* USER INTELLIGENCE */}
-      <pre className="text-xs text-white/70 bg-white/5 p-4 rounded-xl overflow-auto">
-        {JSON.stringify(session, null, 2)}
-      </pre>
-
-    </div>
+      <ProfileActivity />
+    </motion.div>
   );
 }
