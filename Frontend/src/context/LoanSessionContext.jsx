@@ -5,31 +5,28 @@ const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
   const [session, setSession] = useState({
-    userInput: "",
+    agentStatus: "idle", // idle | running | completed
     intent: null,
     risk: null,
     eligibility: null,
     sanction: null,
-    readinessScore: 0,
-    activityLog: [],
-    agentStatus: "idle",
+    readinessScore: null,
+    activityLog: []
   });
 
-  const startAnalysis = async (input) => {
+  async function startAnalysis(input, profile = {}) {
     setSession((prev) => ({
       ...prev,
-      userInput: input,
-      agentStatus: "running",
+      agentStatus: "running"
     }));
 
-    const result = await runAgents(input);
+    const result = await runAgents(input, profile);
 
-    setSession((prev) => ({
-      ...prev,
-      ...result,
+    setSession({
       agentStatus: "completed",
-    }));
-  };
+      ...result
+    });
+  }
 
   return (
     <LoanSessionContext.Provider value={{ session, startAnalysis }}>
