@@ -1,73 +1,52 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
-  const { user, logout, continueAsGuest } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-white/10 bg-[#05060a]/80 backdrop-blur">
-      <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between text-white">
+    <nav className="fixed top-0 w-full z-50 bg-black/70 backdrop-blur border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        {/* LOGO */}
-        <div
-          className="font-semibold tracking-wide cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          <span className="text-cyan-400">ALIS</span>
+        {/* LEFT — LOGO + TEAM */}
+        <div className="flex items-center gap-3">
+          <span className="text-cyan-400 font-bold text-lg">ALIS</span>
+
+          {/* TEAM LOGO */}
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-xs font-bold text-black">
+            VC
+          </div>
+
+          <span className="hidden sm:block text-xs text-white/50">
+            VisionCoders
+          </span>
         </div>
 
-        {/* NAV ACTIONS */}
-        {!user ? (
-          /* 🔓 NOT LOGGED IN */
-          <div className="flex items-center gap-4 text-sm">
-            {/* TRY ALIS AS GUEST */}
-            <button
-              onClick={() => {
-                continueAsGuest();
-                navigate("/chat");
-              }}
-              className="px-4 py-2 rounded-lg bg-cyan-500 text-black font-medium hover:bg-cyan-400 transition"
-            >
-              Try ALIS
-            </button>
+        {/* RIGHT */}
+        <div className="flex items-center gap-5 text-sm text-white/80">
+          {!user ? (
+            <>
+              <NavLink to="/login" className="hover:text-cyan-400">
+                Login
+              </NavLink>
 
-            {/* LOGIN */}
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-lg border border-white/20 hover:border-white/40 transition"
-            >
-              Login
-            </Link>
-
-            {/* REGISTER */}
-            <Link
-              to="/register"
-              className="px-4 py-2 rounded-lg border border-emerald-400/40 text-emerald-400 hover:border-emerald-400 transition"
-            >
-              Create Account
-            </Link>
-          </div>
-        ) : (
-          /* 🔐 LOGGED IN OR GUEST */
-          <div className="flex items-center gap-6 text-sm">
-            <Link to="/" className="hover:text-cyan-400">Home</Link>
-            <Link to="/chat" className="hover:text-cyan-400">Chat</Link>
-            <Link to="/documents" className="hover:text-cyan-400">Documents</Link>
-            <Link to="/dashboard" className="hover:text-cyan-400">Dashboard</Link>
-
-            {/* LOGOUT */}
-            <button
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-              className="text-red-400 hover:text-red-300 transition"
-            >
-              Logout
-            </button>
-          </div>
-        )}
+              <NavLink
+                to="/register"
+                className="px-4 py-2 rounded-lg border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition"
+              >
+                Create Account
+              </NavLink>
+            </>
+          ) : (
+            <>
+              <NavLink to="/" className="hover:text-cyan-400">Home</NavLink>
+              <NavLink to="/chat" className="hover:text-cyan-400">Chat</NavLink>
+              <NavLink to="/documents" className="hover:text-cyan-400">Documents</NavLink>
+              <NavLink to="/dashboard" className="hover:text-cyan-400">Dashboard</NavLink>
+              <NavLink to="/profile" className="hover:text-cyan-400">Profile</NavLink>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );
