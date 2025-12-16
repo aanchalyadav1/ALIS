@@ -3,24 +3,22 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./styles/globals.css";
 
-import { ThemeProvider } from "./context/ThemeContext.jsx";
-import { ChatProvider } from "./context/ChatContext.jsx";
-import { LoanSessionProvider } from "./context/LoanSessionContext.jsx";
+import { UserProvider } from "./context/UserContext";
 import { AuthProvider } from "./context/AuthContext.jsx";
-import { UserProvider } from "./context/UserContext.jsx";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
+import { LoanSessionProvider } from "./context/LoanSessionContext";
+import { ChatProvider } from "./context/ChatContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <UserProvider>
     <AuthProvider>
       <ThemeProvider>
         <LoanSessionProvider>
-          <UserProvider>
-            <ChatProvider>
-              <App />
-            </ChatProvider>
-          </UserProvider>
+          <ChatProvider>
+            <App />
+          </ChatProvider>
         </LoanSessionProvider>
       </ThemeProvider>
     </AuthProvider>
-  </React.StrictMode>
+  </UserProvider>
 );
