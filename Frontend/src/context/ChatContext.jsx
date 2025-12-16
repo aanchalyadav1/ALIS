@@ -1,31 +1,35 @@
 import { createContext, useContext, useState } from "react";
-import { sendChatMessage } from "../services/api";
 
-const ChatContext = createContext();
+const ChatContext = createContext(null);
 
 export function ChatProvider({ children }) {
-  const [messages, setMessages] = useState([
-    { role: "ai", text: "Hello, I am ALIS. Tell me about your loan requirement." }
-  ]);
-  const [agentStatus, setAgentStatus] = useState(null);
-  const [thinking, setThinking] = useState(false);
+  const [messages, setMessages] = useState([]);
 
-  async function sendMessage(text) {
-    setMessages(m => [...m, { role: "user", text }]);
-    setThinking(true);
+  const getProfileContext = () => {
+    try {
+      const profile = JSON.parse(localStorage.getItem("alis-profile"));
+      if (!profile) return null;
 
-    setAgentStatus("VerificationAgent validating information…");
-    setTimeout(() => setAgentStatus("UnderwritingAgent evaluating eligibility…"), 1200);
-
-    const data = await sendChatMessage(text);
-
-    setMessages(m => [...m, { role: "ai", text: data.message }]);
-    setThinking(false);
-    setAgentStatus(null);
-  }
+      return {
+        name: profile.name,
+        age: profile.age,
+        city: profile.city,
+        profession: profile.profession,
+        income: profile.income,
+      };
+    } catch {
+      return null;
+    }
+  };
 
   return (
-    <ChatContext.Provider value={{ messages, sendMessage, thinking, agentStatus }}>
+    <ChatContext.Provider
+      value={{
+        messages,
+        setMessages,
+        getProfileContext,
+      }}
+    >
       {children}
     </ChatContext.Provider>
   );
