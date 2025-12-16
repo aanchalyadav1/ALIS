@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { runAgents } from "../agents/agentOrchestrator.js";
-
+import agentOrchestrator from "../components/agents/agentOrchestrator";
 const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
