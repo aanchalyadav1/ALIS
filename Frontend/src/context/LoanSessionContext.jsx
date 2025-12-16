@@ -1,31 +1,41 @@
 import { createContext, useContext, useState } from "react";
-import agentOrchestrator from "../components/agents/agentOrchestrator";
+import { runAgents } from "../components/agents/agentOrchestrator";
+
 const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
   const [session, setSession] = useState({
-    agentStatus: "idle", // idle | running | completed
+    agentStatus: "idle",
     intent: null,
     risk: null,
     eligibility: null,
     sanction: null,
-    readinessScore: null,
-    activityLog: []
+    readinessScore: 0,
+    activityLog: [],
   });
 
-  async function startAnalysis(input, profile = {}) {
+  const startAnalysis = async (input) => {
     setSession((prev) => ({
       ...prev,
-      agentStatus: "running"
+      agentStatus: "running",
+      activityLog: [...prev.activityLog, { agent: "User", message: input }],
     }));
 
-    const result = await runAgents(input, profile);
+    try {
+      const result = await runAgents(input);
 
-    setSession({
-      agentStatus: "completed",
-      ...result
-    });
-  }
+      setSession({
+        agentStatus: "completed",
+        ...result,
+      });
+    } catch (e) {
+      console.error("Agent pipeline failed:", e);
+      setSession((prev) => ({
+        ...prev,
+        agentStatus: "error",
+      }));
+    }
+  };
 
   return (
     <LoanSessionContext.Provider value={{ session, startAnalysis }}>
