@@ -5,9 +5,9 @@ export default function Chat() {
   const { getProfileContext } = useChat();
   const profileContext = getProfileContext();
 
-  return (
-    <div className="min-h-[calc(100vh-64px)] bg-[#05060a]">
-      <ChatLayout profile={profileContext} />
+   return (
+    <div className="min-h-[calc(100vh-64px)] bg-[#05060a] pt-20">
+      <ChatLayout />
     </div>
   );
 }
