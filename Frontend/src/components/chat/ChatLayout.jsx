@@ -1,10 +1,9 @@
-
 import { useEffect, useState } from "react";
+import { useLoanSession } from "../../context/LoanSessionContext";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
 import ChatInput from "./ChatInput";
 import SanctionCard from "../sanction/SanctionCard";
-import { useLoanSession } from "../../context/LoanSessionContext";
 
 export default function ChatLayout() {
   const { session, startAnalysis } = useLoanSession();
@@ -12,15 +11,16 @@ export default function ChatLayout() {
     {
       role: "agent",
       text:
-        "Hello, I’m ALIS — your Agentic Loan Intelligence system. Tell me about your loan need.",
-    },
+        "Hello, I’m ALIS — your AI loan assistant. Tell me what loan you’re planning."
+    }
   ]);
 
-  const handleSend = (text) => {
-    if (!text?.trim()) return;
+  function handleSend(text) {
+    if (!text.trim()) return;
+
     setMessages((prev) => [...prev, { role: "user", text }]);
     startAnalysis(text);
-  };
+  }
 
   useEffect(() => {
     if (session.agentStatus === "completed") {
@@ -28,37 +28,34 @@ export default function ChatLayout() {
         ...prev,
         {
           role: "agent",
-          text:
-            "Analysis complete. Review your loan readiness and sanction guidance below.",
-        },
+          text: "Analysis complete. Review the guidance below."
+        }
       ]);
     }
   }, [session.agentStatus]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-24 pb-10">
+    <div className="max-w-6xl mx-auto px-4 pt-24 pb-10 text-white">
       <div className="mb-6 flex items-center gap-4">
         <AgentOrb />
         <div>
-          <h1 className="text-xl font-semibold text-white">
-            ALIS — Agentic Loan Intelligence
-          </h1>
+          <h1 className="text-xl font-semibold">ALIS Chat</h1>
           <p className="text-sm text-white/60">
-            Explainable · Guidance-first · Secure
+            Explainable · Guidance-first
           </p>
         </div>
       </div>
 
       <div className="flex flex-col h-[65vh] rounded-2xl bg-white/5 border border-white/10">
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {messages.map((m, i) => (
-            <ChatMessage key={i} role={m.role} text={m.text} />
+          {messages.map((msg, i) => (
+            <ChatMessage key={i} role={msg.role} text={msg.text} />
           ))}
 
           {session.agentStatus === "running" && (
             <ChatMessage
               role="agent"
-              text="Running loan intelligence agents…"
+              text="Analyzing using AI agents…"
             />
           )}
 
