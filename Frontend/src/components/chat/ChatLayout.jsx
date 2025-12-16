@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import AgentOrb from "./AgentOrb";
 import ChatMessage from "./ChatMessage";
@@ -6,33 +7,20 @@ import SanctionCard from "../sanction/SanctionCard";
 import { useLoanSession } from "../../context/LoanSessionContext";
 
 export default function ChatLayout() {
-  const ctx = useLoanSession();
-
-  // 🛑 HARD GUARD — prevents blank page
-  if (!ctx || !ctx.session) {
-    return (
-      <div className="pt-24 text-center text-white/60">
-        Initializing ALIS session…
-      </div>
-    );
-  }
-
-  const { session, startAnalysis } = ctx;
-
+  const { session, startAnalysis } = useLoanSession();
   const [messages, setMessages] = useState([
     {
       role: "agent",
       text:
-        "Hello, I’m ALIS — your Agentic Loan Intelligence system. Tell me about the loan you’re considering, and I’ll guide you clearly."
-    }
+        "Hello, I’m ALIS — your Agentic Loan Intelligence system. Tell me about your loan need.",
+    },
   ]);
 
-  function handleSend(text) {
-    if (!text.trim()) return;
-
+  const handleSend = (text) => {
+    if (!text?.trim()) return;
     setMessages((prev) => [...prev, { role: "user", text }]);
     startAnalysis(text);
-  }
+  };
 
   useEffect(() => {
     if (session.agentStatus === "completed") {
@@ -41,15 +29,14 @@ export default function ChatLayout() {
         {
           role: "agent",
           text:
-            "I’ve completed the analysis using multiple loan intelligence agents. Please review the sanction guidance below."
-        }
+            "Analysis complete. Review your loan readiness and sanction guidance below.",
+        },
       ]);
     }
   }, [session.agentStatus]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 pt-24 pb-10">
-      {/* HEADER */}
       <div className="mb-6 flex items-center gap-4">
         <AgentOrb />
         <div>
@@ -57,55 +44,32 @@ export default function ChatLayout() {
             ALIS — Agentic Loan Intelligence
           </h1>
           <p className="text-sm text-white/60">
-            Explainable · Guidance-first · Secure session
+            Explainable · Guidance-first · Secure
           </p>
         </div>
       </div>
 
-      {/* CHAT CONTAINER */}
-      <div className="flex flex-col h-[65vh] rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-        {/* MESSAGES */}
+      <div className="flex flex-col h-[65vh] rounded-2xl bg-white/5 border border-white/10">
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
-          {messages.map((msg, i) => (
-            <ChatMessage key={i} role={msg.role} text={msg.text} />
+          {messages.map((m, i) => (
+            <ChatMessage key={i} role={m.role} text={m.text} />
           ))}
 
           {session.agentStatus === "running" && (
             <ChatMessage
               role="agent"
-              text="Analyzing your profile using multiple loan agents…"
+              text="Running loan intelligence agents…"
             />
           )}
 
-          {/* SANCTION PREVIEW (SAFE) */}
           {session.agentStatus === "completed" && session.sanction && (
             <SanctionCard
               sanction={session.sanction}
-              readiness={session.readinessScore || 0}
+              readiness={session.readinessScore}
             />
           )}
         </div>
 
-        {/* QUICK ACTIONS */}
-        <div className="px-4 pb-3 flex gap-2 flex-wrap">
-          {[
-            "Education Loan",
-            "Home Loan",
-            "Business Loan",
-            "Personal Loan",
-            "Vehicle Loan"
-          ].map((item) => (
-            <button
-              key={item}
-              onClick={() => handleSend(item)}
-              className="text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 hover:bg-white/10 transition"
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-
-        {/* INPUT */}
         <ChatInput onSend={handleSend} />
       </div>
     </div>
