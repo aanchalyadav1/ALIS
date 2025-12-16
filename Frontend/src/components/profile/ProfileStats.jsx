@@ -1,33 +1,19 @@
-export default function ProfileStats({ profile }) {
-  const income = Number(profile.income || 0);
-
-  let risk = "Unknown";
-  let readiness = "Low";
-
-  if (income > 80000) {
-    risk = "Low";
-    readiness = "High";
-  } else if (income > 30000) {
-    risk = "Medium";
-    readiness = "Medium";
-  } else if (income > 0) {
-    risk = "High";
-    readiness = "Low";
-  }
+export default function ProfileStats() {
+  const stats = [
+    { label: "Loan Queries", value: "4" },
+    { label: "Risk Category", value: "Medium" },
+    { label: "Eligibility Status", value: "Likely Eligible" },
+  ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-2">
-      <h3 className="text-sm text-white/60">Loan Signals</h3>
-
-      <div className="text-sm">
-        <span className="text-white/60">Estimated Risk:</span>{" "}
-        <span className="text-cyan-400">{risk}</span>
-      </div>
-
-      <div className="text-sm">
-        <span className="text-white/60">Readiness:</span>{" "}
-        <span className="text-emerald-400">{readiness}</span>
-      </div>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-4">
+      <h2 className="text-lg font-medium">Loan Intelligence Summary</h2>
+      {stats.map((s) => (
+        <div key={s.label} className="flex justify-between text-sm">
+          <span className="text-white/60">{s.label}</span>
+          <span>{s.value}</span>
+        </div>
+      ))}
     </div>
   );
 }
