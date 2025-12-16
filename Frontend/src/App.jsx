@@ -1,4 +1,8 @@
+import { useAuth } from "./context/AuthContext";
+
 export default function App() {
+  const { user } = useAuth();
+
   return (
     <div
       style={{
@@ -8,10 +12,10 @@ export default function App() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: "28px",
+        fontSize: "26px",
       }}
     >
-      APP LOADED SUCCESSFULLY
+      {user ? "USER LOGGED IN" : "NO USER — AUTH OK"}
     </div>
   );
 }
