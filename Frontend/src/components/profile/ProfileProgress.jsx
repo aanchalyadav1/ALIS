@@ -1,21 +1,26 @@
+import { motion } from "framer-motion";
+
 export default function ProfileProgress({ profile }) {
-  const fields = Object.values(profile);
-  const completed = fields.filter(v => v && v !== "").length;
-  const percent = Math.round((completed / fields.length) * 100);
+  const fields = ["name", "age", "city", "profession", "income"];
+  const filled = fields.filter((f) => profile[f]).length;
+  const percent = Math.round((filled / fields.length) * 100);
 
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <div className="flex justify-between mb-2">
-        <span className="text-sm text-white/60">Profile Completion</span>
-        <span className="text-sm text-cyan-400">{percent}%</span>
-      </div>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-2xl border border-white/10 bg-white/5 p-6"
+    >
+      <h3 className="text-sm text-white/60 mb-2">Profile Completion</h3>
 
-      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+      <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
         <div
-          className="h-full bg-cyan-400"
+          className="h-full bg-cyan-400 transition-all"
           style={{ width: `${percent}%` }}
         />
       </div>
-    </div>
+
+      <p className="text-xs text-white/50 mt-2">{percent}% completed</p>
+    </motion.div>
   );
 }
