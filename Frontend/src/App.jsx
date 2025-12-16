@@ -1,31 +1,25 @@
 import { Routes, Route } from "react-router-dom";
 
-/* Pages */
-import Home from "./pages/Home";
-import Chat from "./pages/Chat";
-import About from "./pages/About";
-import Documents from "./pages/Documents";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-
-/* Components */
-import Navbar from "./components/layout/Navbar";
+import Landing from "./pages/Landing.jsx";
+import Chat from "./pages/Chat.jsx";
+import About from "./pages/About.jsx";
+import Documents from "./pages/Documents.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import Profile from "./pages/Profile.jsx";
+import Login from "./pages/Login.jsx";
+import Register from "./pages/Register.jsx";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#05060a] text-white">
-      {/* NAVBAR ALWAYS VISIBLE */}
-      <Navbar />
-
-      {/* ROUTES */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/documents" element={<Documents />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/chat" element={<Chat />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/documents" element={<Documents />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
   );
 }
