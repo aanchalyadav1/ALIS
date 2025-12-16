@@ -5,40 +5,33 @@ const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
   const [session, setSession] = useState({
-    agentStatus: "idle",
     intent: null,
     risk: null,
     eligibility: null,
     sanction: null,
     readinessScore: 0,
     activityLog: [],
+    agentStatus: "idle"
   });
 
   const startAnalysis = async (input) => {
     setSession((prev) => ({
       ...prev,
-      agentStatus: "running",
-      activityLog: [...prev.activityLog, { agent: "User", message: input }],
+      agentStatus: "running"
     }));
 
-    try {
-      const result = await runAgents(input);
+    const result = await runAgents(input);
 
-      setSession({
-        agentStatus: "completed",
-        ...result,
-      });
-    } catch (e) {
-      console.error("Agent pipeline failed:", e);
-      setSession((prev) => ({
-        ...prev,
-        agentStatus: "error",
-      }));
-    }
+    setSession({
+      ...result,
+      agentStatus: "completed"
+    });
   };
 
   return (
-    <LoanSessionContext.Provider value={{ session, startAnalysis }}>
+    <LoanSessionContext.Provider
+      value={{ session, startAnalysis }}
+    >
       {children}
     </LoanSessionContext.Provider>
   );
