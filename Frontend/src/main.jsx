@@ -5,19 +5,17 @@ import "./styles/globals.css";
 
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
-import { LoanSessionProvider } from "./context/LoanSessionContext.jsx";
+import { LoanSessionProvider } from "./context/LoanSessionContext";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-<AuthProvider>
-  <ThemeProvider>
-    <LoanSessionProvider>
-      <ChatProvider>
-        <App />
-      </ChatProvider>
-    </LoanSessionProvider>
-  </ThemeProvider>
-</AuthProvider>
-  </React.StrictMode>
+  <AuthProvider>
+    <ThemeProvider>
+      <LoanSessionProvider>
+        <ChatProvider>
+          <App />
+        </ChatProvider>
+      </LoanSessionProvider>
+    </ThemeProvider>
+  </AuthProvider>
 );
