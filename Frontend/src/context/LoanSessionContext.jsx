@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { runAgents } from "../agents/agentOrchestrator";
+import { runAgents } from "../agents/agentOrchestrator.js";
 
 const LoanSessionContext = createContext(null);
 
