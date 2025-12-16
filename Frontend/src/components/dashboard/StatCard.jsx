@@ -1,18 +1,13 @@
-export default function StatCard({ label, value, accent = "cyan" }) {
-  const colors = {
-    cyan: "text-cyan-400",
-    emerald: "text-emerald-400",
-    amber: "text-amber-400",
-  };
+import { motion } from "framer-motion";
 
+export default function StatCard({ label, value }) {
   return (
-    <div className="rounded-xl bg-white/5 border border-white/10 p-5">
-      <div className="text-xs uppercase tracking-wider text-white/50">
-        {label}
-      </div>
-      <div className={`mt-2 text-2xl font-semibold ${colors[accent]}`}>
-        {value}
-      </div>
-    </div>
+    <motion.div
+      whileHover={{ y: -4 }}
+      className="rounded-2xl bg-white/5 border border-white/10 p-5"
+    >
+      <p className="text-sm text-white/60">{label}</p>
+      <p className="text-2xl font-semibold mt-2">{value}</p>
+    </motion.div>
   );
 }
