@@ -1,19 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useAuth } from "./context/AuthContext";
+import Navbar from "./components/layout/Navbar";
 
 function Home() {
   return (
-    <div className="h-screen flex items-center justify-center text-white text-2xl">
+    <div className="pt-24 h-screen flex items-center justify-center text-white text-2xl">
       HOME PAGE WORKING
     </div>
   );
 }
 
 export default function App() {
-  const { user } = useAuth();
-
   return (
     <BrowserRouter>
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
