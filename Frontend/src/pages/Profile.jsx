@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import ProfileHeader from "../components/profile/ProfileHeader";
@@ -7,39 +6,34 @@ import ProfileProgress from "../components/profile/ProfileProgress";
 import ProfileStats from "../components/profile/ProfileStats";
 import ProfileActivity from "../components/profile/ProfileActivity";
 
-const STORAGE_KEY = "alis-profile";
+import { useUser } from "../context/UserContext";
 
 export default function Profile() {
-  const [profile, setProfile] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved
-      ? JSON.parse(saved)
-      : {
-          name: "",
-          age: "",
-          city: "",
-          profession: "",
-          income: "",
-          avatar: "",
-        };
-  });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-  }, [profile]);
+  const { profile, setProfile } = useUser();
 
   return (
-    <div className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8 text-white">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8 text-white"
+    >
+      {/* Header */}
       <ProfileHeader profile={profile} />
 
+      {/* Progress + Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <ProfileProgress profile={profile} />
         <ProfileStats profile={profile} />
       </div>
 
-      <ProfileDetailsCard profile={profile} setProfile={setProfile} />
+      {/* Editable Details */}
+      <ProfileDetailsCard
+        profile={profile}
+        setProfile={setProfile}
+      />
 
+      {/* Activity */}
       <ProfileActivity />
-    </div>
+    </motion.div>
   );
 }
