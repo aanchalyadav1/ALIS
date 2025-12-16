@@ -1,40 +1,47 @@
 import { createContext, useContext, useState } from "react";
-import { useUser } from "./UserContext";
+import { runAgents } from "../agents/agentOrchestrator";
 
 const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
-  const { profile } = useUser();
-
-  const [signals, setSignals] = useState({
+  const [session, setSession] = useState({
+    userInput: "",
     intent: null,
-    risk: "Unknown",
-    readiness: "Low",
+    risk: null,
     eligibility: null,
+    sanction: null,
+    readinessScore: 0,
+    activityLog: [],
+    agentStatus: "idle",
   });
 
-  function updateSignals(intent) {
-    let risk = "Medium";
-    let readiness = "Low";
+  const startAnalysis = async (input) => {
+    setSession((prev) => ({
+      ...prev,
+      userInput: input,
+      agentStatus: "running",
+    }));
 
-    if (profile.income > 30000) readiness = "Medium";
-    if (profile.income > 60000) readiness = "High";
+    const result = await runAgents(input);
 
-    setSignals({
-      intent,
-      risk,
-      readiness,
-      eligibility: readiness === "High" ? "Likely" : "Pending",
-    });
-  }
+    setSession((prev) => ({
+      ...prev,
+      ...result,
+      agentStatus: "completed",
+    }));
+  };
 
   return (
-    <LoanSessionContext.Provider value={{ signals, updateSignals }}>
+    <LoanSessionContext.Provider value={{ session, startAnalysis }}>
       {children}
     </LoanSessionContext.Provider>
   );
 }
 
 export function useLoanSession() {
-  return useContext(LoanSessionContext);
+  const ctx = useContext(LoanSessionContext);
+  if (!ctx) {
+    throw new Error("useLoanSession must be used inside LoanSessionProvider");
+  }
+  return ctx;
 }
