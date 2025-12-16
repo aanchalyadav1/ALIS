@@ -1,8 +1,7 @@
-export function riskAgent(input) {
-  const riskLevel = input.length > 40 ? "Low" : "Medium";
+// src/components/agents/riskAgent.js
 
-  return {
-    risk: riskLevel,
-    log: `Risk Agent assessed profile as ${riskLevel} risk`,
-  };
+export function assessRisk(profile = {}) {
+  if (!profile.income || profile.income < 15000) return "high";
+  if (profile.income < 40000) return "medium";
+  return "low";
 }
