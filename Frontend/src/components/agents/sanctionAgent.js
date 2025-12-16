@@ -1,24 +1,13 @@
-export function sanctionAgent(intent, risk) {
-  let amount = "₹0";
-  let tenure = "—";
+// src/components/agents/sanctionAgent.js
 
-  if (intent === "education") {
-    amount = "₹12,00,000";
-    tenure = "10 years";
-  } else if (intent === "home") {
-    amount = "₹45,00,000";
-    tenure = "20 years";
-  } else if (intent === "business") {
-    amount = "₹25,00,000";
-    tenure = "7 years";
+export function generateSanction(intent, risk) {
+  if (risk === "high") {
+    return { amount: "₹2–5 Lakh", tenure: "5–10 years" };
   }
 
-  return {
-    sanction: {
-      amount,
-      tenure,
-      risk,
-    },
-    log: `Sanction Agent prepared indicative sanction of ${amount}`,
-  };
+  if (intent === "education_loan") {
+    return { amount: "₹15–25 Lakh", tenure: "10–20 years" };
+  }
+
+  return { amount: "₹5–10 Lakh", tenure: "5–15 years" };
 }
