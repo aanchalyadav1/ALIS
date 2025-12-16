@@ -1,29 +1,25 @@
-import { useUser } from "../../context/UserContext";
-
-export default function ProfileDetailsCard() {
-  const { profile, setProfile } = useUser();
-
-  function updateField(key, value) {
-    setProfile((prev) => ({ ...prev, [key]: value }));
+export default function ProfileDetailsCard({ profile, setProfile }) {
+  function update(field, value) {
+    setProfile((p) => ({ ...p, [field]: value }));
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-      <h2 className="mb-4 text-lg font-semibold">Personal Details</h2>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-4">
+      <h2 className="text-lg font-medium">Personal Details</h2>
 
       {[
-        ["name", "Name"],
+        ["name", "Full Name"],
         ["age", "Age"],
         ["city", "City"],
         ["profession", "Profession"],
-        ["monthlyIncome", "Monthly Income (₹)"],
+        ["income", "Annual Income"],
       ].map(([key, label]) => (
-        <div key={key} className="mb-4">
-          <label className="mb-1 block text-sm text-white/60">{label}</label>
+        <div key={key}>
+          <label className="text-xs text-white/60">{label}</label>
           <input
-            value={profile[key] || ""}
-            onChange={(e) => updateField(key, e.target.value)}
-            className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-white outline-none focus:border-cyan-500"
+            value={profile[key]}
+            onChange={(e) => update(key, e.target.value)}
+            className="w-full mt-1 bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-400/40"
           />
         </div>
       ))}
