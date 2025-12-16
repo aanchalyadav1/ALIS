@@ -1,49 +1,30 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import {
-  getAuth,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { app } from "../firebase"; // ✅ IMPORTANT
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    // simulate auth restore
+    setTimeout(() => {
+      setUser(null); // not logged in by default
       setLoading(false);
-    });
-    return unsub;
-  }, [auth]);
-
-  const login = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
-
-  const register = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
-
-  const logout = () => signOut(auth);
-
-  const value = {
-    user,
-    loading,
-    login,
-    register,
-    logout,
-  };
+    }, 300);
+  }, []);
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {!loading && children}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used inside AuthProvider");
+  }
+  return ctx;
+}
