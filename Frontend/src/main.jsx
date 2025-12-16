@@ -1,21 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./styles/globals.css";
-
-import { ThemeProvider } from "./context/ThemeContext.jsx";
-import { ChatProvider } from "./context/ChatContext.jsx";
-import { LoanSessionProvider } from "./context/LoanSessionContext";
-import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <ThemeProvider>
-      <LoanSessionProvider>
-        <ChatProvider>
-          <App />
-        </ChatProvider>
-      </LoanSessionProvider>
-    </ThemeProvider>
-  </AuthProvider>
+  <div
+    style={{
+      color: "white",
+      background: "#05060a",
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "32px",
+    }}
+  >
+    REACT IS WORKING
+  </div>
 );
