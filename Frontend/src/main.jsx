@@ -3,14 +3,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./styles/globals.css";
 
-import { UserProvider } from "./context/UserContext";
-import { AuthProvider } from "./context/AuthContext.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
-import { LoanSessionProvider } from "./context/LoanSessionContext";
 import { ChatProvider } from "./context/ChatContext.jsx";
+import { LoanSessionProvider } from "./context/LoanSessionContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <UserProvider>
+  <React.StrictMode>
     <AuthProvider>
       <ThemeProvider>
         <LoanSessionProvider>
@@ -20,5 +19,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </LoanSessionProvider>
       </ThemeProvider>
     </AuthProvider>
-  </UserProvider>
+  </React.StrictMode>
 );
