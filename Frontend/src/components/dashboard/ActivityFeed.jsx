@@ -1,34 +1,22 @@
-import { motion } from "framer-motion";
+export default function ActivityFeed() {
+  const logs = [
+    "Education loans surged during admission season",
+    "Home loan approvals increased in Tier-2 cities",
+    "Higher risk detected in unsecured personal loans",
+    "NBFC lending activity increased this quarter",
+  ];
 
-export default function ActivityFeed({ logs = [] }) {
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <h2 className="text-lg font-semibold text-white mb-4">
-        AI Reasoning Timeline
+      <h2 className="text-lg font-medium mb-4">
+        System Activity & AI Observations
       </h2>
 
-      {logs.length === 0 && (
-        <p className="text-sm text-white/50">
-          Agent reasoning will appear after analysis.
-        </p>
-      )}
-
-      <div className="space-y-3">
-        {logs.map((log, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="text-sm"
-          >
-            <span className="text-cyan-400 font-medium">
-              {log.agent}
-            </span>
-            <span className="text-white/60"> — {log.message}</span>
-          </motion.div>
+      <ul className="space-y-2 text-sm text-white/70">
+        {logs.map((l, i) => (
+          <li key={i}>• {l}</li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
