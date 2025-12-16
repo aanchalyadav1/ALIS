@@ -1,22 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/layout/Navbar";
+import { Routes, Route } from "react-router-dom";
 
-function Home() {
-  return (
-    <div className="pt-24 h-screen flex items-center justify-center text-white text-2xl">
-      HOME PAGE WORKING
-    </div>
-  );
-}
+/* Pages */
+import Home from "./pages/Home";
+import Chat from "./pages/Chat";
+import About from "./pages/About";
+import Documents from "./pages/Documents";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+
+/* Components */
+import Navbar from "./components/layout/Navbar";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <div className="min-h-screen bg-[#05060a] text-white">
+      {/* NAVBAR ALWAYS VISIBLE */}
       <Navbar />
 
+      {/* ROUTES */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
