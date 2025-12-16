@@ -1,21 +1,22 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+
+function Home() {
+  return (
+    <div className="h-screen flex items-center justify-center text-white text-2xl">
+      HOME PAGE WORKING
+    </div>
+  );
+}
 
 export default function App() {
   const { user } = useAuth();
 
   return (
-    <div
-      style={{
-        background: "#05060a",
-        color: "white",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "26px",
-      }}
-    >
-      {user ? "USER LOGGED IN" : "NO USER — AUTH OK"}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
