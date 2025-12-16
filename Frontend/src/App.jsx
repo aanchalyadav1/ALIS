@@ -1,25 +1,35 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-import Landing from "./pages/Landing.jsx";
-import Chat from "./pages/Chat.jsx";
-import About from "./pages/About.jsx";
-import Documents from "./pages/Documents.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import Profile from "./pages/Profile.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Chat from "./pages/Chat";
+import Profile from "./pages/Profile";
 
 export default function App() {
+  const { user } = useAuth();
+
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/chat" element={<Chat />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/documents" element={<Documents />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
+      {/* Protected */}
+      <Route
+        path="/dashboard"
+        element={user ? <Dashboard /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/chat"
+        element={user ? <Chat /> : <Navigate to="/login" />}
+      />
+      <Route
+        path="/profile"
+        element={user ? <Profile /> : <Navigate to="/login" />}
+      />
     </Routes>
   );
 }
