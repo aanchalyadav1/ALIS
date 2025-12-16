@@ -1,48 +1,35 @@
 import { createContext, useContext, useState } from "react";
+import { useUser } from "./UserContext";
 
-const LoanSessionContext = createContext();
+const LoanSessionContext = createContext(null);
 
 export function LoanSessionProvider({ children }) {
-  const [session, setSession] = useState({
-    agentStatus: "idle", // idle | analyzing | completed
+  const { profile } = useUser();
+
+  const [signals, setSignals] = useState({
     intent: null,
-    risk: null,
+    risk: "Unknown",
+    readiness: "Low",
     eligibility: null,
-    sanction: null
   });
 
-  // 🔹 This is where ALL AGENTS are triggered
-  async function startAnalysis(userInput) {
-    setSession((s) => ({ ...s, agentStatus: "analyzing" }));
+  function updateSignals(intent) {
+    let risk = "Medium";
+    let readiness = "Low";
 
-    // ---- AGENT SIMULATION (replace with backend later) ----
-    const intent =
-      userInput.toLowerCase().includes("home") ? "Home Loan" :
-      userInput.toLowerCase().includes("education") ? "Education Loan" :
-      userInput.toLowerCase().includes("business") ? "Business Loan" :
-      "General Loan";
+    if (profile.income > 30000) readiness = "Medium";
+    if (profile.income > 60000) readiness = "High";
 
-    const risk = Math.random() > 0.6 ? "Low" : "Medium";
-
-    const eligibility = risk !== "High";
-
-    const sanction = eligibility
-      ? { amount: "₹15–25 Lakhs", tenure: "10–20 years" }
-      : null;
-
-    setTimeout(() => {
-      setSession({
-        agentStatus: "completed",
-        intent,
-        risk,
-        eligibility,
-        sanction
-      });
-    }, 1200);
+    setSignals({
+      intent,
+      risk,
+      readiness,
+      eligibility: readiness === "High" ? "Likely" : "Pending",
+    });
   }
 
   return (
-    <LoanSessionContext.Provider value={{ session, startAnalysis }}>
+    <LoanSessionContext.Provider value={{ signals, updateSignals }}>
       {children}
     </LoanSessionContext.Provider>
   );
