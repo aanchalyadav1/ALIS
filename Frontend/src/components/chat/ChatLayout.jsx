@@ -6,7 +6,19 @@ import SanctionCard from "../sanction/SanctionCard";
 import { useLoanSession } from "../../context/LoanSessionContext";
 
 export default function ChatLayout() {
-  const { session, startAnalysis } = useLoanSession();
+  const ctx = useLoanSession();
+
+  // 🛑 HARD GUARD — prevents blank page
+  if (!ctx || !ctx.session) {
+    return (
+      <div className="pt-24 text-center text-white/60">
+        Initializing ALIS session…
+      </div>
+    );
+  }
+
+  const { session, startAnalysis } = ctx;
+
   const [messages, setMessages] = useState([
     {
       role: "agent",
@@ -65,11 +77,11 @@ export default function ChatLayout() {
             />
           )}
 
-          {/* SANCTION PREVIEW */}
-          {session.agentStatus === "completed" && (
+          {/* SANCTION PREVIEW (SAFE) */}
+          {session.agentStatus === "completed" && session.sanction && (
             <SanctionCard
               sanction={session.sanction}
-              readiness={session.readinessScore}
+              readiness={session.readinessScore || 0}
             />
           )}
         </div>
@@ -93,6 +105,7 @@ export default function ChatLayout() {
           ))}
         </div>
 
+        {/* INPUT */}
         <ChatInput onSend={handleSend} />
       </div>
     </div>
