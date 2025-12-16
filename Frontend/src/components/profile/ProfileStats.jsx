@@ -1,19 +1,21 @@
-export default function ProfileStats() {
-  const stats = [
-    { label: "Loan Queries", value: "4" },
-    { label: "Risk Category", value: "Medium" },
-    { label: "Eligibility Status", value: "Likely Eligible" },
-  ];
-
+export default function ProfileStats({ profile }) {
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-4">
-      <h2 className="text-lg font-medium">Loan Intelligence Summary</h2>
-      {stats.map((s) => (
-        <div key={s.label} className="flex justify-between text-sm">
-          <span className="text-white/60">{s.label}</span>
-          <span>{s.value}</span>
-        </div>
-      ))}
+    <div className="rounded-2xl border border-white/10
+                    bg-white/5 p-6 col-span-2 grid
+                    grid-cols-2 gap-4 text-sm">
+      <Stat label="City" value={profile.city || "—"} />
+      <Stat label="Age" value={profile.age || "—"} />
+      <Stat label="Profession" value={profile.profession || "—"} />
+      <Stat label="Income (₹)" value={profile.income || "—"} />
+    </div>
+  );
+}
+
+function Stat({ label, value }) {
+  return (
+    <div>
+      <div className="text-white/50">{label}</div>
+      <div className="font-medium">{value}</div>
     </div>
   );
 }
