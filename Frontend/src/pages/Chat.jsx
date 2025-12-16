@@ -1,12 +1,8 @@
 import ChatLayout from "../components/chat/ChatLayout";
-import { useChat } from "../context/ChatContext";
 
 export default function Chat() {
-  const { getProfileContext } = useChat();
-  const profileContext = getProfileContext();
-
-   return (
-    <div className="min-h-[calc(100vh-64px)] bg-[#05060a] pt-20">
+  return (
+    <div className="min-h-[calc(100vh-64px)] bg-[#05060a]">
       <ChatLayout />
     </div>
   );
