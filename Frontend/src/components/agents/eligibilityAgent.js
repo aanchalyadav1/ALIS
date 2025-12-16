@@ -1,10 +1,7 @@
-export function eligibilityAgent(intent) {
-  const eligible = intent !== "general";
+// src/components/agents/eligibilityAgent.js
 
-  return {
-    eligible,
-    log: eligible
-      ? "Eligibility Agent: Profile eligible for assessment"
-      : "Eligibility Agent: Insufficient clarity for eligibility",
-  };
+export function checkEligibility(profile = {}, intent) {
+  if (!profile.age || profile.age < 18) return false;
+  if (!intent || intent === "unknown") return false;
+  return true;
 }
