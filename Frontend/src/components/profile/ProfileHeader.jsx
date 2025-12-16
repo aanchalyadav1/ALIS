@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 
 export default function ProfileHeader({ profile }) {
-  const name = profile?.name || "Your Profile";
-
-  const initials = name
+  const initials = profile.name
     .split(" ")
     .map((n) => n[0])
     .join("")
@@ -12,18 +10,18 @@ export default function ProfileHeader({ profile }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -12 }}
+      initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-6"
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 text-lg font-bold">
+      <div className="h-14 w-14 rounded-full bg-cyan-500/20 flex items-center justify-center text-xl font-semibold text-cyan-400">
         {initials}
       </div>
 
       <div>
-        <h1 className="text-xl font-semibold">{name}</h1>
-        <p className="text-sm text-white/60">
-          {profile?.profession || "Add professional details"}
+        <h1 className="text-xl font-semibold">{profile.name}</h1>
+        <p className="text-white/60 text-sm">
+          {profile.profession} · {profile.city}
         </p>
       </div>
     </motion.div>
