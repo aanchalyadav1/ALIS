@@ -1,15 +1,15 @@
 /**
  * Agentic Loan Intelligence Orchestrator
- * Frontend-safe, deterministic, hackathon-ready
+ * Frontend-safe, hackathon-ready
  */
 
-export async function runAgents(userInput) {
+export async function runAgents(input, profile = {}) {
   await delay(800);
 
   const activityLog = [];
 
   // 1️⃣ INTENT AGENT
-  const intent = detectIntent(userInput);
+  const intent = detectIntent(input);
   activityLog.push({
     agent: "IntentAgent",
     message: `Detected intent: ${intent}`,
@@ -18,7 +18,7 @@ export async function runAgents(userInput) {
   await delay(400);
 
   // 2️⃣ RISK AGENT
-  const risk = assessRisk(intent, userInput);
+  const risk = assessRisk(input, profile);
   activityLog.push({
     agent: "RiskAgent",
     message: `Risk classified as ${risk}`,
@@ -32,7 +32,7 @@ export async function runAgents(userInput) {
     agent: "EligibilityAgent",
     message: eligibility
       ? "User appears eligible"
-      : "Eligibility requires verification",
+      : "Eligibility requires further verification",
   });
 
   await delay(400);
@@ -63,7 +63,7 @@ export async function runAgents(userInput) {
   };
 }
 
-/* ---------------- HELPERS ---------------- */
+/* ================= HELPERS ================= */
 
 function detectIntent(input = "") {
   const text = input.toLowerCase();
@@ -75,11 +75,10 @@ function detectIntent(input = "") {
   return "General Loan Inquiry";
 }
 
-function assessRisk(intent, input) {
+function assessRisk(input, profile) {
   const text = input.toLowerCase();
   if (text.includes("no income") || text.includes("unemployed")) return "High";
-  if (intent === "Education Loan") return "Medium";
-  if (intent === "Home Loan" || intent === "Business Loan") return "Low";
+  if (profile.income && profile.income > 800000) return "Low";
   return "Medium";
 }
 
