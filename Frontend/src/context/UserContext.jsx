@@ -2,22 +2,36 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext(null);
 
-const DEFAULT_PROFILE = {
-  name: "",
-  age: "",
-  city: "",
-  profession: "",
-  monthlyIncome: "",
-};
+const STORAGE_KEY = "alis-user-profile";
 
 export function UserProvider({ children }) {
   const [profile, setProfile] = useState(() => {
-    const saved = localStorage.getItem("alis_profile");
-    return saved ? JSON.parse(saved) : DEFAULT_PROFILE;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved
+        ? JSON.parse(saved)
+        : {
+            name: "",
+            age: "",
+            city: "",
+            profession: "",
+            income: "",
+            avatar: "",
+          };
+    } catch {
+      return {
+        name: "",
+        age: "",
+        city: "",
+        profession: "",
+        income: "",
+        avatar: "",
+      };
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem("alis_profile", JSON.stringify(profile));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
   }, [profile]);
 
   return (
@@ -28,9 +42,9 @@ export function UserProvider({ children }) {
 }
 
 export function useUser() {
-  const ctx = useContext(UserContext);
-  if (!ctx) {
+  const context = useContext(UserContext);
+  if (!context) {
     throw new Error("useUser must be used inside UserProvider");
   }
-  return ctx;
+  return context;
 }
