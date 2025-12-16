@@ -1,50 +1,41 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import ProfileHeader from "../components/profile/ProfileHeader";
-import ProfileDetailsCard from "../components/profile/ProfileDetailsCard";
-import ProfileProgress from "../components/profile/ProfileProgress";
-import ProfileStats from "../components/profile/ProfileStats";
-import ProfileActivity from "../components/profile/ProfileActivity";
-
-const STORAGE_KEY = "alis-profile";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
-  const [profile, setProfile] = useState(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved
-      ? JSON.parse(saved)
-      : {
-          name: "Aanchal Yadav",
-          age: "20",
-          city: "Indore",
-          profession: "Computer Science Student",
-          income: "—",
-        };
-  });
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-  }, [profile]);
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-10 text-white"
-    >
-      <ProfileHeader profile={profile} />
+    <div className="min-h-screen pt-24 px-6 text-white">
+      <div className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur">
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <ProfileProgress profile={profile} />
-        <ProfileStats profile={profile} />
+        <h2 className="text-xl font-semibold mb-4">Profile</h2>
+
+        <div className="space-y-2 text-white/80">
+          <p><span className="text-white/50">Name:</span> {user.name}</p>
+          {user.email && (
+            <p><span className="text-white/50">Email:</span> {user.email}</p>
+          )}
+          {user.guest && (
+            <p className="text-yellow-400 text-sm">Guest Session</p>
+          )}
+        </div>
+
+        <button
+          onClick={() => {
+            logout();
+            navigate("/");
+          }}
+          className="mt-6 w-full py-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white transition"
+        >
+          Logout
+        </button>
       </div>
-
-      <ProfileDetailsCard
-        profile={profile}
-        setProfile={setProfile}
-      />
-
-      <ProfileActivity />
-    </motion.div>
+    </div>
   );
 }
