@@ -1,13 +1,15 @@
-export function intentAgent(input) {
-  let intent = "general";
+// src/components/agents/IntentAgent.js
 
-  if (/education|college|study/i.test(input)) intent = "education";
-  else if (/home|house|property/i.test(input)) intent = "home";
-  else if (/business|startup/i.test(input)) intent = "business";
-  else if (/car|vehicle/i.test(input)) intent = "vehicle";
+export function detectIntent(input) {
+  if (!input) return "unknown";
 
-  return {
-    intent,
-    log: `Intent Agent classified request as ${intent} loan`,
-  };
+  const text = input.toLowerCase();
+
+  if (text.includes("education")) return "education_loan";
+  if (text.includes("home")) return "home_loan";
+  if (text.includes("business")) return "business_loan";
+  if (text.includes("vehicle")) return "vehicle_loan";
+  if (text.includes("personal")) return "personal_loan";
+
+  return "general_loan";
 }
