@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -10,10 +11,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function handleSubmit(e) {
+  function submit(e) {
     e.preventDefault();
     try {
-      await login(email, password);
+      login({ email, password });
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
@@ -21,34 +22,50 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen pt-28 flex justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4"
+    <div className="min-h-screen flex items-center justify-center bg-[#05060a] px-4">
+      <motion.form
+        onSubmit={submit}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md rounded-2xl bg-white/5 border border-white/10 p-8 backdrop-blur"
       >
-        <h1 className="text-xl font-semibold text-white">Login</h1>
+        <h1 className="text-2xl font-semibold text-white mb-6">
+          Login to ALIS
+        </h1>
 
-        {error && <p className="text-red-400 text-sm">{error}</p>}
+        {error && (
+          <p className="text-red-400 text-sm mb-3">{error}</p>
+        )}
 
         <input
-          className="w-full p-3 rounded-lg bg-black/40 text-white border border-white/10"
+          required
+          type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="w-full mb-4 rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-white outline-none"
         />
 
         <input
+          required
           type="password"
-          className="w-full p-3 rounded-lg bg-black/40 text-white border border-white/10"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="w-full mb-6 rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-white outline-none"
         />
 
-        <button className="w-full py-3 rounded-xl bg-cyan-500 text-black font-semibold">
+        <button
+          type="submit"
+          className="w-full py-3 rounded-xl bg-cyan-500 text-black font-semibold hover:bg-cyan-400 transition"
+        >
           Login
         </button>
-      </form>
+
+        <p className="text-xs text-white/50 mt-4">
+          Demo login: yadavaanchal2005@gmail.com / Aanchal@123
+        </p>
+      </motion.form>
     </div>
   );
 }
