@@ -15,11 +15,34 @@ import {
 } from "react-icons/si";
 import { BsCpuFill, BsDiagram3Fill, BsStars } from "react-icons/bs";
 
-import {
-  fadeUp,
-  staggerContainer,
-  cardFade
-} from "../animationVariants";
+/* ================= ANIMATION VARIANTS (INLINE) ================= */
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" }
+  }
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const cardFade = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
+/* ================= COMPONENT ================= */
 
 export default function About() {
   return (
@@ -44,9 +67,8 @@ export default function About() {
           </p>
 
           <p className="text-white/50 max-w-3xl mx-auto">
-            ALIS does not replace banks — it explains their logic.  
-            It combines machine learning models with independent AI agents
-            to produce transparent, auditable, and user-trustworthy decisions.
+            ALIS combines machine learning models with independent AI agents to
+            make lending decisions transparent, explainable, and trustworthy.
           </p>
 
           <p className="text-white/40 italic">
@@ -78,9 +100,8 @@ export default function About() {
           </p>
 
           <p className="text-white/60 max-w-3xl mx-auto">
-            We don’t build demos that hide complexity.  
-            We build systems that expose reasoning, reduce bias,
-            and help users understand decisions that impact their lives.
+            We don’t build flashy demos. We build systems that justify decisions,
+            reduce bias, and help users understand outcomes that affect their lives.
           </p>
         </motion.section>
 
@@ -106,7 +127,7 @@ export default function About() {
               {
                 icon: <BsDiagram3Fill />,
                 title: "AI Agents",
-                desc: "Eligibility, Risk & Readiness analysis"
+                desc: "Eligibility, risk & readiness agents"
               },
               {
                 icon: <SiTensorflow />,
@@ -148,14 +169,14 @@ export default function About() {
           </h2>
 
           <p className="text-white/70 max-w-4xl mx-auto text-lg">
-            ALIS processes user data through independent AI agents,
-            each responsible for a single decision dimension.
+            ALIS processes user data through independent AI agents.
+            Each agent evaluates one decision dimension such as intent,
+            eligibility, risk, or document readiness.
           </p>
 
           <p className="text-white/60 max-w-4xl mx-auto">
-            Outputs are cross-validated using machine learning models,
-            combined into a final decision, and presented with
-            transparent reasoning, risk indicators, and actionable next steps.
+            Agent outputs are cross-validated using ML models and merged into a
+            final explainable decision with scores, reasoning, and next steps.
           </p>
         </motion.section>
 
@@ -185,9 +206,8 @@ export default function About() {
               <motion.div
                 key={i}
                 variants={cardFade}
-                whileHover={{ scale: 1.15, rotateX: 8, rotateY: -8 }}
-                className="rounded-2xl bg-gradient-to-br from-white/10 to-white/5
-                           border border-white/10 p-6 text-center space-y-3 shadow-xl"
+                whileHover={{ scale: 1.12 }}
+                className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center space-y-3"
               >
                 <div className="text-5xl text-cyan-400 mx-auto">
                   {tech.icon}
