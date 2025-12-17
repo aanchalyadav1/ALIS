@@ -1,30 +1,54 @@
 import { motion } from "framer-motion";
-import { FaUserCheck, FaBrain, FaShieldAlt, FaFileAlt } from "react-icons/fa";
+import {
+  FaUserCheck,
+  FaFileAlt,
+  FaShieldAlt,
+  FaBrain,
+} from "react-icons/fa";
 
-const agents = [
-  { icon: FaUserCheck, name: "Intent Agent", desc: "Understands user goal & loan intent" },
-  { icon: FaFileAlt, name: "Document Agent", desc: "Checks document readiness & gaps" },
-  { icon: FaShieldAlt, name: "Risk Agent", desc: "Evaluates credit & repayment risk" },
-  { icon: FaBrain, name: "Decision Agent", desc: "Generates final insights & guidance" },
+const flow = [
+  {
+    icon: FaUserCheck,
+    title: "Intent Agent",
+    desc: "Understands loan intent, profile & user goal",
+  },
+  {
+    icon: FaFileAlt,
+    title: "Document Agent",
+    desc: "Analyzes document readiness & missing proofs",
+  },
+  {
+    icon: FaShieldAlt,
+    title: "Risk Agent",
+    desc: "Evaluates repayment risk & stability signals",
+  },
+  {
+    icon: FaBrain,
+    title: "Decision Agent",
+    desc: "Generates explainable guidance & next steps",
+  },
 ];
 
 export default function AgentFlow() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-      {agents.map((agent, i) => (
+    <div className="space-y-6">
+      {flow.map((step, i) => (
         <motion.div
-          key={agent.name}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.15 }}
+          key={step.title}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: i * 0.2 }}
           viewport={{ once: true }}
-          className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center"
+          className="flex items-start gap-4 rounded-xl bg-white/5 border border-white/10 p-5"
         >
-          <div className="h-12 w-12 mx-auto mb-4 flex items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400">
-            <agent.icon size={24} />
+          <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400">
+            <step.icon size={20} />
           </div>
-          <h3 className="text-white font-medium">{agent.name}</h3>
-          <p className="text-sm text-white/60 mt-2">{agent.desc}</p>
+
+          <div>
+            <h4 className="text-white font-medium">{step.title}</h4>
+            <p className="text-sm text-white/60">{step.desc}</p>
+          </div>
         </motion.div>
       ))}
     </div>
