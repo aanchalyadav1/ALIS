@@ -3,14 +3,14 @@ import TechCard from "./TechCard";
 import {
   FaReact,
   FaNodeJs,
-  FaPython
+  FaPython,
 } from "react-icons/fa";
 import {
   SiVite,
   SiTailwindcss,
   SiFirebase,
   SiExpress,
-  SiTensorflow
+  SiTensorflow,
 } from "react-icons/si";
 import { staggerContainer } from "../../animationVariants";
 
