@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -31,22 +32,30 @@ export default function Profile() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8 text-white"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="min-h-screen bg-[#0b0f14] text-white"
     >
-      <ProfileHeader profile={profile} />
+      <div className="max-w-6xl mx-auto px-4 pt-24 pb-16 space-y-8">
+        {/* HEADER */}
+        <ProfileHeader profile={profile} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <ProfileProgress profile={profile} />
-        <ProfileStats profile={profile} />
+        {/* PROGRESS + STATS */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <ProfileProgress profile={profile} />
+          <ProfileStats profile={profile} />
+        </div>
+
+        {/* EDITABLE DETAILS */}
+        <ProfileDetailsCard profile={profile} setProfile={setProfile} />
+
+        {/* AI INSIGHTS */}
+        <ProfileInsights profile={profile} />
+
+        {/* ACTIVITY */}
+        <ProfileActivity />
       </div>
-
-      <ProfileDetailsCard profile={profile} setProfile={setProfile} />
-
-      <ProfileInsights profile={profile} />
-
-      <ProfileActivity />
     </motion.div>
   );
-    }
+}
