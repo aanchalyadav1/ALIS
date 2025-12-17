@@ -1,86 +1,61 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-16 
-                    bg-black/70 backdrop-blur border-b border-white/10">
-      <div className="max-w-7xl mx-auto h-full px-4 
-                      flex items-center justify-between">
-
+    <nav className="fixed top-0 left-0 w-full z-50 bg-[#0b0f14] border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* LOGO */}
-        <div
-          onClick={() => navigate("/")}
-          className="flex items-center gap-3 cursor-pointer"
-        >
-          <img
-            src="/team_logo.png"
-            alt="VisionCoders"
-            className="h-8 w-auto"
-          />
-          <span className="text-white font-semibold tracking-wide">
-            ALIS
-          </span>
-        </div>
+        <Link to="/" className="flex items-center gap-2">
+          <img src="/team_logo.png" alt="Team Logo" className="h-8 w-8" />
+          <span className="text-lg font-semibold text-white">ALIS</span>
+        </Link>
 
-        {/* NAV */}
-        <div className="flex items-center gap-6 text-sm">
+        {/* LINKS */}
+        <div className="hidden md:flex items-center gap-6 text-sm">
+          <NavLink to="/" className="text-white/70 hover:text-white">Home</NavLink>
+          <NavLink to="/chat" className="text-white/70 hover:text-white">Chat</NavLink>
+          <NavLink to="/documents" className="text-white/70 hover:text-white">Documents</NavLink>
+          <NavLink to="/dashboard" className="text-white/70 hover:text-white">Dashboard</NavLink>
 
-          <NavLink to="/" className="nav-link">Home</NavLink>
-          <NavLink to="/about" className="nav-link">About</NavLink>
-
-          {user && (
+          {!user && (
             <>
-              <NavLink to="/chat" className="nav-link">Chat</NavLink>
-              <NavLink to="/documents" className="nav-link">Documents</NavLink>
-              <NavLink to="/dashboard" className="nav-link">Dashboard</NavLink>
+              <NavLink to="/login" className="text-cyan-400">Login</NavLink>
+              <NavLink
+                to="/register"
+                className="px-4 py-1.5 rounded-lg bg-cyan-500 text-black font-medium"
+              >
+                Create Account
+              </NavLink>
             </>
           )}
 
-          {!user ? (
-            <>
-              <button
-                onClick={() => navigate("/login")}
-                className="px-4 py-2 rounded-lg 
-                           border border-white/20 text-white/80
-                           hover:border-white/40 transition"
-              >
-                Login
-              </button>
-
-              <button
-                onClick={() => navigate("/register")}
-                className="px-4 py-2 rounded-lg 
-                           bg-cyan-500 text-black font-medium
-                           hover:bg-cyan-400 transition"
-              >
-                Create Account
-              </button>
-            </>
-          ) : (
+          {user && (
             <div className="relative group">
-              <button className="px-4 py-2 rounded-lg 
-                                 bg-white/10 text-white">
-                Profile
+              <button className="flex items-center gap-2 text-white">
+                <div className="h-8 w-8 rounded-full bg-cyan-500 flex items-center justify-center text-black font-semibold">
+                  {user.name?.[0] || "U"}
+                </div>
               </button>
 
-              <div className="absolute right-0 mt-2 w-40 
-                              bg-black border border-white/10 
-                              rounded-lg hidden group-hover:block">
-                <button
-                  onClick={() => navigate("/profile")}
-                  className="w-full text-left px-4 py-2 
-                             hover:bg-white/10 text-sm"
+              <div className="absolute right-0 mt-2 w-40 bg-[#111827] rounded-xl border border-white/10 shadow-lg hidden group-hover:block">
+                <NavLink
+                  to="/profile"
+                  className="block px-4 py-2 text-sm text-white/80 hover:bg-white/10"
                 >
                   View Profile
-                </button>
+                </NavLink>
                 <button
-                  onClick={logout}
-                  className="w-full text-left px-4 py-2 
-                             hover:bg-white/10 text-sm text-red-400"
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10"
                 >
                   Logout
                 </button>
