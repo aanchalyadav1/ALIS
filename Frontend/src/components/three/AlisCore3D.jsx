@@ -1,5 +1,7 @@
+
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
+import { motion } from "framer-motion";
 
 function Core() {
   return (
@@ -8,45 +10,45 @@ function Core() {
       <meshStandardMaterial
         color="#22d3ee"
         emissive="#22d3ee"
-        emissiveIntensity={0.6}
-        roughness={0.2}
+        emissiveIntensity={0.4}
       />
     </mesh>
   );
 }
 
-function AgentNode({ position }) {
+function Agent({ position, color }) {
   return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-      <mesh position={position}>
-        <sphereGeometry args={[0.15, 32, 32]} />
-        <meshStandardMaterial
-          color="#67e8f9"
-          emissive="#67e8f9"
-          emissiveIntensity={1}
-        />
-      </mesh>
-    </Float>
+    <mesh position={position}>
+      <sphereGeometry args={[0.25, 32, 32]} />
+      <meshStandardMaterial color={color} />
+    </mesh>
   );
 }
 
 export default function AlisCore3D() {
   return (
-    <div className="w-full h-[420px] rounded-3xl overflow-hidden border border-cyan-400/20 bg-black">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[5, 5, 5]} intensity={2} />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="w-full h-[320px] md:h-[420px] rounded-2xl overflow-hidden bg-black/40 border border-white/10"
+    >
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+        <ambientLight intensity={0.6} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} />
 
+        {/* ALIS CORE */}
         <Core />
 
-        {/* Agent Nodes */}
-        <AgentNode position={[2, 0, 0]} />
-        <AgentNode position={[-2, 0, 0]} />
-        <AgentNode position={[0, 2, 0]} />
-        <AgentNode position={[0, -2, 0]} />
+        {/* AGENTS */}
+        <Agent position={[2, 0, 0]} color="#38bdf8" />
+        <Agent position={[-2, 0, 0]} color="#22c55e" />
+        <Agent position={[0, 2, 0]} color="#facc15" />
+        <Agent position={[0, -2, 0]} color="#f97316" />
 
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
+        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.8} />
       </Canvas>
-    </div>
+    </motion.div>
   );
 }
