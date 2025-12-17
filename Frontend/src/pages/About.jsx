@@ -1,47 +1,9 @@
-// animationVariants.js (optional, or inline)
-
-export const sectionFade = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: "easeOut" }
-  }
-};
-
-export const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 }
-  }
-};
-
-export const cardFade = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 }
-  }
-};
-
-export const floatAnimation = {
-  animate: {
-    y: [0, -6, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
-  }
-};
-
-
 import { motion } from "framer-motion";
 import AlisCore3D from "../components/about/AlisCore3D";
 import VisionCoders from "../components/about/VisionCoders";
 import AgentFlow from "../components/about/AgentFlow";
 import TechnologyStack from "../components/about/TechnologyStack";
+
 import { sectionFade } from "../animationVariants";
 
 export default function About() {
@@ -71,7 +33,7 @@ export default function About() {
           </p>
         </motion.section>
 
-        {/* ALIS CORE */}
+        {/* 3D CORE */}
         <AlisCore3D />
 
         {/* VISIONCODERS */}
@@ -80,7 +42,7 @@ export default function About() {
         {/* HOW ALIS WORKS */}
         <AgentFlow />
 
-        {/* TECH STACK */}
+        {/* TECHNOLOGY STACK */}
         <TechnologyStack />
 
       </div>
