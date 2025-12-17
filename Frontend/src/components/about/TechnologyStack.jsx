@@ -12,12 +12,12 @@ import {
   SiExpress,
   SiTensorflow
 } from "react-icons/si";
-import { stagger } from "../../animationVariants";
+import { staggerContainer } from "../../animationVariants";
 
 export default function TechnologyStack() {
   return (
     <motion.section
-      variants={stagger}
+      variants={staggerContainer}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
@@ -72,4 +72,3 @@ export default function TechnologyStack() {
     </motion.section>
   );
 }
-
