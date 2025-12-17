@@ -1,30 +1,19 @@
-export default function RiskChart() {
-  const risks = [
-    { label: "Low Risk", value: 55, color: "bg-emerald-400" },
-    { label: "Medium Risk", value: 27, color: "bg-yellow-400" },
-    { label: "High Risk", value: 18, color: "bg-red-400" },
-  ];
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 
+export default function RiskChart({ data }) {
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <h2 className="text-lg font-medium mb-4">
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 h-[320px]">
+      <h3 className="text-sm text-white/70 mb-4">
         Credit Risk Classification
-      </h2>
+      </h3>
 
-      {risks.map((r) => (
-        <div key={r.label} className="mb-3">
-          <div className="flex justify-between text-sm text-white/70">
-            <span>{r.label}</span>
-            <span>{r.value}%</span>
-          </div>
-          <div className="h-2 bg-white/10 rounded mt-1">
-            <div
-              className={`h-2 ${r.color} rounded`}
-              style={{ width: `${r.value}%` }}
-            />
-          </div>
-        </div>
-      ))}
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={data}>
+          <XAxis dataKey="label" />
+          <Tooltip />
+          <Bar dataKey="value" fill="#38bdf8" radius={[8, 8, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
   );
 }
