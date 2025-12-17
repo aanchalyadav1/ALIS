@@ -1,23 +1,13 @@
 export default function ProfileActivity() {
-  const demo = [
-    "Viewed education loan options",
-    "Uploaded PAN document",
-    "Checked loan readiness score",
-    "Explored home loan eligibility",
-  ];
-
   return (
-    <div className="rounded-2xl border border-white/10
-                    bg-white/5 p-6">
-      <h2 className="text-lg font-medium mb-4">
-        Recent Activity
-      </h2>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+      <h3 className="text-lg font-medium mb-3">Recent Activity</h3>
 
-      <ul className="space-y-2 text-sm text-white/70">
-        {demo.map((item, i) => (
-          <li key={i}>• {item}</li>
-        ))}
-      </ul>
+      <div className="text-sm text-white/60 space-y-2">
+        <div>• Viewed Education Loan guidance</div>
+        <div>• Checked readiness score</div>
+        <div>• Explored sanction estimates</div>
+      </div>
     </div>
   );
 }
