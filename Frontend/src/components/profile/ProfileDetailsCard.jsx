@@ -4,47 +4,28 @@ export default function ProfileDetailsCard({ profile, setProfile }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10
-                    bg-white/5 p-6 space-y-4">
-      <h2 className="text-lg font-medium">
-        Personal Information
-      </h2>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-4">
+      <h3 className="text-lg font-medium">Personal Details</h3>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input label="Full Name" value={profile.name}
-               onChange={(v) => update("name", v)} />
+      {[
+        ["name", "Full Name"],
+        ["age", "Age"],
+        ["city", "City"],
+        ["profession", "Profession"],
+        ["loanPreference", "Loan Preference"],
+      ].map(([key, label]) => (
+        <input
+          key={key}
+          value={profile[key]}
+          onChange={(e) => update(key, e.target.value)}
+          placeholder={label}
+          className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm outline-none focus:border-cyan-400/40"
+        />
+      ))}
 
-        <Input label="Age" value={profile.age}
-               onChange={(v) => update("age", v)} />
-
-        <Input label="City" value={profile.city}
-               onChange={(v) => update("city", v)} />
-
-        <Input label="Profession" value={profile.profession}
-               onChange={(v) => update("profession", v)} />
-
-        <Input label="Monthly Income (₹)"
-               value={profile.income}
-               onChange={(v) => update("income", v)} />
-      </div>
-    </div>
-  );
-}
-
-function Input({ label, value, onChange }) {
-  return (
-    <div>
-      <label className="text-xs text-white/50">
-        {label}
-      </label>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-1 w-full px-3 py-2 rounded-lg
-                   bg-black/40 border border-white/10
-                   text-white text-sm
-                   focus:border-cyan-400 outline-none"
-      />
+      <p className="text-xs text-white/40">
+        Changes are saved locally (demo mode).
+      </p>
     </div>
   );
 }
