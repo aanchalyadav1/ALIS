@@ -1,81 +1,48 @@
-
 import { motion } from "framer-motion";
 import {
-  Cpu,
-  Brain,
-  ShieldCheck,
-  Server,
-  LayoutDashboard,
-  Users,
-  Network,
-  Sparkles,
-} from "lucide-react";
+  FaReact,
+  FaNodeJs,
+  FaShieldAlt,
+  FaBrain,
+} from "react-icons/fa";
+import {
+  SiVite,
+  SiTailwindcss,
+  SiFirebase,
+  SiExpress,
+  SiPython,
+  SiScikitlearn,
+} from "react-icons/si";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
+import AgentFlow from "../components/about/AgentFlow";
+import MLCredibility from "../components/about/MLCredibility";
+import VisionCoders from "../components/about/VisionCoders";
 
 export default function About() {
   return (
-    <div className="pt-24 pb-20 px-4 max-w-7xl mx-auto text-white space-y-24">
+    <div className="max-w-7xl mx-auto px-4 pt-24 pb-20 space-y-24 text-white">
 
-      {/* ================= WHAT IS ALIS ================= */}
+      {/* WHAT IS ALIS */}
       <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-6"
       >
-        <h1 className="text-4xl md:text-5xl font-bold">
+        <h1 className="text-4xl font-bold">
           What is <span className="text-cyan-400">ALIS</span>?
         </h1>
-
-        <p className="max-w-3xl mx-auto text-white/70 text-lg">
-          <b>ALIS (Agentic Loan Intelligence System)</b> is an AI-powered decision
+        <p className="max-w-3xl mx-auto text-white/70">
+          ALIS (Agentic Loan Intelligence System) is an AI-powered decision
           intelligence platform that helps users understand loan eligibility,
-          risk, documentation readiness, and approval outcomes <b>before</b>
-          applying.
-        </p>
-
-        <p className="max-w-2xl mx-auto text-white/60">
-          It combines Machine Learning, Agent-based AI reasoning, and explainable
-          insights to eliminate uncertainty in lending decisions.
+          risk, documentation readiness, and approval outcomes before applying.
         </p>
       </motion.section>
 
-      {/* ================= WHO ARE VISIONCODERS ================= */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
-        className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center"
-      >
-        <Users className="mx-auto text-cyan-400 mb-4" size={48} />
-        <h2 className="text-3xl font-semibold">
-          Who are <span className="text-cyan-400">VisionCoders</span>?
-        </h2>
+      {/* WHO ARE VISIONCODERS */}
+      <VisionCoders />
 
-        <p className="mt-6 max-w-3xl mx-auto text-white/70">
-          VisionCoders is a student-led AI and technology innovation team focused
-          on building <b>real-world, explainable, and scalable systems</b>.
-        </p>
-
-        <p className="mt-4 max-w-2xl mx-auto text-white/60">
-          We believe AI should guide users clearly — not overwhelm them with
-          black-box complexity. ALIS represents our commitment to ethical,
-          transparent, and impact-driven AI.
-        </p>
-
-        <div className="mt-6 text-cyan-400 font-medium">
-          “We don’t build demos — we build decision systems.”
-        </div>
-      </motion.section>
-
-      {/* ================= HOW ALIS WORKS ================= */}
-      <section className="space-y-10">
+      {/* HOW ALIS WORKS */}
+      <section className="space-y-8">
         <h2 className="text-3xl font-semibold text-center">
           How <span className="text-cyan-400">ALIS</span> Works
         </h2>
@@ -83,112 +50,108 @@ export default function About() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
-              icon: LayoutDashboard,
               title: "User Intelligence",
-              desc: "User profile, income signals, intent & documents captured securely",
+              desc: "User profile, income signals & intent captured securely",
             },
             {
-              icon: Brain,
               title: "Agentic AI Layer",
               desc: "Independent AI agents analyze eligibility, risk & readiness",
             },
             {
-              icon: Sparkles,
               title: "Decision Intelligence",
-              desc: "Clear scores, insights & next-step recommendations",
+              desc: "Clear scores, insights & next-step guidance",
             },
           ].map((item, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
-              className="rounded-2xl bg-[#0f172a] border border-white/10 p-6"
+              className="rounded-2xl bg-white/5 border border-white/10 p-6"
             >
-              <item.icon className="text-cyan-400 mb-4" size={32} />
-              <h3 className="text-lg font-medium">{item.title}</h3>
+              <h3 className="text-white font-medium">{item.title}</h3>
               <p className="text-sm text-white/60 mt-2">{item.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ================= ARCHITECTURE (ANIMATED) ================= */}
-      <section className="space-y-12">
+      {/* AGENT FLOW (OPTION 2) */}
+      <section className="space-y-8">
         <h2 className="text-3xl font-semibold text-center">
-          System <span className="text-cyan-400">Architecture</span>
+          AI Agent Execution Flow
         </h2>
+        <AgentFlow />
+      </section>
+
+      {/* ARCHITECTURE */}
+      <section className="space-y-8">
+        <h2 className="text-3xl font-semibold text-center">System Architecture</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
-            {
-              icon: LayoutDashboard,
-              title: "Frontend",
-              tech: "React · Vite · Tailwind · Framer Motion",
-            },
-            {
-              icon: Server,
-              title: "Backend",
-              tech: "Node.js · Express · REST APIs",
-            },
-            {
-              icon: Cpu,
-              title: "ML & AI",
-              tech: "Eligibility Model · Risk Scoring · AI Agents",
-            },
-            {
-              icon: ShieldCheck,
-              title: "Security",
-              tech: "Auth · Secure Storage · Session Isolation",
-            },
-          ].map((layer, i) => (
+            { icon: FaReact, title: "Frontend", desc: "React • Vite • Tailwind" },
+            { icon: FaNodeJs, title: "Backend", desc: "Node.js • Express APIs" },
+            { icon: FaBrain, title: "ML & AI", desc: "Eligibility • Risk • Agents" },
+            { icon: FaShieldAlt, title: "Security", desc: "Auth • Storage • Isolation" },
+          ].map((item, i) => (
             <motion.div
-              key={i}
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ delay: i * 0.15 }}
+              key={item.title}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="relative rounded-2xl bg-gradient-to-br from-[#0b1220] to-[#020617] border border-white/10 p-6 text-center"
+              className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center"
             >
-              <layer.icon className="mx-auto text-cyan-400 mb-4" size={36} />
-              <h3 className="font-medium">{layer.title}</h3>
-              <p className="text-xs text-white/60 mt-2">{layer.tech}</p>
+              <item.icon className="mx-auto text-cyan-400" size={28} />
+              <h4 className="mt-3 text-white font-medium">{item.title}</h4>
+              <p className="text-sm text-white/60 mt-1">{item.desc}</p>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-6 text-center text-white/60 text-sm"
-        >
-          Modular · Scalable · RBI-aware · Hackathon-ready
-        </motion.div>
       </section>
 
-      {/* ================= WHY ALIS ================= */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeUp}
-        className="rounded-3xl bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-white/10 p-10 text-center"
-      >
-        <Network className="mx-auto text-cyan-400 mb-4" size={48} />
-        <h2 className="text-3xl font-semibold">Why ALIS Matters</h2>
+      {/* ML CREDIBILITY */}
+      <MLCredibility />
 
-        <p className="mt-4 max-w-3xl mx-auto text-white/70">
-          Millions of loan applications fail due to poor awareness, unclear
-          eligibility rules, and incomplete documentation. ALIS empowers users
-          with clarity <b>before rejection happens</b>.
-        </p>
+      {/* TECHNOLOGY STACK */}
+      <section className="space-y-8">
+        <h2 className="text-3xl font-semibold text-center">
+          Technology Stack
+        </h2>
 
-        <p className="mt-4 text-white/60">
-          ALIS is not just a tool — it’s a <b>decision companion</b>.
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+          {[
+            { icon: FaReact, name: "React" },
+            { icon: SiVite, name: "Vite" },
+            { icon: SiTailwindcss, name: "Tailwind CSS" },
+            { icon: FaNodeJs, name: "Node.js" },
+            { icon: SiExpress, name: "Express" },
+            { icon: SiFirebase, name: "Firebase" },
+            { icon: SiPython, name: "Python" },
+            { icon: SiScikitlearn, name: "Scikit-learn" },
+          ].map((tech) => (
+            <div
+              key={tech.name}
+              className="rounded-xl bg-white/5 border border-white/10 p-5 text-center hover:border-cyan-400/40 transition"
+            >
+              <tech.icon className="mx-auto text-cyan-400" size={30} />
+              <p className="mt-2 text-sm text-white/70">{tech.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHY ALIS */}
+      <section className="text-center space-y-4">
+        <h2 className="text-3xl font-semibold">
+          Why <span className="text-cyan-400">ALIS</span> Matters
+        </h2>
+        <p className="max-w-3xl mx-auto text-white/70">
+          ALIS reduces uncertainty in lending by making decisions explainable,
+          risk-aware, and user-centric — especially for first-time borrowers.
         </p>
-      </motion.section>
+      </section>
     </div>
   );
-}
+      }
