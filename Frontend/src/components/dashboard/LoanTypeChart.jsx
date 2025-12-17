@@ -1,32 +1,24 @@
-export default function LoanTypeChart() {
-  const data = [
-    { label: "Education", value: 30 },
-    { label: "Home", value: 25 },
-    { label: "Personal", value: 20 },
-    { label: "Business", value: 15 },
-    { label: "Vehicle", value: 10 },
-  ];
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
+const COLORS = ["#38bdf8", "#22c55e", "#facc15", "#fb7185", "#a78bfa"];
+
+export default function LoanTypeChart({ data }) {
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <h2 className="text-lg font-medium mb-4">
-        Loan Type Demand Distribution
-      </h2>
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 h-[320px]">
+      <h3 className="text-sm text-white/70 mb-4">
+        Loan Demand Distribution
+      </h3>
 
-      {data.map((d) => (
-        <div key={d.label} className="mb-3">
-          <div className="flex justify-between text-sm text-white/70">
-            <span>{d.label}</span>
-            <span>{d.value}%</span>
-          </div>
-          <div className="h-2 bg-white/10 rounded mt-1">
-            <div
-              className="h-2 bg-cyan-400 rounded"
-              style={{ width: `${d.value}%` }}
-            />
-          </div>
-        </div>
-      ))}
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie data={data} dataKey="value" innerRadius={60} outerRadius={100}>
+            {data.map((_, i) => (
+              <Cell key={i} fill={COLORS[i % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
     </div>
   );
 }
