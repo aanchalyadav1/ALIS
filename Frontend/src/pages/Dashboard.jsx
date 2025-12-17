@@ -1,63 +1,54 @@
-import { motion } from "framer-motion";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 
+import { motion } from "framer-motion";
+
+/* COMPONENTS */
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import StatGrid from "../components/dashboard/StatGrid";
-import ReadinessMeter from "../components/dashboard/ReadinessMeter";
 import LoanTypeChart from "../components/dashboard/LoanTypeChart";
 import RiskChart from "../components/dashboard/RiskChart";
-import RecentActivity from "../components/dashboard/RecentActivity";
-import NextSteps from "../components/dashboard/NextSteps";
+import ReadinessMeter from "../components/dashboard/ReadinessMeter";
 import ActivityFeed from "../components/dashboard/ActivityFeed";
+import DocumentReadiness from "../components/dashboard/DocumentReadiness";
+import AISummary from "../components/dashboard/AISummary";
 
 /**
- * DEMO-FIRST GLOBAL DASHBOARD (ENHANCED)
- * -------------------------------------
- * • No LoanSessionContext dependency
- * • Uses Indian banking-style demo data
- * • Rich charts + existing components
- * • Dark UI (no visibility issues)
+ * GLOBAL SYSTEM DASHBOARD (DEMO MODE)
+ * ----------------------------------
+ * ✔ No auth dependency
+ * ✔ No LoanSessionContext
+ * ✔ No agent execution
+ * ✔ 100% safe for deployment
  */
 
-const eligibilityPie = [
-  { name: "Eligible", value: 78 },
-  { name: "Risk Gap", value: 22 },
-];
-
-const riskBars = [
-  { name: "Income Stability", value: 80 },
-  { name: "Credit History", value: 65 },
-  { name: "Debt Ratio", value: 55 },
-  { name: "Employment", value: 72 },
-];
-
-const PIE_COLORS = ["#22d3ee", "#334155"];
-
 export default function Dashboard() {
-  // 🔒 HARD-CODED DEMO SESSION (SAFE FOR JUDGES)
-  const demoSession = {
-    intent: "Education Loan",
-    risk: "Medium",
-    eligibility: true,
-    readinessScore: 78,
-    activityLog: [
-      { agent: "IntentAgent", message: "Education loan intent detected" },
-      { agent: "RiskAgent", message: "Medium risk based on profile signals" },
-      { agent: "EligibilityAgent", message: "Eligible for student lending schemes" },
-      { agent: "SanctionAgent", message: "Provisional sanction generated" },
-      { agent: "ReadinessAgent", message: "Readiness score computed at 78%" },
-    ],
+  /* 🔐 DEMO DATA — SYSTEM LEVEL */
+  const demoStats = {
+    loanRequests: "1.28M",
+    eligibilityRate: "62%",
+    avgLoan: "₹9.4L",
+    highRisk: "18%",
   };
+
+  const loanDistribution = [
+    { name: "Education", value: 32 },
+    { name: "Home", value: 28 },
+    { name: "Personal", value: 18 },
+    { name: "Business", value: 14 },
+    { name: "Vehicle", value: 8 },
+  ];
+
+  const riskData = [
+    { label: "Low Risk", value: 54 },
+    { label: "Medium Risk", value: 28 },
+    { label: "High Risk", value: 18 },
+  ];
+
+  const activityLog = [
+    { agent: "IntentAgent", message: "Education loan demand increased by 12%" },
+    { agent: "RiskAgent", message: "High-risk profiles rose in unsecured loans" },
+    { agent: "EligibilityAgent", message: "62% applications met base criteria" },
+    { agent: "SanctionAgent", message: "Avg sanction ₹9.4L this week" },
+  ];
 
   return (
     <motion.div
@@ -70,90 +61,30 @@ export default function Dashboard() {
         {/* HEADER */}
         <DashboardHeader />
 
-        {/* TOP STATS (YOUR COMPONENT) */}
-        <StatGrid session={demoSession} />
+        {/* KPI STRIP */}
+        <StatGrid stats={demoStats} />
 
-        {/* READINESS + RISK */}
+        {/* CHARTS ROW */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ReadinessMeter score={demoSession.readinessScore} />
-          <RiskChart risk={demoSession.risk} />
+          <LoanTypeChart data={loanDistribution} />
+          <RiskChart data={riskData} />
         </div>
 
-        {/* NEW — ELIGIBILITY PIE + RISK BAR */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card title="Eligibility Overview">
-            <ResponsiveContainer width="100%" height={260}>
-              <PieChart>
-                <Pie
-                  data={eligibilityPie}
-                  innerRadius={70}
-                  outerRadius={100}
-                  paddingAngle={4}
-                  dataKey="value"
-                >
-                  {eligibilityPie.map((_, i) => (
-                    <Cell key={i} fill={PIE_COLORS[i]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-            <p className="text-center text-xs text-white/60 mt-2">
-              Overall eligibility strength
-            </p>
-          </Card>
-
-          <Card title="Credit Risk Classification">
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={riskBars}>
-                <XAxis
-                  dataKey="name"
-                  tick={{ fill: "#94a3b8", fontSize: 12 }}
-                />
-                <YAxis />
-                <Tooltip />
-                <Bar
-                  dataKey="value"
-                  fill="#22d3ee"
-                  radius={[6, 6, 0, 0]}
-                />
-              </BarChart>
-            </ResponsiveContainer>
-          </Card>
+        {/* SYSTEM HEALTH */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <ReadinessMeter score={62} />
+          <DocumentReadiness />
+          <AISummary />
         </div>
 
-        {/* LOAN DEMAND + NEXT STEPS (YOUR COMPONENTS) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <LoanTypeChart intent={demoSession.intent} />
-          <NextSteps
-            eligibility={demoSession.eligibility}
-            readinessScore={demoSession.readinessScore}
-          />
-        </div>
+        {/* ACTIVITY */}
+        <ActivityFeed logs={activityLog} />
 
-        {/* ACTIVITY + AI TRACE */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <RecentActivity activity={demoSession.activityLog} />
-          <ActivityFeed logs={demoSession.activityLog} />
+        {/* FOOTER TRUST */}
+        <div className="text-xs text-white/50 text-center pt-6">
+          Data shown is anonymized & simulated for demo purposes · RBI-aligned logic
         </div>
       </div>
     </motion.div>
   );
 }
-
-/* ---------------- UI CARD ---------------- */
-
-function Card({ title, children }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur"
-    >
-      <h2 className="text-sm uppercase tracking-wider text-white/50 mb-4">
-        {title}
-      </h2>
-      {children}
-    </motion.div>
-  );
-    }
