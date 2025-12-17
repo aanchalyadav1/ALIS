@@ -2,6 +2,14 @@ import { motion } from "framer-motion";
 import { BsStars } from "react-icons/bs";
 import { sectionFade, cardFade } from "../../animationVariants";
 
+const points = [
+  "Explainable decisions — no black-box loan approvals",
+  "Built for Indian lending systems and workflows",
+  "Agent-based intelligence instead of static rules",
+  "ML-assisted eligibility & readiness insights",
+  "Designed for trust, transparency, and scale"
+];
+
 export default function WhyAlisMatters() {
   return (
     <motion.section
@@ -15,29 +23,17 @@ export default function WhyAlisMatters() {
         Why <span className="text-cyan-400">ALIS</span> Matters
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        {[
-          {
-            title: "Explainable by Design",
-            desc: "ALIS does not hide decisions behind black-box models. Every eligibility result is backed by transparent reasoning.",
-          },
-          {
-            title: "ML-backed Intelligence",
-            desc: "Eligibility, affordability, and risk are predicted using machine learning models trained on realistic financial patterns.",
-          },
-          {
-            title: "Built for Real Lending",
-            desc: "ALIS aligns with Indian lending rules, documentation flows, and real approval workflows — not toy examples.",
-          },
-        ].map((item, i) => (
+      <div className="grid md:grid-cols-3 gap-6">
+        {points.map((text, i) => (
           <motion.div
             key={i}
             variants={cardFade}
-            className="rounded-2xl bg-cyan-500/10 border border-cyan-400/20 p-6 text-center space-y-4"
+            className="rounded-2xl bg-cyan-500/10 border border-cyan-400/20 p-6 text-center"
           >
-            <BsStars className="mx-auto text-cyan-400 text-2xl" />
-            <h3 className="font-semibold text-lg">{item.title}</h3>
-            <p className="text-white/70 text-sm">{item.desc}</p>
+            <BsStars className="mx-auto text-cyan-400 text-2xl mb-3" />
+            <p className="text-white/80 text-sm leading-relaxed">
+              {text}
+            </p>
           </motion.div>
         ))}
       </div>
