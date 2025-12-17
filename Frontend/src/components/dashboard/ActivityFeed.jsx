@@ -1,22 +1,17 @@
-export default function ActivityFeed() {
-  const logs = [
-    "Education loans surged during admission season",
-    "Home loan approvals increased in Tier-2 cities",
-    "Higher risk detected in unsecured personal loans",
-    "NBFC lending activity increased this quarter",
-  ];
-
+export default function ActivityFeed({ logs }) {
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-      <h2 className="text-lg font-medium mb-4">
-        System Activity & AI Observations
-      </h2>
+      <h3 className="text-sm text-white/70 mb-4">
+        AI Activity Timeline
+      </h3>
 
-      <ul className="space-y-2 text-sm text-white/70">
-        {logs.map((l, i) => (
-          <li key={i}>• {l}</li>
+      <div className="space-y-3">
+        {logs.map((log, i) => (
+          <div key={i} className="text-sm text-white/70">
+            <span className="text-cyan-400">{log.agent}</span> — {log.message}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
