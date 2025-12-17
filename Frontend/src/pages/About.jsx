@@ -1,10 +1,13 @@
+
 import { motion } from "framer-motion";
+import AlisCore3D from "../components/three/AlisCore3D";
+
 import {
   FaReact,
   FaNodeJs,
   FaPython,
-  FaShieldAlt,
   FaUsers,
+  FaShieldAlt,
 } from "react-icons/fa";
 import {
   SiVite,
@@ -13,7 +16,11 @@ import {
   SiTensorflow,
   SiExpress,
 } from "react-icons/si";
-import { BsCpuFill, BsDiagram3Fill, BsStars } from "react-icons/bs";
+import {
+  BsCpuFill,
+  BsDiagram3Fill,
+  BsStars,
+} from "react-icons/bs";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -23,9 +30,11 @@ const fadeUp = {
 export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0b0f14] via-[#0e1420] to-black text-white">
-      <div className="max-w-7xl mx-auto px-4 pt-28 pb-24 space-y-32">
+      <div className="max-w-7xl mx-auto px-4 pt-28 pb-28 space-y-32">
 
-        {/* ================= HERO ================= */}
+        {/* ================================================= */}
+        {/* HERO */}
+        {/* ================================================= */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
@@ -36,16 +45,74 @@ export default function About() {
           <h1 className="text-5xl md:text-6xl font-bold">
             <span className="text-cyan-400">ALIS</span>
           </h1>
+
           <p className="text-xl text-white/70 max-w-3xl mx-auto">
-            An <b>Agentic Loan Intelligence System</b> that explains loan decisions
-            <span className="text-cyan-400"> before you apply</span>.
+            <b>Agentic Loan Intelligence System</b> — an AI-powered decision
+            intelligence platform that explains loan outcomes{" "}
+            <span className="text-cyan-400">before you apply</span>.
           </p>
+
           <p className="text-sm text-white/50">
             Not a calculator. Not a chatbot. A decision intelligence system.
           </p>
         </motion.section>
 
-        {/* ================= VISIONCODERS ================= */}
+        {/* ================================================= */}
+        {/* WHAT IS ALIS */}
+        {/* ================================================= */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-8"
+        >
+          <h2 className="text-4xl font-semibold">
+            What is <span className="text-cyan-400">ALIS</span>?
+          </h2>
+
+          <p className="text-white/70 max-w-4xl mx-auto text-lg">
+            ALIS is an AI-powered decision intelligence platform that helps users
+            understand <b>loan eligibility, credit risk, documentation readiness,
+            and approval outcomes</b>.
+            <br /><br />
+            It combines <b>machine learning models</b> with
+            <b> independent AI agents</b> to generate transparent, explainable,
+            and actionable loan guidance.
+          </p>
+        </motion.section>
+
+        {/* ================================================= */}
+        {/* ALIS CORE 3D */}
+        {/* ================================================= */}
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-6 text-center"
+        >
+          <h2 className="text-3xl font-semibold">
+            Inside the <span className="text-cyan-400">ALIS Core</span>
+          </h2>
+
+          <p className="text-white/70 max-w-3xl mx-auto text-lg">
+            This 3D core represents how ALIS orchestrates AI agents, ML models,
+            and decision logic to produce explainable loan intelligence.
+          </p>
+
+          <AlisCore3D />
+
+          <p className="text-sm text-white/50 max-w-2xl mx-auto">
+            Demo visualization of agent coordination & decision intelligence.
+          </p>
+        </motion.section>
+
+        {/* ================================================= */}
+        {/* VISIONCODERS (3rd POSITION AS REQUESTED) */}
+        {/* ================================================= */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
@@ -66,37 +133,20 @@ export default function About() {
 
           <p className="text-white/70 max-w-3xl mx-auto text-lg">
             VisionCoders is a student-led technology team focused on building
-            <b> real-world, explainable, and ethical AI systems</b>.
+            <b> real-world, ethical, and explainable AI systems</b>.
             <br /><br />
-            We don’t optimize for demos.
-            <br />
-            <span className="text-cyan-400 font-medium">
-              We design systems that justify decisions.
-            </span>
+            We believe AI should <b>justify decisions</b>, not hide behind
+            black-box outputs.
+          </p>
+
+          <p className="text-cyan-400 font-medium">
+            “We don’t build demos — we build decision systems.”
           </p>
         </motion.section>
 
-        {/* ================= WHAT IS ALIS ================= */}
-        <motion.section
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-8"
-        >
-          <h2 className="text-4xl font-semibold">
-            What is <span className="text-cyan-400">ALIS</span>?
-          </h2>
-
-          <p className="text-white/70 max-w-4xl mx-auto text-lg">
-            ALIS is an AI-powered decision intelligence platform that explains
-            <b> eligibility, risk, documentation readiness, and approval outcomes</b>
-            using a combination of <b>ML models</b> and <b>independent AI agents</b>.
-          </p>
-        </motion.section>
-
-        {/* ================= AGENT FLOW ================= */}
+        {/* ================================================= */}
+        {/* AGENTIC DECISION FLOW */}
+        {/* ================================================= */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
@@ -119,7 +169,7 @@ export default function About() {
               {
                 icon: <BsDiagram3Fill />,
                 title: "Agentic AI Layer",
-                desc: "Eligibility, Risk & Readiness agents",
+                desc: "Independent eligibility, risk & readiness agents",
               },
               {
                 icon: <SiTensorflow />,
@@ -138,18 +188,19 @@ export default function About() {
                 transition={{ type: "spring", stiffness: 200 }}
                 className="relative rounded-2xl bg-white/5 border border-white/10 p-6 text-center space-y-4"
               >
-                <div className="absolute inset-0 rounded-2xl bg-cyan-500/10 blur-xl opacity-0 hover:opacity-100 transition" />
-                <div className="relative text-4xl text-cyan-400">
+                <div className="text-4xl text-cyan-400 mx-auto">
                   {item.icon}
                 </div>
-                <h3 className="relative font-semibold">{item.title}</h3>
-                <p className="relative text-sm text-white/70">{item.desc}</p>
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="text-sm text-white/70">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </motion.section>
 
-        {/* ================= TECHNOLOGY STACK ================= */}
+        {/* ================================================= */}
+        {/* TECHNOLOGY STACK */}
+        {/* ================================================= */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
@@ -175,9 +226,9 @@ export default function About() {
             ].map((tech, i) => (
               <motion.div
                 key={i}
-                whileHover={{ scale: 1.12, rotateX: 8, rotateY: -8 }}
+                whileHover={{ scale: 1.12 }}
                 transition={{ type: "spring", stiffness: 150 }}
-                className="rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 p-6 text-center space-y-3 shadow-xl"
+                className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center space-y-3"
               >
                 <div className="text-5xl text-cyan-400 mx-auto">
                   {tech.icon}
@@ -188,7 +239,9 @@ export default function About() {
           </div>
         </motion.section>
 
-        {/* ================= WHY ALIS ================= */}
+        {/* ================================================= */}
+        {/* WHY ALIS */}
+        {/* ================================================= */}
         <motion.section
           variants={fadeUp}
           initial="hidden"
