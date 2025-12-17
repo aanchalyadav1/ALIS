@@ -1,21 +1,28 @@
 export default function ProfileStats({ profile }) {
   return (
-    <div className="rounded-2xl border border-white/10
-                    bg-white/5 p-6 col-span-2 grid
-                    grid-cols-2 gap-4 text-sm">
-      <Stat label="City" value={profile.city || "—"} />
-      <Stat label="Age" value={profile.age || "—"} />
-      <Stat label="Profession" value={profile.profession || "—"} />
-      <Stat label="Income (₹)" value={profile.income || "—"} />
-    </div>
-  );
-}
+    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 space-y-3">
+      <h3 className="text-sm text-white/60">Profile Snapshot</h3>
 
-function Stat({ label, value }) {
-  return (
-    <div>
-      <div className="text-white/50">{label}</div>
-      <div className="font-medium">{value}</div>
+      <div className="text-sm">
+        <span className="text-white/40">Life Stage:</span>{" "}
+        <span className="text-emerald-400">
+          {profile.age < 25 ? "Student / Early Career" : "Professional"}
+        </span>
+      </div>
+
+      <div className="text-sm">
+        <span className="text-white/40">Preferred Loan:</span>{" "}
+        <span className="text-cyan-400">{profile.loanPreference}</span>
+      </div>
+
+      <div className="text-sm">
+        <span className="text-white/40">Income Stability:</span>{" "}
+        <span className="text-yellow-400">
+          {profile.profession.includes("Student")
+            ? "Future Income"
+            : "Variable"}
+        </span>
+      </div>
     </div>
   );
 }
