@@ -1,6 +1,4 @@
-// src/animationVariants.js
-
-export const sectionFade = {
+export const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
@@ -9,29 +7,17 @@ export const sectionFade = {
   }
 };
 
-export const staggerContainer = {
+export const stagger = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12 }
+    transition: { staggerChildren: 0.15 }
   }
 };
 
-export const cardFade = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 }
-  }
-};
-
-export const floatAnimation = {
-  animate: {
-    y: [0, -6, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
+export const cardHover = {
+  whileHover: {
+    y: -6,
+    boxShadow: "0 20px 40px rgba(0,255,255,0.12)",
+    transition: { duration: 0.3 }
   }
 };
