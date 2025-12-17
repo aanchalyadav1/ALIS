@@ -1,52 +1,74 @@
 import { motion } from "framer-motion";
+import TechCard from "./TechCard";
 import {
   FaReact,
   FaNodeJs,
-  FaPython,
+  FaPython
 } from "react-icons/fa";
 import {
   SiVite,
   SiTailwindcss,
   SiFirebase,
   SiExpress,
-  SiTensorflow,
+  SiTensorflow
 } from "react-icons/si";
-
-const tech = [
-  { icon: <FaReact />, name: "React", desc: "Component-based UI" },
-  { icon: <SiVite />, name: "Vite", desc: "Fast builds" },
-  { icon: <SiTailwindcss />, name: "Tailwind CSS", desc: "Utility-first UI" },
-  { icon: <FaNodeJs />, name: "Node.js", desc: "Backend runtime" },
-  { icon: <SiExpress />, name: "Express", desc: "REST APIs" },
-  { icon: <SiFirebase />, name: "Firebase", desc: "Auth & storage" },
-  { icon: <FaPython />, name: "Python", desc: "ML pipelines" },
-  { icon: <SiTensorflow />, name: "ML Models", desc: "Eligibility & risk" },
-];
+import { staggerContainer } from "../../animationVariants";
 
 export default function TechnologyStack() {
   return (
-    <section className="space-y-12">
+    <motion.section
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="space-y-12"
+    >
       <h2 className="text-3xl font-semibold text-center">
         Technology <span className="text-cyan-400">Stack</span>
       </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {tech.map((t, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.1, rotateX: 8, rotateY: -8 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="rounded-2xl bg-gradient-to-br from-white/10 to-white/5
-              border border-white/10 p-6 text-center space-y-3 shadow-xl"
-          >
-            <div className="text-5xl text-cyan-400 mx-auto">
-              {t.icon}
-            </div>
-            <p className="font-medium">{t.name}</p>
-            <p className="text-sm text-white/60">{t.desc}</p>
-          </motion.div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <TechCard
+          icon={FaReact}
+          title="React"
+          description="Component-driven UI for scalable, interactive interfaces"
+        />
+        <TechCard
+          icon={SiVite}
+          title="Vite"
+          description="Lightning-fast development & production builds"
+        />
+        <TechCard
+          icon={SiTailwindcss}
+          title="Tailwind CSS"
+          description="Utility-first styling for pixel-perfect UI control"
+        />
+        <TechCard
+          icon={FaNodeJs}
+          title="Node.js"
+          description="Backend runtime for APIs & agent orchestration"
+        />
+        <TechCard
+          icon={SiExpress}
+          title="Express"
+          description="REST APIs handling system logic & workflows"
+        />
+        <TechCard
+          icon={SiFirebase}
+          title="Firebase"
+          description="Authentication, storage & secure user data handling"
+        />
+        <TechCard
+          icon={FaPython}
+          title="Python"
+          description="ML pipelines, preprocessing & decision logic"
+        />
+        <TechCard
+          icon={SiTensorflow}
+          title="ML Models"
+          description="Eligibility & risk prediction models"
+        />
       </div>
-    </section>
+    </motion.section>
   );
 }
