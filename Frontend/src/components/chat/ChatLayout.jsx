@@ -32,10 +32,10 @@ export default function ChatLayout() {
         <AgentOrb />
         <div>
           <h1 className="text-xl font-semibold text-white">
-            ALIS — Doan Assistant
+            ALIS — Loan Assistant
           </h1>
           <p className="text-sm text-white/60">
-            Demo intelligence · Explainable · Safe
+            Demo Intelligence · Explainable · Safe
           </p>
         </div>
       </div>
